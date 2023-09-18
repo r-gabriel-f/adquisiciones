@@ -1,11 +1,9 @@
-import logo from './logo.svg';
-import './App.css';
-import { Pedidos } from './components/Pedidos/Pedidos';
+import { Login } from "./compononts/login/Login";
 
 function App() {
   return (
-    <div className="App">
-      <Pedidos/>
+    <div>
+      <Login/>
     </div>
   );
 }
