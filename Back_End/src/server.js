@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const usuariosRoutes = require('./usuarios');  
 const productosRoutes = require('./pedidos');  
 
 
@@ -10,7 +11,8 @@ const PORT = process.env.PORT || 3001;
 app.use(bodyParser.json());
 app.use(cors());
 
-// Rutas de productos
+// Rutas 
+app.use('/usuarios', usuariosRoutes);
 app.use('/pedidos', productosRoutes);
 
 

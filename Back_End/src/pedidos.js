@@ -1,9 +1,9 @@
 const express = require('express');
-const pool = require('./db'); // Asegúrate de importar la configuración de la base de datos correctamente
+const pool = require('./db'); 
 
 const router = express.Router();
 
-// Obtener todos los productos
+
 router.get('/', async (req, res) => {
   try {
     const query = 'SELECT * FROM pedidos';

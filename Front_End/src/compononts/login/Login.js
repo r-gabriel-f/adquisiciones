@@ -1,6 +1,39 @@
-import React from "react";
-
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 export const Login = () => {
+  const [usuarios, setUsuarios] = useState([]);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const obtenerUsuarios = async () => {
+    try {
+      const response = await axios.get("http://localhost:3001/usuarios");
+
+      setUsuarios(response.data);
+    } catch (error) {
+      console.error("Error al obtener clientes:", error);
+    }
+  };
+  const handleUsernameChange = (event) => {
+    setUsername(event.target.value);
+  };
+
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value);
+  };
+  useEffect(() => {
+    obtenerUsuarios();
+  }, []);
+
+  const loginusuario = () => {
+    for (var i in usuarios) {
+      if (
+        usuarios[i].nombre_usuario === username &&
+        usuarios[i].contrasena === password
+      ) {
+        console.log(usuarios[i].nombre_usuario, "ingreso");
+      }
+    }
+  };
   return (
     <section className="bg-gray-50 dark:bg-gray-900 h-screen">
       <div className="hidden sm:flex flex-col items-center justify-center h-screen">
@@ -10,12 +43,13 @@ export const Login = () => {
         >
           ADQUISICIONES
         </a>
+
         <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
               Iniciar sesión en su cuenta
             </h1>
-            <form className="space-y-4 md:space-y-6" action="#">
+            <form className="space-y-4 md:space-y-6" onSubmit={loginusuario}>
               <div>
                 <label
                   htmlFor="user"
@@ -30,6 +64,8 @@ export const Login = () => {
                   className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="usuario"
                   required
+                  value={username}
+                  onChange={handleUsernameChange}
                 ></input>
               </div>
               <div>
@@ -46,6 +82,8 @@ export const Login = () => {
                   placeholder="••••••••"
                   className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   required
+                  value={password}
+                  onChange={handlePasswordChange}
                 ></input>
               </div>
 
