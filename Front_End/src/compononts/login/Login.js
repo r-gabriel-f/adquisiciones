@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-export const Login = ({putnombre}) => {
+export const Login = ({ putnombre }) => {
   const [usuarios, setUsuarios] = useState([]);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -39,6 +39,14 @@ export const Login = ({putnombre}) => {
             break;
           case "pedro":
             navigate("/requerimientos");
+            putnombre(username);
+            break;
+          case "cristian":
+            navigate("/requerimientos");
+            putnombre(username);
+            break;
+          case "alex":
+            navigate("/aprobaciones");
             putnombre(username);
             break;
           default:
