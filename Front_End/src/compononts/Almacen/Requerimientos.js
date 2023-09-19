@@ -1,7 +1,7 @@
 import React from 'react'
 
-export const Requerimientos = () => {
+export const Requerimientos = ({username}) => {
   return (
-    <div>Requerimientos</div>
+    <div>Requerimientos, {username}</div>
   )
 }

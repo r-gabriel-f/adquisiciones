@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-export const Login = () => {
+import { useNavigate } from "react-router-dom";
+export const Login = ({putnombre}) => {
   const [usuarios, setUsuarios] = useState([]);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
   const obtenerUsuarios = async () => {
     try {
       const response = await axios.get("http://localhost:3001/usuarios");
@@ -30,7 +32,18 @@ export const Login = () => {
         usuarios[i].nombre_usuario === username &&
         usuarios[i].contrasena === password
       ) {
-        console.log(usuarios[i].nombre_usuario, "ingreso");
+        switch (username) {
+          case "daniela":
+            navigate("/pedidos");
+            putnombre(username);
+            break;
+          case "pedro":
+            navigate("/requerimientos");
+            putnombre(username);
+            break;
+          default:
+            break;
+        }
       }
     }
   };
