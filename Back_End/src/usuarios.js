@@ -8,7 +8,9 @@ router.get('/', async (req, res) => {
   try {
     const query = 'SELECT * FROM usuarios';
     const result = await pool.query(query);
+    console.log(result.rows);
     res.json(result.rows);
+
 
   } catch (error) {
     res.status(500).json({ error: 'Error al obtener usuarios' });
