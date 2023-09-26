@@ -1,6 +1,14 @@
-import React from 'react'
-
+import React from "react";
+import { useNavigate } from "react-router-dom";
 export const PanelCotizacion = () => {
+  const navigate = useNavigate();
+
+  const handlePedidosClick = () => {
+    navigate("/pedidos");
+  };
+  const handleListaClick = () => {
+    navigate("/lista_compras_pendientes");
+  };
   return (
     <div className="fixed bg-gray-50 dark:bg-gray-900 text-white w-56 h-screen">
       <div className="flex aling-center justify-center m-5">
@@ -10,7 +18,7 @@ export const PanelCotizacion = () => {
       <div className="mx-5">
         <div
           className="flex my-4 justify-center bg-gray-900 hover:bg-gray-950 hover:rounded-lg hover:text-[#eafdf5] hover:cursor-pointer"
-      
+          onClick={handlePedidosClick}
         >
           <span>Ver Pedidos</span>
         </div>
@@ -18,7 +26,7 @@ export const PanelCotizacion = () => {
         <div className="mx-5">
           <div
             className="flex my-4 justify-center bg-gray-900 hover:bg-gray-950 hover:rounded-lg hover:text-[#eafdf5] hover:cursor-pointer"
-         
+            onClick={handleListaClick}
           >
             <span>Lista de Compras Pendientes</span>
           </div>
@@ -28,5 +36,5 @@ export const PanelCotizacion = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};

@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 export const PanelAlmacen = () => {
-  const navigate = useNavigate(); // Obtiene la función de navegación
+  const navigate = useNavigate();
 
   const handleHistorialClick = () => {
     navigate("/historial_requerimientos");
