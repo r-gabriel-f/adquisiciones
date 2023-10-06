@@ -1,7 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { PanelAlmacen } from "../Panel/PanelAlmacen";
+import { ModalCrearpedido } from "./ModalCrearpedido";
 
 export const Requerimientos = ({ username }) => {
+  const [showLightbox, setShowLightbox] = useState(false);
+
+  const handleOpenLightbox = () => {
+    setShowLightbox(true);
+  };
+
+  const handleCloseLightbox = () => {
+    setShowLightbox(false);
+  };
   return (
     <div className="flex flex-col">
       <PanelAlmacen />
@@ -46,7 +56,7 @@ export const Requerimientos = ({ username }) => {
           <div className="mx-10">
             <h4 className="text-2xl text-center">Accion</h4>
             <div className="grid grid-cols-2 gap-4 my-10">
-              <button class="bg-gray-900 hover:bg-gray-950 text-white font-bold py-2 px-4 rounded">
+              <button class="bg-gray-900 hover:bg-gray-950 text-white font-bold py-2 px-4 rounded" onClick={handleOpenLightbox}>
                 CREAR PEDIDO
               </button>
               <button class="bg-gray-900 hover:bg-gray-950 text-white font-bold py-2 px-4 rounded">
@@ -110,94 +120,12 @@ export const Requerimientos = ({ username }) => {
                   </button>
                 </td>
               </tr>
-              <tr className="bg-gray-200">
-                <td className="border border-gray-900 py-2 px-4">1</td>
-                <td className="border border-gray-900 py-2 px-4">Producto A</td>
-                <td className="border border-gray-900 py-2 px-4">
-                  Especificaciones técnicas A
-                </td>
-                <td className="border border-gray-900 py-2 px-4">10</td>
-                <td className="border border-gray-900 py-2 px-4">Unidades</td>
-                <td className="border border-gray-900 py-2 px-4">OT-12345</td>
-                <td className="border border-gray-900 py-2 px-4">
-                  Observación 1
-                </td>
-                <td className="border border-gray-900 py-2 px-4">3 días</td>
-                <td className="border border-gray-900 py-2 px-4">2023-09-20</td>
-                <td className="border border-gray-900 py-2 px-4">Pendiente</td>
-                <td className="border border-gray-900 py-2 px-4">
-                  <button className="bg-gray-900 hover:bg-gray-800 text-white font-bold py-1 px-2 rounded">
-                    Editar
-                  </button>
-                </td>
-              </tr>
-              <tr className="bg-gray-200">
-                <td className="border border-gray-900 py-2 px-4">1</td>
-                <td className="border border-gray-900 py-2 px-4">Producto A</td>
-                <td className="border border-gray-900 py-2 px-4">
-                  Especificaciones técnicas A
-                </td>
-                <td className="border border-gray-900 py-2 px-4">10</td>
-                <td className="border border-gray-900 py-2 px-4">Unidades</td>
-                <td className="border border-gray-900 py-2 px-4">OT-12345</td>
-                <td className="border border-gray-900 py-2 px-4">
-                  Observación 1
-                </td>
-                <td className="border border-gray-900 py-2 px-4">3 días</td>
-                <td className="border border-gray-900 py-2 px-4">2023-09-20</td>
-                <td className="border border-gray-900 py-2 px-4">Pendiente</td>
-                <td className="border border-gray-900 py-2 px-4">
-                  <button className="bg-gray-900 hover:bg-gray-800 text-white font-bold py-1 px-2 rounded">
-                    Editar
-                  </button>
-                </td>
-              </tr>
-              <tr className="bg-gray-200">
-                <td className="border border-gray-900 py-2 px-4">1</td>
-                <td className="border border-gray-900 py-2 px-4">Producto A</td>
-                <td className="border border-gray-900 py-2 px-4">
-                  Especificaciones técnicas A
-                </td>
-                <td className="border border-gray-900 py-2 px-4">10</td>
-                <td className="border border-gray-900 py-2 px-4">Unidades</td>
-                <td className="border border-gray-900 py-2 px-4">OT-12345</td>
-                <td className="border border-gray-900 py-2 px-4">
-                  Observación 1
-                </td>
-                <td className="border border-gray-900 py-2 px-4">3 días</td>
-                <td className="border border-gray-900 py-2 px-4">2023-09-20</td>
-                <td className="border border-gray-900 py-2 px-4">Pendiente</td>
-                <td className="border border-gray-900 py-2 px-4">
-                  <button className="bg-gray-900 hover:bg-gray-800 text-white font-bold py-1 px-2 rounded">
-                    Editar
-                  </button>
-                </td>
-              </tr>
-              <tr className="bg-gray-200">
-                <td className="border border-gray-900 py-2 px-4">1</td>
-                <td className="border border-gray-900 py-2 px-4">Producto A</td>
-                <td className="border border-gray-900 py-2 px-4">
-                  Especificaciones técnicas A
-                </td>
-                <td className="border border-gray-900 py-2 px-4">10</td>
-                <td className="border border-gray-900 py-2 px-4">Unidades</td>
-                <td className="border border-gray-900 py-2 px-4">OT-12345</td>
-                <td className="border border-gray-900 py-2 px-4">
-                  Observación 1
-                </td>
-                <td className="border border-gray-900 py-2 px-4">3 días</td>
-                <td className="border border-gray-900 py-2 px-4">2023-09-20</td>
-                <td className="border border-gray-900 py-2 px-4">Pendiente</td>
-                <td className="border border-gray-900 py-2 px-4">
-                  <button className="bg-gray-900 hover:bg-gray-800 text-white font-bold py-1 px-2 rounded">
-                    Editar
-                  </button>
-                </td>
-              </tr>
             </tbody>
           </table>
         </div>
+        {showLightbox && <ModalCrearpedido onClose={handleCloseLightbox}/>}
       </div>
+      
     </div>
   );
 };
