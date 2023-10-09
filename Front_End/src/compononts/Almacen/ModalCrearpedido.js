@@ -69,15 +69,7 @@ export const ModalCrearpedido = ({ onClose }) => {
             <option value="normal">Normal</option>
           </select>
         </div>
-        <div>
-          <label>Observación</label>
-          <input
-            type="text"
-            id="observacion"
-            name="observacion"
-            className="border border-gray-400 p-2 rounded w-full"
-          />
-        </div>
+       
         <div className="flex justify-center mt-4">
           <button
             type="button"
