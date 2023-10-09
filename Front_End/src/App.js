@@ -9,17 +9,21 @@ import { ListaComprasPendientes } from "./compononts/Cotizacion/ListaComprasPend
 
 function App() {
   const [username, setUsername] = useState("");
+  const [userid, setUserid] = useState("");
   const putnombre = (nombre) => {
     setUsername(nombre);
+  };
+  const putid = (id) => {
+    setUserid(id);
   };
 
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Login putnombre={putnombre} />} />
+        <Route path="/" element={<Login putnombre={putnombre} putid={putid}/>} />
         <Route
           path="/requerimientos"
-          element={<Requerimientos username={username} />}
+          element={<Requerimientos username={username} userid={userid}/>}
         />
         <Route
           path="/historial_requerimientos"

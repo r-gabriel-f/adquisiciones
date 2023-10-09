@@ -19,7 +19,7 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
   const { item, caracteristicas, cantidad, um, orden, tiempocumplimiento, fechapedido, observacion, estado, usuario_id } = req.body;
   try {
-    const query = 'INSERT INTO pedidos (item, caracteristicas, cantidad, um, orden, tiempocumplimiento, fechapedido, observacion, estado, usuario_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)'; 
+    const query = 'INSERT INTO pedidos (item, caracteristicas, cantidad, um, orden, tiempocumplimiento, fechapedido, observacion, estado, usuario_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *'; 
     const values = [item, caracteristicas, cantidad, um, orden, tiempocumplimiento, fechapedido, observacion, estado, usuario_id];
     const result = await pool.query(query, values);
     res.json(result.rows[0]);
