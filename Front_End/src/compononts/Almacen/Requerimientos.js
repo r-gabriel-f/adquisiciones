@@ -6,18 +6,7 @@ export const Requerimientos = ({ username, userid }) => {
   console.log(username, userid, "llegue");
   const [showLightbox, setShowLightbox] = useState(false);
   const [pedidos, setPedidos] = useState([]);
-  const [nuevopedidos, setNuevopedidos] = useState({
-    item: "",
-    caracteristicas: "",
-    cantidad: "",
-    um: "",
-    orden: "",
-    tiempocumplimiento: "",
-    fechapedido: "",
-    observacion: "",
-    estado: "",
-    usuario_id: "",
-  });
+  var ordenid = 1;
 
   const handleOpenLightbox = () => {
     setShowLightbox(true);
@@ -172,7 +161,13 @@ export const Requerimientos = ({ username, userid }) => {
             </tbody>
           </table>
         </div>
-        {showLightbox && <ModalCrearpedido onClose={handleCloseLightbox} />}
+        {showLightbox && (
+          <ModalCrearpedido
+            onClose={handleCloseLightbox}
+            id={userid}
+            ordenid={ordenid}
+          />
+        )}
       </div>
     </div>
   );
