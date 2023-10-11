@@ -3,7 +3,7 @@ import { PanelAlmacen } from "../Panel/PanelAlmacen";
 import { ModalCrearpedido } from "./ModalCrearpedido";
 import axios from "axios";
 export const Requerimientos = ({ username, userid }) => {
-  console.log(username, userid , "llegue");
+  console.log(username, userid, "llegue");
   const [showLightbox, setShowLightbox] = useState(false);
   const [pedidos, setPedidos] = useState([]);
   const [nuevopedidos, setNuevopedidos] = useState({
@@ -38,7 +38,9 @@ export const Requerimientos = ({ username, userid }) => {
   useEffect(() => {
     obtenerPedidos();
   }, []);
-  const pedidosDelUsuario = pedidos.filter((pedido) => pedido.usuario_id === userid);
+  const pedidosDelUsuario = pedidos.filter(
+    (pedido) => pedido.usuario_id === userid
+  );
 
   return (
     <div className="flex flex-col">
@@ -106,7 +108,6 @@ export const Requerimientos = ({ username, userid }) => {
           <table className="border-collapse border border-gray-900">
             <thead>
               <tr className="bg-gray-900 text-white">
-                <th className="border border-gray-900 py-2 px-4">N°</th>
                 <th className="border border-gray-900 py-2 px-4">ITEM</th>
                 <th className="border border-gray-900 py-2 px-4">
                   CARACTERÍSTICAS TÉCNICAS
@@ -116,9 +117,7 @@ export const Requerimientos = ({ username, userid }) => {
                 <th className="border border-gray-900 py-2 px-4">
                   ORDEN DE TRABAJO
                 </th>
-                <th className="border border-gray-900 py-2 px-4">
-                  OBSERVACIÓN
-                </th>
+
                 <th className="border border-gray-900 py-2 px-4">
                   TIEMPO DE CUMPLIMIENTO
                 </th>
@@ -138,9 +137,6 @@ export const Requerimientos = ({ username, userid }) => {
                 pedidosDelUsuario.map((pedido) => (
                   <tr key={pedido.id_pedido}>
                     <td className="border border-gray-900 py-2 px-4">
-                      {pedido.id_pedido}
-                    </td>
-                    <td className="border border-gray-900 py-2 px-4">
                       {pedido.item}
                     </td>
                     <td className="border border-gray-900 py-2 px-4">
@@ -155,9 +151,7 @@ export const Requerimientos = ({ username, userid }) => {
                     <td className="border border-gray-900 py-2 px-4">
                       {pedido.orden}
                     </td>
-                    <td className="border border-gray-900 py-2 px-4">
-                      {pedido.observacion}
-                    </td>
+
                     <td className="border border-gray-900 py-2 px-4">
                       {pedido.tiempocumplimiento}
                     </td>
@@ -172,7 +166,6 @@ export const Requerimientos = ({ username, userid }) => {
                         Editar
                       </button>
                     </td>
-          
                   </tr>
                 ))
               )}
