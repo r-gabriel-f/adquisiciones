@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { PanelAlmacen } from "../Panel/PanelAlmacen";
 import { ModalCrearpedido } from "./ModalCrearpedido";
 import axios from "axios";
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 export const Requerimientos = ({ username, userid }) => {
   console.log(username, userid, "llegue");
   const [showLightbox, setShowLightbox] = useState(false);
@@ -30,7 +32,12 @@ export const Requerimientos = ({ username, userid }) => {
   const pedidosDelUsuario = pedidos.filter(
     (pedido) => pedido.usuario_id === userid
   );
-
+  const exportToPDF = () => {
+    const doc = new jsPDF();
+    doc.autoTable({ html: '#table-export' });
+    doc.save('table.pdf');
+  };
+  
   return (
     <div className="flex flex-col">
       <PanelAlmacen />
@@ -87,14 +94,14 @@ export const Requerimientos = ({ username, userid }) => {
               <button class="bg-gray-900 hover:bg-gray-950 text-white font-bold py-2 px-4 rounded">
                 OTROS REQUERIMIENTOS
               </button>
-              <button class="bg-gray-900 hover:bg-gray-950 text-white font-bold py-2 px-4 rounded">
+              <button class="bg-gray-900 hover:bg-gray-950 text-white font-bold py-2 px-4 rounded" onClick={exportToPDF}>
                 IMPRIMIR PEDIDO
               </button>
             </div>
           </div>
         </div>
         <div className="overflow-x-auto overflow-y-auto h-74">
-          <table className="border-collapse border border-gray-900">
+          <table className="border-collapse border border-gray-900" id="table-export">
             <thead>
               <tr className="bg-gray-900 text-white">
                 <th className="border border-gray-900 py-2 px-4">ITEM</th>

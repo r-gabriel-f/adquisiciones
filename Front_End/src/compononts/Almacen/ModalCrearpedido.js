@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Swal from "sweetalert2";
 import axios from "axios";
 import withReactContent from "sweetalert2-react-content";
-
 export const ModalCrearpedido = ({ onClose, id, ordenid }) => {
   const MySwal = withReactContent(Swal);
   const handleInputChange = (e) => {
