@@ -59,7 +59,6 @@ export const ModalCrearpedido = ({ onClose, id, ordenid }) => {
       console.error("Error al agregar cliente:", error);
     }
   };
-
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
       <div className="bg-white p-4 rounded shadow-lg w-1/2">
@@ -130,11 +129,14 @@ export const ModalCrearpedido = ({ onClose, id, ordenid }) => {
             <label>Tiempo de Cumplimiento</label>
             <select
               id="tiempo"
-              name="tiempo"
+              name="select"
               onChange={handleInputChange}
-              value={nuevopedidos.tiempocumplimiento}
+            
               className="border border-gray-400 p-2 rounded w-full"
             >
+              <option value="--" sele>
+                --
+              </option>
               <option value="urgente">Urgente</option>
               <option value="medio">Medio</option>
               <option value="normal">Normal</option>
