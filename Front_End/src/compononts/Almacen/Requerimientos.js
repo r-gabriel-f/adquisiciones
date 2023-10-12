@@ -12,6 +12,7 @@ export const Requerimientos = ({ username, userid }) => {
 
   const incrementar = () => {
     setOrdenId(ordenid + 1);
+    setPedidos([]);
   };
 
   const handleOpenLightbox = () => {
