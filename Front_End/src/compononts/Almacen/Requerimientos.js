@@ -2,19 +2,17 @@ import React, { useEffect, useState } from "react";
 import { PanelAlmacen } from "../Panel/PanelAlmacen";
 import { ModalCrearpedido } from "./ModalCrearpedido";
 import axios from "axios";
-import jsPDF from 'jspdf';
-import 'jspdf-autotable';
+import jsPDF from "jspdf";
+import "jspdf-autotable";
 export const Requerimientos = ({ username, userid }) => {
   console.log(username, userid, "llegue");
   const [showLightbox, setShowLightbox] = useState(false);
   const [pedidos, setPedidos] = useState([]);
   const [ordenid, setOrdenId] = useState(1);
 
-
-  const incrementar = () =>{
+  const incrementar = () => {
     setOrdenId(ordenid + 1);
- 
-  }
+  };
 
   const handleOpenLightbox = () => {
     setShowLightbox(true);
@@ -40,10 +38,13 @@ export const Requerimientos = ({ username, userid }) => {
   );
   const exportToPDF = () => {
     const doc = new jsPDF();
-    doc.autoTable({ html: '#table-export' });
-    doc.save('table.pdf');
+    doc.autoTable({
+      html: "#table-export",
+      columns: [0, 1, 2, 3, 4, 5, 6],
+    });
+    doc.save("table.pdf");
   };
-  
+
   return (
     <div className="flex flex-col">
       <PanelAlmacen />
@@ -94,20 +95,29 @@ export const Requerimientos = ({ username, userid }) => {
               >
                 CREAR PEDIDO
               </button>
-              <button class="bg-gray-900 hover:bg-gray-950 text-white font-bold py-2 px-4 rounded" onClick={incrementar}>
+              <button
+                class="bg-gray-900 hover:bg-gray-950 text-white font-bold py-2 px-4 rounded"
+                onClick={incrementar}
+              >
                 CERRAR PEDIDO
               </button>
               <button class="bg-gray-900 hover:bg-gray-950 text-white font-bold py-2 px-4 rounded">
                 OTROS REQUERIMIENTOS
               </button>
-              <button class="bg-gray-900 hover:bg-gray-950 text-white font-bold py-2 px-4 rounded" onClick={exportToPDF}>
+              <button
+                class="bg-gray-900 hover:bg-gray-950 text-white font-bold py-2 px-4 rounded"
+                onClick={exportToPDF}
+              >
                 IMPRIMIR PEDIDO
               </button>
             </div>
           </div>
         </div>
         <div className="overflow-x-auto overflow-y-auto h-74">
-          <table className="border-collapse border border-gray-900" id="table-export">
+          <table
+            className="border-collapse border border-gray-900"
+            id="table-export"
+          >
             <thead>
               <tr className="bg-gray-900 text-white">
                 <th className="border border-gray-900 py-2 px-4">ITEM</th>
