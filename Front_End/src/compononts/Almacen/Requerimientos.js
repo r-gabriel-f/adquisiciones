@@ -8,7 +8,13 @@ export const Requerimientos = ({ username, userid }) => {
   console.log(username, userid, "llegue");
   const [showLightbox, setShowLightbox] = useState(false);
   const [pedidos, setPedidos] = useState([]);
-  var ordenid = 1;
+  const [ordenid, setOrdenId] = useState(1);
+
+
+  const incrementar = () =>{
+    setOrdenId(ordenid + 1);
+ 
+  }
 
   const handleOpenLightbox = () => {
     setShowLightbox(true);
@@ -53,7 +59,7 @@ export const Requerimientos = ({ username, userid }) => {
               <h2 className="text-4xl uppercase">{username}</h2>
             </div>
             <div className="flex justify-end mr-10 font-serif">
-              <h3 className="text-3xl">Orden: 0</h3>
+              <h3 className="text-3xl">{ordenid}</h3>
             </div>
           </div>
         </div>
@@ -88,7 +94,7 @@ export const Requerimientos = ({ username, userid }) => {
               >
                 CREAR PEDIDO
               </button>
-              <button class="bg-gray-900 hover:bg-gray-950 text-white font-bold py-2 px-4 rounded">
+              <button class="bg-gray-900 hover:bg-gray-950 text-white font-bold py-2 px-4 rounded" onClick={incrementar}>
                 CERRAR PEDIDO
               </button>
               <button class="bg-gray-900 hover:bg-gray-950 text-white font-bold py-2 px-4 rounded">
