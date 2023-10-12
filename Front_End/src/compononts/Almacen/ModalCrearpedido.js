@@ -4,9 +4,7 @@ import axios from "axios";
 import withReactContent from "sweetalert2-react-content";
 
 export const ModalCrearpedido = ({ onClose, id, ordenid }) => {
-  console.log(ordenid, "llegue");
   const MySwal = withReactContent(Swal);
-  const [pedidos, setPedidos] = useState([]);
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setNuevopedidos({
@@ -20,8 +18,9 @@ export const ModalCrearpedido = ({ onClose, id, ordenid }) => {
     cantidad: "",
     um: "",
     orden: ordenid,
+    ordenformulario: "",
     tiempocumplimiento: "",
-    fechapedido: "", // Initialize fechapedido as an empty string
+    fechapedido: "",
     observacion: "",
     estado: "Espera",
     usuario_id: id,
@@ -33,6 +32,7 @@ export const ModalCrearpedido = ({ onClose, id, ordenid }) => {
       nuevopedidos.item === "" ||
       nuevopedidos.caracteristicas === "" ||
       nuevopedidos.cantidad === "" ||
+      nuevopedidos.ordenformulario === "" ||
       nuevopedidos.um === ""
     ) {
       MySwal.fire({
@@ -42,30 +42,11 @@ export const ModalCrearpedido = ({ onClose, id, ordenid }) => {
         showConfirmButton: false,
         timer: 3000,
       });
-      return; // Stop the function if the fields are empty
+      return;
     }
-
-    // Set the current date and time before making the POST request
     nuevopedidos.fechapedido = new Date().toLocaleString();
-
     try {
-      const response = await axios.post(
-        "http://localhost:3001/pedidos",
-        nuevopedidos
-      );
-
-      // Update the list of pedidos with the new pedido
-      setPedidos([...pedidos, response.data]);
-
-      // Reset the state for the new pedido
-      setNuevopedidos({
-        item: "",
-        caracteristicas: "",
-        cantidad: "",
-        um: "",
-        tiempocumplimiento: "",
-        fechapedido: "",
-      });
+      await axios.post("http://localhost:3001/pedidos", nuevopedidos);
 
       MySwal.fire({
         title: "¡Exitoso!",
@@ -141,7 +122,7 @@ export const ModalCrearpedido = ({ onClose, id, ordenid }) => {
               id="orden"
               name="orden"
               onChange={handleInputChange}
-              value={nuevopedidos.orden}
+              value={nuevopedidos.ordenformulario}
               className="border border-gray-400 p-2 rounded w-full"
             />
           </div>
