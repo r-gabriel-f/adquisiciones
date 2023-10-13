@@ -39,6 +39,10 @@ export const Requerimientos = ({ username, userid }) => {
   );
   const exportToPDF = () => {
     const doc = new jsPDF();
+
+    // Agrega el título
+    doc.setFontSize(16);
+    doc.text("Pedido" , 105, 10, { align: "center" });
     doc.autoTable({
       html: "#table-export",
       columns: [0, 1, 2, 3, 4, 5, 6],
