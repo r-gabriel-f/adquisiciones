@@ -49,7 +49,9 @@ export const Requerimientos = ({ username, userid }) => {
     });
     doc.save("table.pdf");
   };
-
+  const handlePedidoAdded = () => {
+    obtenerPedidos();
+  };
   return (
     <div className="flex flex-col">
       <PanelAlmacen />
@@ -166,7 +168,7 @@ export const Requerimientos = ({ username, userid }) => {
                       {pedido.um}
                     </td>
                     <td className="border border-gray-900 py-2 px-4">
-                      {pedido.orden}
+                      {pedido.ordenalmacen}
                     </td>
 
                     <td className="border border-gray-900 py-2 px-4">
@@ -194,6 +196,7 @@ export const Requerimientos = ({ username, userid }) => {
             onClose={handleCloseLightbox}
             id={userid}
             ordenid={ordenid}
+            onPedidoAdded={handlePedidoAdded}
           />
         )}
       </div>
