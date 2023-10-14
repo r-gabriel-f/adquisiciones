@@ -30,4 +30,14 @@ router.post('/', async (req, res) => {
 
 });
 
+router.delete('/:id', async (req, res) => {
+  try {
+    await pool.query('DELETE FROM pedidos WHERE id_pedido = $1', [req.params.id]);
+    res.json({ message: 'cliente eliminado exitosamente' });
+  } catch (error) {
+    console.error('Error al eliminar pedido:', error);
+    res.status(500).json({ error: 'Error al eliminar pedido' });
+  }
+});
+
 module.exports = router;
