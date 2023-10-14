@@ -4,8 +4,11 @@ import { ModalCrearpedido } from "./ModalCrearpedido";
 import axios from "axios";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 export const Requerimientos = ({ username, userid }) => {
-  console.log(username, userid, "llegue");
+  const MySwal = withReactContent(Swal);
+
   const [showLightbox, setShowLightbox] = useState(false);
   const [pedidos, setPedidos] = useState([]);
   const [ordenid, setOrdenId] = useState(1);
@@ -42,7 +45,7 @@ export const Requerimientos = ({ username, userid }) => {
 
     // Agrega el título
     doc.setFontSize(16);
-    doc.text("Pedido" , 105, 10, { align: "center" });
+    doc.text("Pedido", 105, 10, { align: "center" });
     doc.autoTable({
       html: "#table-export",
       columns: [0, 1, 2, 3, 4, 5, 6],
@@ -51,6 +54,36 @@ export const Requerimientos = ({ username, userid }) => {
   };
   const handlePedidoAdded = () => {
     obtenerPedidos();
+  };
+
+  const eliminarpedido = async (pedidoId) => {
+    try {
+      const result = await MySwal.fire({
+        title: "¿Estás seguro?",
+        text: "¡Esta acción eliminará el pedido!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Sí, eliminarlo",
+        cancelButtonText: "Cancelar",
+      });
+
+      if (result.isConfirmed) {
+        await axios.delete(`http://localhost:3001/pedidos/${pedidoId}`);
+        obtenerPedidos(); // Vuelve a obtener la lista de productos después de la eliminación
+
+        MySwal.fire({
+          title: "¡Eliminado!",
+          text: "El pedido ha sido eliminado.",
+          icon: "success",
+          showConfirmButton: false,
+          timer: 3000,
+        });
+      }
+    } catch (error) {
+      console.error("Error al eliminar el pedido:", error);
+    }
   };
   return (
     <div className="flex flex-col">
@@ -181,9 +214,17 @@ export const Requerimientos = ({ username, userid }) => {
                       {pedido.estado}
                     </td>
                     <td className="border border-gray-900 py-2 px-4">
-                      <button className="bg-gray-900 hover:bg-gray-800 text-white font-bold py-1 px-2 rounded">
-                        Editar
-                      </button>
+                      <div class="flex justify-center space-x-2">
+                        <button class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-1 rounded-lg">
+                          Editar
+                        </button>
+                        <button
+                          class="bg-red-500 hover:bg-red-600 text-white py-2 px-1 rounded-lg"
+                          onClick={() => eliminarpedido(pedido.id_pedido)}
+                        >
+                          Eliminar
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 ))
