@@ -17,7 +17,7 @@ export const ModalCrearpedido = ({ onClose, id, ordenid }) => {
     cantidad: "",
     um: "",
     orden: ordenid,
-    ordenformulario: "",
+    ordenalmacen: "",
     tiempocumplimiento: "",
     fechapedido: "",
     observacion: "",
@@ -31,7 +31,7 @@ export const ModalCrearpedido = ({ onClose, id, ordenid }) => {
       nuevopedidos.item === "" ||
       nuevopedidos.caracteristicas === "" ||
       nuevopedidos.cantidad === "" ||
-      nuevopedidos.ordenformulario === "" ||
+      nuevopedidos.ordenalmacen === "" ||
       nuevopedidos.um === ""
     ) {
       MySwal.fire({
@@ -53,6 +53,19 @@ export const ModalCrearpedido = ({ onClose, id, ordenid }) => {
         icon: "success",
         showConfirmButton: false,
         timer: 3000,
+      });
+      setNuevopedidos({
+        item: "",
+        caracteristicas: "",
+        cantidad: "",
+        um: "",
+        orden: ordenid,
+        ordenalmacen: "",
+        tiempocumplimiento: "",
+        fechapedido: "",
+        observacion: "",
+        estado: "Espera",
+        usuario_id: id,
       });
     } catch (error) {
       console.error("Error al agregar cliente:", error);
@@ -117,10 +130,10 @@ export const ModalCrearpedido = ({ onClose, id, ordenid }) => {
             <label>Orden de Trabajo</label>
             <input
               type="text"
-              id="orden"
-              name="orden"
+              id="ordenalmacen"
+              name="ordenalmacen"
               onChange={handleInputChange}
-              value={nuevopedidos.ordenformulario}
+              value={nuevopedidos.ordenalmacen}
               className="border border-gray-400 p-2 rounded w-full"
             />
           </div>
@@ -128,14 +141,11 @@ export const ModalCrearpedido = ({ onClose, id, ordenid }) => {
             <label>Tiempo de Cumplimiento</label>
             <select
               id="tiempo"
-              name="select"
+              name="tiempocumplimiento"
               onChange={handleInputChange}
-            
+              value={nuevopedidos.tiempocumplimiento}
               className="border border-gray-400 p-2 rounded w-full"
             >
-              <option value="--" sele>
-                --
-              </option>
               <option value="urgente">Urgente</option>
               <option value="medio">Medio</option>
               <option value="normal">Normal</option>
