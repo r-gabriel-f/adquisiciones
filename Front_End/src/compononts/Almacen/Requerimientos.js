@@ -13,11 +13,6 @@ export const Requerimientos = ({ username, userid }) => {
   const [pedidos, setPedidos] = useState([]);
   const [ordenid, setOrdenId] = useState(1);
 
-  const incrementar = () => {
-    setOrdenId(ordenid + 1);
-    setPedidos([]);
-  };
-
   const handleOpenLightbox = () => {
     setShowLightbox(true);
   };
@@ -37,15 +32,17 @@ export const Requerimientos = ({ username, userid }) => {
   };
   const obtenerultimopedido = () => {
     const maxOrden = Math.max(...pedidos.map((pedido) => pedido.orden));
-    setOrdenId(maxOrden + 1);
-    console.log(maxOrden);
+    setOrdenId(maxOrden);
   };
   useEffect(() => {
     obtenerPedidos();
-  }, []);
-  useEffect(() => {
     obtenerultimopedido();
   }, [pedidos]);
+  const incrementar = () => {
+    setOrdenId(ordenid + 1);
+
+    setPedidos([]);
+  };
   const pedidosDelUsuario = pedidos.filter(
     (pedido) =>
       pedido.usuario_id === userid && parseInt(pedido.orden) === ordenid
