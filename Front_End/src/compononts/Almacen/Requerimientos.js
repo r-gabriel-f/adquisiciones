@@ -30,6 +30,7 @@ export const Requerimientos = ({ username, userid }) => {
     try {
       const response = await axios.get("http://localhost:3001/pedidos");
       setPedidos(response.data);
+      console.log(pedidos)
     } catch (error) {
       console.error("Error al obtener pedidos:", error);
     }
@@ -38,14 +39,12 @@ export const Requerimientos = ({ username, userid }) => {
     obtenerPedidos();
   }, []);
   const pedidosDelUsuario = pedidos.filter(
-    (pedido) => pedido.usuario_id === userid
+    (pedido) => pedido.usuario_id === userid && parseInt(pedido.orden) === ordenid
   );
   const exportToPDF = () => {
     const doc = new jsPDF();
-
-    // Agrega el título
     doc.setFontSize(16);
-    doc.text("Pedido", 105, 10, { align: "center" });
+    doc.text("Pedido " + ordenid, 105, 10, { align: "center" });
     doc.autoTable({
       html: "#table-export",
       columns: [0, 1, 2, 3, 4, 5, 6],
