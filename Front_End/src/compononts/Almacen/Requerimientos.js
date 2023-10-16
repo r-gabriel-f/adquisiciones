@@ -30,16 +30,25 @@ export const Requerimientos = ({ username, userid }) => {
     try {
       const response = await axios.get("http://localhost:3001/pedidos");
       setPedidos(response.data);
-      console.log(pedidos)
+      console.log(pedidos);
     } catch (error) {
       console.error("Error al obtener pedidos:", error);
     }
   };
+  const obtenerultimopedido = () => {
+    const maxOrden = Math.max(...pedidos.map((pedido) => pedido.orden));
+    setOrdenId(maxOrden + 1);
+    console.log(maxOrden);
+  };
   useEffect(() => {
     obtenerPedidos();
   }, []);
+  useEffect(() => {
+    obtenerultimopedido();
+  }, [pedidos]);
   const pedidosDelUsuario = pedidos.filter(
-    (pedido) => pedido.usuario_id === userid && parseInt(pedido.orden) === ordenid
+    (pedido) =>
+      pedido.usuario_id === userid && parseInt(pedido.orden) === ordenid
   );
   const exportToPDF = () => {
     const doc = new jsPDF();
@@ -70,7 +79,7 @@ export const Requerimientos = ({ username, userid }) => {
 
       if (result.isConfirmed) {
         await axios.delete(`http://localhost:3001/pedidos/${pedidoId}`);
-        obtenerPedidos(); // Vuelve a obtener la lista de productos después de la eliminación
+        obtenerPedidos();
 
         MySwal.fire({
           title: "¡Eliminado!",
