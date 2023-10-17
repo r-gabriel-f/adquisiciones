@@ -27,7 +27,7 @@ function App() {
         />
         <Route
           path="/historial_requerimientos"
-          element={<HistorialRequerimiento username={username} />}
+          element={<HistorialRequerimiento username={username} userid={userid}/>}
         />
         <Route path="/pedidos" element={<Pedidos username={username} />} />
         <Route path="/lista_compras_pendientes" element={<ListaComprasPendientes username={username} />} />

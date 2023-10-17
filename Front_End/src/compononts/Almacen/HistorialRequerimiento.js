@@ -1,7 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { PanelAlmacen } from "../Panel/PanelAlmacen";
-
-export const HistorialRequerimiento = ({ username }) => {
+import axios from "axios";
+export const HistorialRequerimiento = ({ username, userid }) => {
+  const [pedidos, setPedidos] = useState([]);
+  const obtenerPedidos = async () => {
+    try {
+      const response = await axios.get("http://localhost:3001/pedidos");
+      setPedidos(response.data);
+      console.log(pedidos);
+    } catch (error) {
+      console.error("Error al obtener pedidos:", error);
+    }
+  };
+  const pedidosDelUsuario = pedidos.filter(
+    (pedido) =>
+      pedido.usuario_id === userid 
+  );
+  useEffect(() => {
+    obtenerPedidos();
+  }, []);
   return (
     <div className="flex flex-col">
       <PanelAlmacen />
@@ -45,7 +62,6 @@ export const HistorialRequerimiento = ({ username }) => {
           <table className="border-collapse border border-gray-900">
             <thead>
               <tr className="bg-gray-900 text-white">
-                <th className="border border-gray-900 py-2 px-4">N°</th>
                 <th className="border border-gray-900 py-2 px-4">ITEM</th>
                 <th className="border border-gray-900 py-2 px-4">N</th>
                 <th className="border border-gray-900 py-2 px-4">CANTIDAD</th>
@@ -64,19 +80,41 @@ export const HistorialRequerimiento = ({ username }) => {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td className="border border-gray-900 py-2 px-4">1</td>
-                <td className="border border-gray-900 py-2 px-4">Producto A</td>
-                <td className="border border-gray-900 py-2 px-4">123</td>
-                <td className="border border-gray-900 py-2 px-4">5</td>
-                <td className="border border-gray-900 py-2 px-4">Pza</td>
-                <td className="border border-gray-900 py-2 px-4">
-                  Sin observaciones
-                </td>
-                <td className="border border-gray-900 py-2 px-4">2 días</td>
-                <td className="border border-gray-900 py-2 px-4">2023-09-23</td>
-                <td className="border border-gray-900 py-2 px-4">Pendiente</td>
-              </tr>
+              {pedidos.length === 0 ? (
+                <tr>
+                  <td colSpan="11">No hay pedidos disponibles.</td>
+                </tr>
+              ) : (
+                pedidosDelUsuario.map((pedido) => (
+                  <tr key={pedido.id_pedido}>
+                    <td className="border border-gray-900 py-2 px-4">
+                      {pedido.item}
+                    </td>
+                    <td className="border border-gray-900 py-2 px-4">
+                      {pedido.orden}
+                    </td>
+                    <td className="border border-gray-900 py-2 px-4">
+                      {pedido.cantidad}
+                    </td>
+                    <td className="border border-gray-900 py-2 px-4">
+                      {pedido.um}
+                    </td>
+                    <td className="border border-gray-900 py-2 px-4">
+                      {pedido.observacion}
+                    </td>
+
+                    <td className="border border-gray-900 py-2 px-4">
+                      {pedido.tiempocumplimiento}
+                    </td>
+                    <td className="border border-gray-900 py-2 px-4">
+                      {new Date(pedido.fechapedido).toLocaleDateString()}
+                    </td>
+                    <td className="border border-gray-900 py-2 px-4">
+                      {pedido.estado}
+                    </td>
+                  </tr>
+                ))
+              )}
             </tbody>
           </table>
         </div>
