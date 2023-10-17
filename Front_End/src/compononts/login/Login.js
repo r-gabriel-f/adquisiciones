@@ -107,7 +107,7 @@ export const Login = ({ putnombre, putid }) => {
 
               <button
                 type="submit"
-                className="w-full text-white text-white bg-gray-900 hover:bg-gray-950 border-black rounded p-2"
+                className="w-full text-white bg-gray-900 hover:bg-gray-950 border-black rounded p-2"
               >
                 Ingresar
               </button>
