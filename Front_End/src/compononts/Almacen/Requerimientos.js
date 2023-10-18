@@ -8,6 +8,8 @@ import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 export const Requerimientos = ({ username, userid }) => {
   const MySwal = withReactContent(Swal);
+  const [searchItem, setSearchItem] = useState("");
+  const [searchOrden, setSearchOrden] = useState("");
 
   const [showLightbox, setShowLightbox] = useState(false);
   const [pedidos, setPedidos] = useState([]);
@@ -35,7 +37,7 @@ export const Requerimientos = ({ username, userid }) => {
       const maxOrden = Math.max(...pedidos.map((pedido) => pedido.orden));
       setOrdenId(maxOrden);
     } else {
-      setOrdenId(ordenid );
+      setOrdenId(ordenid);
     }
   };
   useEffect(() => {
@@ -54,6 +56,13 @@ export const Requerimientos = ({ username, userid }) => {
     (pedido) =>
       pedido.usuario_id === userid && parseInt(pedido.orden) === ordenid
   );
+  const filteredPedidosDelUsuario = pedidosDelUsuario.filter((pedido) => {
+    return (
+      pedido.item.toLowerCase().includes(searchItem.toLowerCase()) &&
+      pedido.ordenalmacen.toLowerCase().includes(searchOrden.toLowerCase())
+    );
+  });
+  
   const exportToPDF = () => {
     const doc = new jsPDF();
     doc.setFontSize(16);
@@ -125,7 +134,9 @@ export const Requerimientos = ({ username, userid }) => {
                 <input
                   type="text"
                   placeholder="Item"
-                  className="bg-gray-900 border border-gray-950 rounded-lg text-white py-2 px-3  w-full"
+                  value={searchItem}
+                  onChange={(e) => setSearchItem(e.target.value)}
+                  className="bg-gray-900 border border-gray-950 rounded-lg text-white py-2 px-3 w-full"
                 />
               </div>
               <div>
@@ -133,7 +144,9 @@ export const Requerimientos = ({ username, userid }) => {
                 <input
                   type="text"
                   placeholder="Orden de trabajo"
-                  className="bg-gray-900 border border-gray-950 rounded-lg text-white py-2 px-3  w-full"
+                  value={searchOrden}
+                  onChange={(e) => setSearchOrden(e.target.value)}
+                  className="bg-gray-900 border border-gray-950 rounded-lg text-white py-2 px-3 w-full"
                 />
               </div>
             </div>
@@ -198,7 +211,7 @@ export const Requerimientos = ({ username, userid }) => {
                   <td colSpan="11">No hay pedidos disponibles.</td>
                 </tr>
               ) : (
-                pedidosDelUsuario.map((pedido) => (
+                filteredPedidosDelUsuario.map((pedido) => (
                   <tr key={pedido.id_pedido}>
                     <td className="border border-gray-900 py-2 px-4">
                       {pedido.item}
