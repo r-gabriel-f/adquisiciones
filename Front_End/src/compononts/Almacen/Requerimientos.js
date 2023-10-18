@@ -12,9 +12,10 @@ export const Requerimientos = ({ username, userid }) => {
   const [searchOrden, setSearchOrden] = useState("");
 
   const [showLightbox, setShowLightbox] = useState(false);
+  const [showLightboxe, setShowLightboxe] = useState(false);
   const [pedidos, setPedidos] = useState([]);
   const [ordenid, setOrdenId] = useState(1);
-
+  const [selectedPedido, setSelectedPedido] = useState(null);
   const handleOpenLightbox = () => {
     setShowLightbox(true);
   };
@@ -22,6 +23,8 @@ export const Requerimientos = ({ username, userid }) => {
   const handleCloseLightbox = () => {
     setShowLightbox(false);
   };
+
+  
 
   const obtenerPedidos = async () => {
     try {
@@ -62,7 +65,7 @@ export const Requerimientos = ({ username, userid }) => {
       pedido.ordenalmacen.toLowerCase().includes(searchOrden.toLowerCase())
     );
   });
-  
+
   const exportToPDF = () => {
     const doc = new jsPDF();
     doc.setFontSize(16);
@@ -105,6 +108,22 @@ export const Requerimientos = ({ username, userid }) => {
     } catch (error) {
       console.error("Error al eliminar el pedido:", error);
     }
+  };
+  const handleOpenLightboxe = (pedido) => {
+    setSelectedPedido(pedido);
+    setShowLightboxe(true);
+  };
+
+  const handleCloseLightboxe = () => {
+    setShowLightboxe(false);
+  };
+  const handleInputChanges = (e) => {
+    const { name, value } = e.target;
+
+    setSelectedPedido((prevProduct) => ({
+      ...prevProduct,
+      [name]: value,
+    }));
   };
   return (
     <div className="flex flex-col">
@@ -240,7 +259,10 @@ export const Requerimientos = ({ username, userid }) => {
                     </td>
                     <td className="border border-gray-900 py-2 px-4">
                       <div class="flex justify-center space-x-2">
-                        <button class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-1 rounded-lg">
+                        <button
+                          class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-1 rounded-lg"
+                          onClick={() => handleOpenLightboxe(pedido)}
+                        >
                           Editar
                         </button>
                         <button
@@ -264,6 +286,105 @@ export const Requerimientos = ({ username, userid }) => {
             ordenid={ordenid}
             onPedidoAdded={handlePedidoAdded}
           />
+        )}
+        {showLightboxe && (
+          <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
+            <div className="bg-white p-4 rounded shadow-lg w-1/2">
+              <h2 className="text-2xl mb-4">Editar Requerimiento</h2>
+              <form>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label>Item</label>
+                    <input
+                      type="text"
+                      id="item"
+                      name="item"
+                      value={selectedPedido.item }
+                      onChange={handleInputChanges}
+                      className="border border-gray-400 p-2 rounded w-full"
+                      placeholder=""
+                    />
+                  </div>
+                  <div>
+                    <label>Cantidad</label>
+                    <input
+                      type="number"
+                      id="cantidad"
+                      name="cantidad"
+                      value={selectedPedido.cantidad}
+                      onChange={handleInputChanges}
+                      className="border border-gray-400 p-2 rounded w-full"
+                      placeholder="Ingrese la cantidad"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <label>Características Técnicas</label>
+                  <input
+                    type="text"
+                    id="caracteristicas"
+                    name="caracteristicas"
+                    value={selectedPedido.caracteristicas}
+                    onChange={handleInputChanges}
+                    className="border border-gray-400 p-2 rounded w-full"
+                    placeholder="Ingrese detalladamente las características técnicas del item"
+                  />
+                </div>
+                <div>
+                  <label>U - M</label>
+                  <input
+                    type="text"
+                    id="um"
+                    name="um"
+                    value={selectedPedido.um}
+                    onChange={handleInputChanges}
+                    className="border border-gray-400 p-2 rounded w-full"
+                    placeholder="Ingresa la unidad de medida"
+                  />
+                </div>
+                <div>
+                  <label>Orden de Trabajo</label>
+                  <input
+                    type="text"
+                    id="ordenalmacen"
+                    name="ordenalmacen"
+                    value={selectedPedido.ordenalmacen}
+                    onChange={handleInputChanges}
+                    className="border border-gray-400 p-2 rounded w-full"
+                  />
+                </div>
+                <div>
+                  <label>Tiempo de Cumplimiento</label>
+                  <select
+                    id="tiempo"
+                    name="tiempocumplimiento"
+                    value={selectedPedido.tiempocumplimiento}
+                    onChange={handleInputChanges}
+                    className="border border-gray-400 p-2 rounded w-full"
+                  >
+                    <option value="urgente">Urgente</option>
+                    <option value="medio">Medio</option>
+                    <option value="normal">Normal</option>
+                  </select>
+                </div>
+
+                <div className="flex justify-center mt-4">
+                  <button
+                    className="bg-red-500 text-white font-semibold py-2 px-4 rounded hover-bg-red-600 mr-2"
+                    onClick={handleCloseLightboxe}
+                  >
+                    Cancelar
+                  </button>
+                  <button
+                    type="submit"
+                    className="bg-blue-500 text-white font-semibold py-2 px-4 rounded hover-bg-blue-600"
+                  >
+                    Editar Requerimiento
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
         )}
       </div>
     </div>
