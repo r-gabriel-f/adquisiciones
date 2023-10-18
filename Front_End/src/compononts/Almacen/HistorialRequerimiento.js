@@ -3,6 +3,8 @@ import { PanelAlmacen } from "../Panel/PanelAlmacen";
 import axios from "axios";
 export const HistorialRequerimiento = ({ username, userid }) => {
   const [pedidos, setPedidos] = useState([]);
+  const [searchItem, setSearchItem] = useState("");
+  const [searchOrden, setSearchOrden] = useState("");
   const obtenerPedidos = async () => {
     try {
       const response = await axios.get("http://localhost:3001/pedidos");
@@ -13,9 +15,14 @@ export const HistorialRequerimiento = ({ username, userid }) => {
     }
   };
   const pedidosDelUsuario = pedidos.filter(
-    (pedido) =>
-      pedido.usuario_id === userid 
+    (pedido) => pedido.usuario_id === userid
   );
+  const filteredPedidosDelUsuario = pedidosDelUsuario.filter((pedido) => {
+    return (
+      pedido.item.toLowerCase().includes(searchItem.toLowerCase()) &&
+      pedido.orden.toLowerCase().includes(searchOrden.toLowerCase())
+    );
+  });
   useEffect(() => {
     obtenerPedidos();
   }, []);
@@ -44,6 +51,8 @@ export const HistorialRequerimiento = ({ username, userid }) => {
                 <input
                   type="text"
                   placeholder="Item"
+                  value={searchItem}
+                  onChange={(e) => setSearchItem(e.target.value)}
                   className="bg-gray-900 border border-gray-950 rounded-lg text-white py-2 px-3  w-full"
                 />
               </div>
@@ -52,6 +61,8 @@ export const HistorialRequerimiento = ({ username, userid }) => {
                 <input
                   type="text"
                   placeholder="N"
+                  value={searchOrden}
+                  onChange={(e) => setSearchOrden(e.target.value)}
                   className="bg-gray-900 border border-gray-950 rounded-lg text-white py-2 px-3  w-full"
                 />
               </div>
@@ -85,7 +96,7 @@ export const HistorialRequerimiento = ({ username, userid }) => {
                   <td colSpan="11">No hay pedidos disponibles.</td>
                 </tr>
               ) : (
-                pedidosDelUsuario.map((pedido) => (
+                filteredPedidosDelUsuario.map((pedido) => (
                   <tr key={pedido.id_pedido}>
                     <td className="border border-gray-900 py-2 px-4">
                       {pedido.item}
