@@ -125,6 +125,46 @@ export const Requerimientos = ({ username, userid }) => {
       [name]: value,
     }));
   };
+
+
+
+  const actualizarPedido = async (e) => {
+    e.preventDefault();
+    try {
+      const result = await MySwal.fire({
+        title: "¿Estás seguro?",
+        text: "¡Esta acción actualizara los datos del pedido!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Sí, actualizar",
+        cancelButtonText: "Cancelar",
+      });
+
+      if (result.isConfirmed) {
+        await axios.put(
+          `http://localhost:3001/pedidos/${selectedPedido.id_pedido}`,
+          selectedPedido
+        );
+
+        obtenerPedidos(); // Vuelve a obtener la lista de productos después de la actualización
+        handleCloseLightboxe(); // Cierra el modal después de la actualización
+
+        MySwal.fire({
+          title: "¡Actualizado!",
+          text: "Los datos del cliente fueron actualizados.",
+          icon: "success",
+          showConfirmButton: false,
+          timer: 3000,
+        });
+      } else {
+        handleCloseLightboxe();
+      }
+    } catch (error) {
+      console.error("Error al actualizar al cliente:", error);
+    }
+  };
   return (
     <div className="flex flex-col">
       <PanelAlmacen />
@@ -291,7 +331,7 @@ export const Requerimientos = ({ username, userid }) => {
           <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
             <div className="bg-white p-4 rounded shadow-lg w-1/2">
               <h2 className="text-2xl mb-4">Editar Requerimiento</h2>
-              <form>
+              <form onSubmit={actualizarPedido}>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <label>Item</label>
