@@ -24,8 +24,6 @@ export const Requerimientos = ({ username, userid }) => {
     setShowLightbox(false);
   };
 
-  
-
   const obtenerPedidos = async () => {
     try {
       const response = await axios.get("http://localhost:3001/pedidos");
@@ -50,9 +48,33 @@ export const Requerimientos = ({ username, userid }) => {
   useEffect(() => {
     obtenerultimopedido();
   }, [pedidos]);
-  const incrementar = () => {
-    setOrdenId(ordenid + 1);
-    setPedidos([]);
+  const incrementar = async () => {
+    try {
+      const result = await MySwal.fire({
+        title: "¿Estás seguro?",
+        text: "¡Esta acción cerrara el pedido!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Sí, eliminarlo",
+        cancelButtonText: "Cancelar",
+      });
+
+      if (result.isConfirmed) {
+        MySwal.fire({
+          title: "¡Cerrado!",
+          text: "El pedido ha sido cerrado.",
+          icon: "success",
+          showConfirmButton: false,
+          timer: 3000,
+        });
+        setOrdenId(ordenid + 1);
+        setPedidos([]);
+      }
+    } catch (error) {
+      console.error("Error al eliminar el pedido:", error);
+    }
   };
 
   const pedidosDelUsuario = pedidos.filter(
@@ -125,8 +147,6 @@ export const Requerimientos = ({ username, userid }) => {
       [name]: value,
     }));
   };
-
-
 
   const actualizarPedido = async (e) => {
     e.preventDefault();
@@ -339,7 +359,7 @@ export const Requerimientos = ({ username, userid }) => {
                       type="text"
                       id="item"
                       name="item"
-                      value={selectedPedido.item }
+                      value={selectedPedido.item}
                       onChange={handleInputChanges}
                       className="border border-gray-400 p-2 rounded w-full"
                       placeholder=""
