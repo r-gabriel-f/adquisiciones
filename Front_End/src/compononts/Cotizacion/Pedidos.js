@@ -43,7 +43,6 @@ export const Pedidos = ({ username }) => {
           <table className="border-collapse border border-gray-900">
             <thead>
               <tr className="bg-gray-900 text-white">
-                <th className="border border-gray-900 py-2 px-4">N°</th>
                 <th className="border border-gray-900 py-2 px-4">ITEM</th>
                 <th className="border border-gray-900 py-2 px-4">N</th>
                 <th className="border border-gray-900 py-2 px-4">
@@ -65,13 +64,12 @@ export const Pedidos = ({ username }) => {
                   FECHA DE PEDIDO
                 </th>
                 <th className="border border-gray-900 py-2 px-4">ESTADO</th>
-                <th className="border border-gray-900 py-2 px-4">PARA QUE</th>
+
                 <th className="border border-gray-900 py-2 px-4">PEDIDO</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td className="border border-gray-900 py-2 px-4">1</td>
                 <td className="border border-gray-900 py-2 px-4">Producto 1</td>
                 <td className="border border-gray-900 py-2 px-4">12345</td>
                 <td className="border border-gray-900 py-2 px-4">
@@ -86,9 +84,7 @@ export const Pedidos = ({ username }) => {
                 <td className="border border-gray-900 py-2 px-4">2 días</td>
                 <td className="border border-gray-900 py-2 px-4">2023-09-26</td>
                 <td className="border border-gray-900 py-2 px-4">Pendiente</td>
-                <td className="border border-gray-900 py-2 px-4">
-                  Departamento A
-                </td>
+
                 <td className="border border-gray-900 py-2 px-4">Pedido 1</td>
               </tr>
             </tbody>
