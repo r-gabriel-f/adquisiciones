@@ -1,7 +1,22 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { PanelCotizacion } from "../Panel/PanelCotizacion";
-
+import axios from "axios";
 export const Pedidos = ({ username }) => {
+  const [pedidos, setPedidos] = useState([]);
+
+  const obtenerPedidos = async () => {
+    try {
+      const response = await axios.get("http://localhost:3001/pedidos");
+      setPedidos(response.data);
+      console.log(pedidos);
+    } catch (error) {
+      console.error("Error al obtener pedidos:", error);
+    }
+  };
+
+  useEffect(() => {
+    obtenerPedidos();
+  }, []);
   return (
     <div className="flex flex-col">
       <PanelCotizacion />
@@ -39,7 +54,7 @@ export const Pedidos = ({ username }) => {
             </div>
           </div>
         </div>
-        <div className="overflow-x-auto overflow-y-auto h-74">
+        <div className="overflow-x-auto overflow-y-auto h-72">
           <table className="border-collapse border border-gray-900">
             <thead>
               <tr className="bg-gray-900 text-white">
@@ -69,24 +84,43 @@ export const Pedidos = ({ username }) => {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td className="border border-gray-900 py-2 px-4">Producto 1</td>
-                <td className="border border-gray-900 py-2 px-4">12345</td>
-                <td className="border border-gray-900 py-2 px-4">
-                  Descripción del producto 1
-                </td>
-                <td className="border border-gray-900 py-2 px-4">10</td>
-                <td className="border border-gray-900 py-2 px-4">Unidad 1</td>
-                <td className="border border-gray-900 py-2 px-4">Orden 123</td>
-                <td className="border border-gray-900 py-2 px-4">
-                  Observación 1
-                </td>
-                <td className="border border-gray-900 py-2 px-4">2 días</td>
-                <td className="border border-gray-900 py-2 px-4">2023-09-26</td>
-                <td className="border border-gray-900 py-2 px-4">Pendiente</td>
-
-                <td className="border border-gray-900 py-2 px-4">Pedido 1</td>
-              </tr>
+              {pedidos.map((pedido, index) => (
+                <tr key={index}>
+                  <td className="border border-gray-900 py-2 px-4">
+                    {pedido.item}
+                  </td>
+                  <td className="border border-gray-900 py-2 px-4">
+                    {pedido.orden}
+                  </td>
+                  <td className="border border-gray-900 py-2 px-4">
+                    {pedido.caracteristicas}
+                  </td>
+                  <td className="border border-gray-900 py-2 px-4">
+                    {pedido.cantidad}
+                  </td>
+                  <td className="border border-gray-900 py-2 px-4">
+                    {pedido.um}
+                  </td>
+                  <td className="border border-gray-900 py-2 px-4">
+                    {pedido.ordenalmacen}
+                  </td>
+                  <td className="border border-gray-900 py-2 px-4">
+                    {pedido.observacion}
+                  </td>
+                  <td className="border border-gray-900 py-2 px-4">
+                    {pedido.tiempocumplimiento}
+                  </td>
+                  <td className="border border-gray-900 py-2 px-4">
+                  {new Date(pedido.fechapedido).toLocaleDateString()}
+                  </td>
+                  <td className="border border-gray-900 py-2 px-4">
+                    {pedido.estado}
+                  </td>
+                  <td className="border border-gray-900 py-2 px-4">
+                    
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
