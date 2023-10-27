@@ -3,7 +3,8 @@ import { PanelCotizacion } from "../Panel/PanelCotizacion";
 import axios from "axios";
 export const Pedidos = ({ username }) => {
   const [pedidos, setPedidos] = useState([]);
-
+  const [searchItem, setSearchItem] = useState("");
+  const [searchOrden, setSearchOrden] = useState("");
   const obtenerPedidos = async () => {
     try {
       const response = await axios.get("http://localhost:3001/pedidos");
@@ -17,6 +18,13 @@ export const Pedidos = ({ username }) => {
   useEffect(() => {
     obtenerPedidos();
   }, []);
+
+  const filteredPedidos = pedidos.filter((pedido) => {
+    return (
+      pedido.item.toLowerCase().includes(searchItem.toLowerCase()) &&
+      pedido.orden.toLowerCase().includes(searchOrden.toLowerCase())
+    );
+  });
   return (
     <div className="flex flex-col">
       <PanelCotizacion />
@@ -40,6 +48,8 @@ export const Pedidos = ({ username }) => {
                 <input
                   type="text"
                   placeholder="Item"
+                  value={searchItem}
+                  onChange={(e) => setSearchItem(e.target.value)}
                   className="bg-gray-900 border border-gray-950 rounded-lg text-white py-2 px-3  w-full"
                 />
               </div>
@@ -48,6 +58,8 @@ export const Pedidos = ({ username }) => {
                 <input
                   type="text"
                   placeholder="N"
+                  value={searchOrden}
+                  onChange={(e) => setSearchOrden(e.target.value)}
                   className="bg-gray-900 border border-gray-950 rounded-lg text-white py-2 px-3  w-full"
                 />
               </div>
@@ -84,7 +96,7 @@ export const Pedidos = ({ username }) => {
               </tr>
             </thead>
             <tbody>
-              {pedidos.map((pedido, index) => (
+              {filteredPedidos.map((pedido, index) => (
                 <tr key={index}>
                   <td className="border border-gray-900 py-2 px-4">
                     {pedido.item}
