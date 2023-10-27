@@ -1,10 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { PanelCotizacion } from "../Panel/PanelCotizacion";
 import axios from "axios";
+import { ModalObservacion } from "./ModalObservacion";
 export const Pedidos = ({ username }) => {
   const [pedidos, setPedidos] = useState([]);
   const [searchItem, setSearchItem] = useState("");
   const [searchOrden, setSearchOrden] = useState("");
+  const [showLightbox, setShowLightbox] = useState(false);
+
+  const handleOpenLightbox = () => {
+    setShowLightbox(true);
+  };
+
+  const handleCloseLightbox = () => {
+    setShowLightbox(false);
+  };
   const obtenerPedidos = async () => {
     try {
       const response = await axios.get("http://localhost:3001/pedidos");
@@ -123,19 +133,28 @@ export const Pedidos = ({ username }) => {
                     {pedido.tiempocumplimiento}
                   </td>
                   <td className="border border-gray-900 py-2 px-4">
-                  {new Date(pedido.fechapedido).toLocaleDateString()}
+                    {new Date(pedido.fechapedido).toLocaleDateString()}
                   </td>
                   <td className="border border-gray-900 py-2 px-4">
                     {pedido.estado}
                   </td>
                   <td className="border border-gray-900 py-2 px-4">
-                    
+                    <button class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-1 rounded-lg">
+                      Aceptado
+                    </button>
+                    <button
+                      class="bg-red-500 hover:bg-red-600 text-white py-2 px-1 rounded-lg"
+                      onClick={handleOpenLightbox}
+                    >
+                      Rechazado
+                    </button>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
+        {showLightbox && <ModalObservacion onClose={handleCloseLightbox} />}
       </div>
     </div>
   );
