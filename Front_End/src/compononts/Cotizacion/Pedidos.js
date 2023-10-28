@@ -1,20 +1,74 @@
 import React, { useEffect, useState } from "react";
 import { PanelCotizacion } from "../Panel/PanelCotizacion";
 import axios from "axios";
-import { ModalObservacion } from "./ModalObservacion";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+
 export const Pedidos = ({ username }) => {
+  const MySwal = withReactContent(Swal);
   const [pedidos, setPedidos] = useState([]);
   const [searchItem, setSearchItem] = useState("");
   const [searchOrden, setSearchOrden] = useState("");
-  const [showLightbox, setShowLightbox] = useState(false);
 
-  const handleOpenLightbox = () => {
+  const [showLightbox, setShowLightbox] = useState(false);
+  const [selectedPedido, setSelectedPedido] = useState(null);
+
+  const handleOpenLightboxEditar = (pedido) => {
+    setSelectedPedido(pedido);
     setShowLightbox(true);
   };
 
   const handleCloseLightbox = () => {
     setShowLightbox(false);
   };
+
+  const handleInputChanges = (e) => {
+    const { name, value } = e.target;
+
+    setSelectedPedido((prevPedido) => ({
+      ...prevPedido,
+      [name]: value,
+    }));
+  };
+
+  const actualizarPedido = async (e) => {
+    e.preventDefault();
+    try {
+      const result = await MySwal.fire({
+        title: "¿Estás seguro?",
+        text: "¡Esta acción actualizará los datos del pedido!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Sí, actualizar",
+        cancelButtonText: "Cancelar",
+      });
+
+      if (result.isConfirmed) {
+        await axios.put(
+          `http://localhost:3001/pedidos/${selectedPedido.id_pedido}`,
+          selectedPedido
+        );
+
+        obtenerPedidos(); // Vuelve a obtener la lista de productos después de la actualización
+        handleCloseLightbox(); // Cierra el modal después de la actualización
+
+        MySwal.fire({
+          title: "¡Actualizado!",
+          text: "Los datos del cliente fueron actualizados.",
+          icon: "success",
+          showConfirmButton: false,
+          timer: 3000,
+        });
+      } else {
+        handleCloseLightbox();
+      }
+    } catch (error) {
+      console.error("Error al actualizar al cliente:", error);
+    }
+  };
+
   const obtenerPedidos = async () => {
     try {
       const response = await axios.get("http://localhost:3001/pedidos");
@@ -139,12 +193,12 @@ export const Pedidos = ({ username }) => {
                     {pedido.estado}
                   </td>
                   <td className="border border-gray-900 py-2 px-4">
-                    <button class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-1 rounded-lg">
+                    <button className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-1 rounded-lg">
                       Aceptado
                     </button>
                     <button
-                      class="bg-red-500 hover:bg-red-600 text-white py-2 px-1 rounded-lg"
-                      onClick={handleOpenLightbox}
+                      className="bg-red-500 hover:bg-red-600 text-white py-2 px-1 rounded-lg"
+                      onClick={() => handleOpenLightboxEditar(pedido)}
                     >
                       Rechazado
                     </button>
@@ -154,7 +208,106 @@ export const Pedidos = ({ username }) => {
             </tbody>
           </table>
         </div>
-        {showLightbox && <ModalObservacion onClose={handleCloseLightbox} />}
+
+        {showLightbox && selectedPedido && (
+          <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
+            <div className="bg-white p-4 rounded shadow-lg w-1/2">
+              <h2 className="text-2xl mb-4">Hacer Observación</h2>
+              <form onSubmit={actualizarPedido}>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label>Item</label>
+                    <input
+                      type="text"
+                      id="item"
+                      name="item"
+                      value={selectedPedido.item}
+                      onChange={handleInputChanges}
+                      className="border border-gray-400 p-2 rounded w-full"
+                      placeholder=""
+                    />
+                  </div>
+                  <div>
+                    <label>Cantidad</label>
+                    <input
+                      type="number"
+                      id="cantidad"
+                      name="cantidad"
+                      value={selectedPedido.cantidad}
+                      onChange={handleInputChanges}
+                      className="border border-gray-400 p-2 rounded w-full"
+                      placeholder="Ingrese la cantidad"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <label>Características Técnicas</label>
+                  <input
+                    type="text"
+                    id="caracteristicas"
+                    name="caracteristicas"
+                    value={selectedPedido.caracteristicas}
+                    onChange={handleInputChanges}
+                    className="border border-gray-400 p-2 rounded w-full"
+                    placeholder="Ingrese detalladamente las características técnicas del item"
+                  />
+                </div>
+                <div>
+                  <label>U - M</label>
+                  <input
+                    type="text"
+                    id="um"
+                    name="um"
+                    value={selectedPedido.um}
+                    onChange={handleInputChanges}
+                    className="border border-gray-400 p-2 rounded w-full"
+                    placeholder="Ingresa la unidad de medida"
+                  />
+                </div>
+                <div>
+                  <label>Orden de Trabajo</label>
+                  <input
+                    type="text"
+                    id="ordenalmacen"
+                    name="ordenalmacen"
+                    value={selectedPedido.ordenalmacen}
+                    onChange={handleInputChanges}
+                    className="border border-gray-400 p-2 rounded w-full"
+                  />
+                </div>
+                <div>
+                  <label>Tiempo de Cumplimiento</label>
+                  <select
+                    id="tiempo"
+                    name="tiempocumplimiento"
+                    value={selectedPedido.tiempocumplimiento}
+                    onChange={handleInputChanges}
+                    className="border border-gray-400 p-2 rounded w-full"
+                  >
+                    <option value="urgente">Urgente</option>
+                    <option value="medio">Medio</option>
+                    <option value="normal">Normal</option>
+                  </select>
+                </div>
+
+                <div className="flex justify-center mt-4">
+                  <button
+                    className="bg-red-500 text-white font-semibold py-2 px-4 rounded hover-bg-red-600 mr-2"
+                    onClick={handleCloseLightbox}
+                  >
+                    Cancelar
+                  </button>
+                  <button
+                    type="submit"
+                    className="bg-blue-500 text-white font-semibold py-2 px-4 rounded hover-bg-blue-600"
+                  >
+                    Editar Requerimiento
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
