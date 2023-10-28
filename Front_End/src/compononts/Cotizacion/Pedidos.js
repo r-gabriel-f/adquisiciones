@@ -36,7 +36,7 @@ export const Pedidos = ({ username }) => {
     try {
       const result = await MySwal.fire({
         title: "¿Estás seguro?",
-        text: "¡Esta acción actualizará los datos del pedido!",
+        text: "¡Esta acción realizara la observacion al pedido!",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
@@ -51,12 +51,12 @@ export const Pedidos = ({ username }) => {
           selectedPedido
         );
 
-        obtenerPedidos(); // Vuelve a obtener la lista de productos después de la actualización
-        handleCloseLightbox(); // Cierra el modal después de la actualización
+        obtenerPedidos();
+        handleCloseLightbox();
 
         MySwal.fire({
-          title: "¡Actualizado!",
-          text: "Los datos del cliente fueron actualizados.",
+          title: "¡Observado!",
+          text: "El pedido fue observado correctamente.",
           icon: "success",
           showConfirmButton: false,
           timer: 3000,
@@ -224,7 +224,7 @@ export const Pedidos = ({ username }) => {
                       value={selectedPedido.item}
                       onChange={handleInputChanges}
                       className="border border-gray-400 p-2 rounded w-full"
-                      placeholder=""
+                      disabled
                     />
                   </div>
                   <div>
@@ -237,6 +237,7 @@ export const Pedidos = ({ username }) => {
                       onChange={handleInputChanges}
                       className="border border-gray-400 p-2 rounded w-full"
                       placeholder="Ingrese la cantidad"
+                      disabled
                     />
                   </div>
                 </div>
@@ -250,6 +251,7 @@ export const Pedidos = ({ username }) => {
                     onChange={handleInputChanges}
                     className="border border-gray-400 p-2 rounded w-full"
                     placeholder="Ingrese detalladamente las características técnicas del item"
+                    disabled
                   />
                 </div>
                 <div>
@@ -262,6 +264,7 @@ export const Pedidos = ({ username }) => {
                     onChange={handleInputChanges}
                     className="border border-gray-400 p-2 rounded w-full"
                     placeholder="Ingresa la unidad de medida"
+                    disabled
                   />
                 </div>
                 <div>
@@ -273,6 +276,7 @@ export const Pedidos = ({ username }) => {
                     value={selectedPedido.ordenalmacen}
                     onChange={handleInputChanges}
                     className="border border-gray-400 p-2 rounded w-full"
+                    disabled
                   />
                 </div>
                 <div>
@@ -283,13 +287,25 @@ export const Pedidos = ({ username }) => {
                     value={selectedPedido.tiempocumplimiento}
                     onChange={handleInputChanges}
                     className="border border-gray-400 p-2 rounded w-full"
+                    disabled
                   >
                     <option value="urgente">Urgente</option>
                     <option value="medio">Medio</option>
                     <option value="normal">Normal</option>
                   </select>
                 </div>
-
+                <div>
+                  <label>Observación</label>
+                  <input
+                    type="text"
+                    id="observacion"
+                    name="observacion"
+                    value={selectedPedido.observacion}
+                    onChange={handleInputChanges}
+                    className="border border-gray-400 p-2 rounded w-full"
+                    placeholder="Escriba la observacion del pedido"
+                  />
+                </div>
                 <div className="flex justify-center mt-4">
                   <button
                     className="bg-red-500 text-white font-semibold py-2 px-4 rounded hover-bg-red-600 mr-2"
@@ -301,7 +317,7 @@ export const Pedidos = ({ username }) => {
                     type="submit"
                     className="bg-blue-500 text-white font-semibold py-2 px-4 rounded hover-bg-blue-600"
                   >
-                    Editar Requerimiento
+                    Realizar Observacion
                   </button>
                 </div>
               </form>
