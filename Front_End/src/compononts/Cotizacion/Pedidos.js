@@ -11,6 +11,7 @@ export const Pedidos = ({ username }) => {
   const [searchOrden, setSearchOrden] = useState("");
 
   const [showLightbox, setShowLightbox] = useState(false);
+  const [showLightboxx, setShowLightboxx] = useState(false);
   const [selectedPedido, setSelectedPedido] = useState(null);
 
   const handleOpenLightboxEditar = (pedido) => {
@@ -22,6 +23,14 @@ export const Pedidos = ({ username }) => {
     setShowLightbox(false);
   };
 
+  const handleOpenLightboxAprobar = (pedido) => {
+    setSelectedPedido(pedido);
+    setShowLightboxx(true);
+  };
+
+  const handleCloseLightboxx = () => {
+    setShowLightboxx(false);
+  };
   const handleInputChanges = (e) => {
     const { name, value } = e.target;
 
@@ -30,7 +39,43 @@ export const Pedidos = ({ username }) => {
       [name]: value,
     }));
   };
+  const aceptacionpedido = async (e) => {
+    e.preventDefault();
+    try {
+      const result = await MySwal.fire({
+        title: "¿Estás seguro?",
+        text: "¡Esta acción aprobara el pedido!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Sí, aceptar",
+        cancelButtonText: "Cancelar",
+      });
 
+      if (result.isConfirmed) {
+        await axios.put(
+          `http://localhost:3001/pedidos/${selectedPedido.id_pedido}`,
+          selectedPedido
+        );
+
+        obtenerPedidos();
+        handleCloseLightbox();
+
+        MySwal.fire({
+          title: "¡Aprobado!",
+          text: "El pedido fue Aprobado correctamente.",
+          icon: "success",
+          showConfirmButton: false,
+          timer: 3000,
+        });
+      } else {
+        handleCloseLightbox();
+      }
+    } catch (error) {
+      console.error("Error al actualizar al cliente:", error);
+    }
+  };
   const actualizarPedido = async (e) => {
     e.preventDefault();
     try {
@@ -193,7 +238,10 @@ export const Pedidos = ({ username }) => {
                     {pedido.estado}
                   </td>
                   <td className="border border-gray-900 py-2 px-4">
-                    <button className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-1 rounded-lg">
+                    <button
+                      className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-1 rounded-lg"
+                      onClick={() => handleOpenLightboxAprobar(pedido)}
+                    >
                       Aceptado
                     </button>
                     <button
@@ -318,6 +366,41 @@ export const Pedidos = ({ username }) => {
                     className="bg-blue-500 text-white font-semibold py-2 px-4 rounded hover-bg-blue-600"
                   >
                     Realizar Observacion
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
+
+        {showLightboxx && selectedPedido && (
+          <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
+            <div className="bg-white p-4 rounded shadow-lg w-1/2">
+              <h2 className="text-2xl mb-4">Aceptacion</h2>
+              <form onSubmit={aceptacionpedido}>
+                <div>
+                  <label>Estado</label>
+                  <input
+                    type="text"
+                    id="estado"
+                    name="estado"
+                    value={selectedPedido.estado}
+                    onChange={handleInputChanges}
+                    className="border border-gray-400 p-2 rounded w-full"
+                  />
+                </div>
+                <div className="flex justify-center mt-4">
+                  <button
+                    className="bg-red-500 text-white font-semibold py-2 px-4 rounded hover-bg-red-600 mr-2"
+                    onClick={handleCloseLightboxx}
+                  >
+                    Cancelar
+                  </button>
+                  <button
+                    type="submit"
+                    className="bg-blue-500 text-white font-semibold py-2 px-4 rounded hover-bg-blue-600"
+                  >
+                    Aprobar
                   </button>
                 </div>
               </form>
