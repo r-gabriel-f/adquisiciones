@@ -49,7 +49,6 @@ export const ListaComprasPendientes = ({ username }) => {
           <table className="border-collapse border border-gray-900">
             <thead>
               <tr className="bg-gray-900 text-white">
-                <th className="border border-gray-900 py-2 px-4">N°</th>
                 <th className="border border-gray-900 py-2 px-4">ITEM</th>
                 <th className="border border-gray-900 py-2 px-4">N</th>
                 <th className="border border-gray-900 py-2 px-4">
@@ -65,16 +64,17 @@ export const ListaComprasPendientes = ({ username }) => {
                   FECHA DE ACEPTACION
                 </th>
 
-                <th className="border border-gray-900 py-2 px-4">PARA QUE</th>
                 <th className="border border-gray-900 py-2 px-4">ESTADO</th>
                 <th className="border border-gray-900 py-2 px-4">
                   FECHA DE PEDIDO
+                </th>
+                <th className="border border-gray-900 py-2 px-4">
+                  Accion
                 </th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td className="border border-gray-900 py-2 px-4">1</td>
                 <td className="border border-gray-900 py-2 px-4">Producto 1</td>
                 <td className="border border-gray-900 py-2 px-4">12345</td>
                 <td className="border border-gray-900 py-2 px-4">
@@ -84,11 +84,14 @@ export const ListaComprasPendientes = ({ username }) => {
                 <td className="border border-gray-900 py-2 px-4">Unidad 1</td>
                 <td className="border border-gray-900 py-2 px-4">2 días</td>
                 <td className="border border-gray-900 py-2 px-4">2023-09-26</td>
-                <td className="border border-gray-900 py-2 px-4">
-                  Departamento A
-                </td>
+
                 <td className="border border-gray-900 py-2 px-4">Pendiente</td>
                 <td className="border border-gray-900 py-2 px-4">2023-09-25</td>
+                <td className="border border-gray-900 py-2 px-4">
+                  <button className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-1 rounded-lg">
+                    Cotizar
+                  </button>
+                </td>
               </tr>
             </tbody>
           </table>
