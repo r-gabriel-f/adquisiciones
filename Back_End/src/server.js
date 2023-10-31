@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const usuariosRoutes = require('./usuarios');  
 const productosRoutes = require('./pedidos');  
-const productosRoutes = require('./cotizacion');  
+const cotizacionRoutes = require('./cotizacion');  
 
 
 const app = express();
@@ -15,7 +15,7 @@ app.use(cors());
 // Rutas 
 app.use('/usuarios', usuariosRoutes);
 app.use('/pedidos', productosRoutes);
-app.use('/cotizacion', productosRoutes);
+app.use('/cotizacion', cotizacionRoutes);
 
 
 // Iniciar el servidor

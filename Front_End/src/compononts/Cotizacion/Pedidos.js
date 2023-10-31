@@ -14,6 +14,21 @@ export const Pedidos = ({ username }) => {
   const [showLightboxx, setShowLightboxx] = useState(false);
   const [selectedPedido, setSelectedPedido] = useState(null);
 
+
+  const [nuevocotizacion, setNuevocotizacion] = useState({
+    item: "",
+    caracteristicas: "",
+    cantidad: "",
+    um: "",
+    orden: "",
+    ordenalmacen: "",
+    tiempocumplimiento: "",
+    fechapedido: "",
+    fechaceptacion: "",
+    observacion: "",
+    estado: "Espera",
+    cotizacion_id: "",
+  });
   const handleOpenLightboxEditar = (pedido) => {
     setSelectedPedido(pedido);
     setShowLightbox(true);
@@ -39,6 +54,38 @@ export const Pedidos = ({ username }) => {
       [name]: value,
     }));
   };
+  const agregarCotizacion = async (e) => {
+
+    try {
+      await axios.post("http://localhost:3001/cotizacion", nuevocotizacion);
+
+      MySwal.fire({
+        title: "¡Exitoso!",
+        text: "El cliente ha sido agregado.",
+        icon: "success",
+        showConfirmButton: false,
+        timer: 3000,
+      });
+      setNuevocotizacion({
+        item: "",
+        caracteristicas: "",
+        cantidad: "",
+        um: "",
+        orden: "",
+        ordenalmacen: "",
+        tiempocumplimiento: "",
+        fechapedido: "",
+        fechaceptacion: "",
+        observacion: "",
+        estado: "Espera",
+        cotizacion_id: "",
+      });
+     
+    } catch (error) {
+      console.error("Error al agregar cliente:", error);
+    }
+  };
+
   const aceptacionpedido = async (e) => {
     e.preventDefault();
     try {
@@ -58,7 +105,23 @@ export const Pedidos = ({ username }) => {
           `http://localhost:3001/pedidos/${selectedPedido.id_pedido}`,
           selectedPedido
         );
+        nuevocotizacion.fechapedido = new Date().toLocaleString();
+        setNuevocotizacion({
+          item: selectedPedido.item,
+          caracteristicas: selectedPedido.caracteristicas,
+          cantidad: selectedPedido.cantidad,
+          um: selectedPedido.um,
+          orden: selectedPedido.orden,
+          ordenalmacen: selectedPedido.ordenalmacen,
+          tiempocumplimiento: selectedPedido.tiempocumplimiento,
+          fechapedido: selectedPedido.fechapedido,
+          fechaceptacion: "",
+          observacion: "",
+          estado: "Espera",
+          cotizacion_id: selectedPedido.id_pedido,
+        });
 
+        agregarCotizacion();
         obtenerPedidos();
         handleCloseLightbox();
 
@@ -134,6 +197,12 @@ export const Pedidos = ({ username }) => {
       pedido.orden.toLowerCase().includes(searchOrden.toLowerCase())
     );
   });
+
+
+
+
+  
+
   return (
     <div className="flex flex-col">
       <PanelCotizacion />
