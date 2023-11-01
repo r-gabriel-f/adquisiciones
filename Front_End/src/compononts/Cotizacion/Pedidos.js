@@ -62,7 +62,7 @@ export const Pedidos = ({ username }) => {
 
         obtenerPedidos();
         handleCloseLightbox();
-
+agregarPedido();
         MySwal.fire({
           title: "¡Aprobado!",
           text: "El pedido fue Aprobado correctamente.",
@@ -97,7 +97,8 @@ export const Pedidos = ({ username }) => {
           selectedPedido
         );
 
-        obtenerPedidos();
+        obtenerPedidos(selectedPedido);
+
         handleCloseLightbox();
 
         MySwal.fire({
@@ -119,7 +120,6 @@ export const Pedidos = ({ username }) => {
     try {
       const response = await axios.get("http://localhost:3001/pedidos");
       setPedidos(response.data);
-      console.log(pedidos);
     } catch (error) {
       console.error("Error al obtener pedidos:", error);
     }
@@ -135,6 +135,54 @@ export const Pedidos = ({ username }) => {
       pedido.orden.toLowerCase().includes(searchOrden.toLowerCase())
     );
   });
+
+  const [nuevocotizacion, setNuevocotizacion] = useState({
+    item: "",
+    caracteristicas: "",
+    cantidad: "",
+    um: "",
+    orden: "",
+    ordenalmacen: "",
+    tiempocumplimiento: "",
+    fechapedido: "",
+    fechaceptacion: "",
+    observacion: "",
+    estado: "Espera",
+    pedido_id: "",
+  });
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setNuevocotizacion({
+      ...nuevocotizacion,
+      [name]: value,
+    });
+  };
+  const agregarPedido = async (e) => {
+    aceptacionpedido()
+ 
+
+    nuevocotizacion.fechapedido = new Date().toLocaleString();
+    try {
+      await axios.post("http://localhost:3001/cotizacion", nuevocotizacion);
+
+      setNuevocotizacion({
+        item: "",
+        caracteristicas: "",
+        cantidad: "",
+        um: "",
+        orden: "",
+        ordenalmacen: "",
+        tiempocumplimiento: "",
+        fechapedido: "",
+        fechaceptacion: "",
+        observacion: "",
+        estado: "Espera",
+        pedido_id: "",
+      });
+    } catch (error) {
+      console.error("Error al agregar cliente:", error);
+    }
+  };
 
   return (
     <div className="flex flex-col">
@@ -379,7 +427,7 @@ export const Pedidos = ({ username }) => {
           <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
             <div className="bg-white p-4 rounded shadow-lg w-1/2">
               <h2 className="text-2xl mb-4">Aceptacion</h2>
-              <form onSubmit={aceptacionpedido}>
+              <form onSubmit={agregarPedido}>
                 <div>
                   <label>Estado</label>
                   <input
@@ -394,53 +442,58 @@ export const Pedidos = ({ username }) => {
                     type="hidden"
                     id="item"
                     name="item"
-                    value={selectedPedido.item}         
+                    value={selectedPedido.item}
+                    onChange={handleInputChange}
                   />
                   <input
                     type="hidden"
                     id="caracteristicas"
                     name="caracteristicas"
-                    value={selectedPedido.caracteristicas}         
+                    value={selectedPedido.caracteristicas}
+                    onChange={handleInputChange}
                   />
                   <input
                     type="hidden"
                     id="cantidad"
                     name="cantidad"
-                    value={selectedPedido.cantidad}         
+                    value={selectedPedido.cantidad}
+                    onChange={handleInputChange}
                   />
                   <input
                     type="hidden"
                     id="um"
                     name="um"
-                    value={selectedPedido.um}         
+                    value={selectedPedido.um}
+                    onChange={handleInputChange}
                   />
                   <input
                     type="hidden"
                     id="orden"
                     name="orden"
-                    value={selectedPedido.orden}         
+                    value={selectedPedido.orden}
+                    onChange={handleInputChange}
                   />
                   <input
                     type="hidden"
                     id="ordenalmacen"
                     name="ordenalmacen"
-                    value={selectedPedido.ordenalmacen}         
+                    value={selectedPedido.ordenalmacen}
+                    onChange={handleInputChange}
                   />
                   <input
                     type="hidden"
                     id="tiempocumplimiento"
                     name="tiempocumplimiento"
-                    value={selectedPedido.tiempocumplimiento}         
+                    value={selectedPedido.tiempocumplimiento}
+                    onChange={handleInputChange}
                   />
                   <input
                     type="hidden"
                     id="fechapedido"
                     name="fechapedido"
-                    value={selectedPedido.fechapedido}         
+                    value={selectedPedido.fechapedido}
+                    onChange={handleInputChange}
                   />
-
-              
-                  
                 </div>
                 <div className="flex justify-center mt-4">
                   <button
