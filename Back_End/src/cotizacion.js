@@ -17,10 +17,10 @@ router.get('/', async (req, res) => {
 
 // Agregar un nuevo producto
 router.post('/', async (req, res) => {
-  const { item, caracteristicas, cantidad, um, orden, ordenalmacen, tiempocumplimiento, fechapedido, fechaceptacion, observacion, estado, usuario_id } = req.body;
+  const { item, caracteristicas, cantidad, um, orden, ordenalmacen, tiempocumplimiento, fechapedido, fechaceptacion, observacion, estado, pedido_id } = req.body;
   try {
     const query = 'INSERT INTO cotizacion (item, caracteristicas, cantidad, um, orden, ordenalmacen, tiempocumplimiento, fechapedido, fechaceptacion , observacion, estado, pedido_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING *'; 
-    const values = [item, caracteristicas, cantidad, um, orden, ordenalmacen, tiempocumplimiento, fechapedido, fechaceptacion, observacion, estado, usuario_id];
+    const values = [item, caracteristicas, cantidad, um, orden, ordenalmacen, tiempocumplimiento, fechapedido, fechaceptacion, observacion, estado, pedido_id];
     const result = await pool.query(query, values);
     res.json(result.rows[0]);
   } catch (error) {
