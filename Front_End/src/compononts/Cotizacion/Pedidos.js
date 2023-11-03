@@ -62,7 +62,6 @@ export const Pedidos = ({ username }) => {
 
         obtenerPedidos();
         handleCloseLightbox();
-agregarPedido();
         MySwal.fire({
           title: "¡Aprobado!",
           text: "El pedido fue Aprobado correctamente.",
@@ -390,62 +389,7 @@ agregarPedido();
                     onChange={handleInputChanges}
                     className="border border-gray-400 p-2 rounded w-full"
                   />
-                  <input
-                    type="hidden"
-                    id="item"
-                    name="item"
-                    value={selectedPedido.item}
-                    onChange={handleInputChange}
-                  />
-                  <input
-                    type="hidden"
-                    id="caracteristicas"
-                    name="caracteristicas"
-                    value={selectedPedido.caracteristicas}
-                    onChange={handleInputChange}
-                  />
-                  <input
-                    type="hidden"
-                    id="cantidad"
-                    name="cantidad"
-                    value={selectedPedido.cantidad}
-                    onChange={handleInputChange}
-                  />
-                  <input
-                    type="hidden"
-                    id="um"
-                    name="um"
-                    value={selectedPedido.um}
-                    onChange={handleInputChange}
-                  />
-                  <input
-                    type="hidden"
-                    id="orden"
-                    name="orden"
-                    value={selectedPedido.orden}
-                    onChange={handleInputChange}
-                  />
-                  <input
-                    type="hidden"
-                    id="ordenalmacen"
-                    name="ordenalmacen"
-                    value={selectedPedido.ordenalmacen}
-                    onChange={handleInputChange}
-                  />
-                  <input
-                    type="hidden"
-                    id="tiempocumplimiento"
-                    name="tiempocumplimiento"
-                    value={selectedPedido.tiempocumplimiento}
-                    onChange={handleInputChange}
-                  />
-                  <input
-                    type="hidden"
-                    id="fechapedido"
-                    name="fechapedido"
-                    value={selectedPedido.fechapedido}
-                    onChange={handleInputChange}
-                  />
+                  
                 </div>
                 <div className="flex justify-center mt-4">
                   <button
