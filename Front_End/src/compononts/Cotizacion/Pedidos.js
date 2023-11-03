@@ -3,6 +3,7 @@ import { PanelCotizacion } from "../Panel/PanelCotizacion";
 import axios from "axios";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import { Prueb } from "./Prueb";
 
 export const Pedidos = ({ username }) => {
   const MySwal = withReactContent(Swal);
@@ -140,6 +141,7 @@ export const Pedidos = ({ username }) => {
       <PanelCotizacion />
       <div className="ml-56">
         <div className="grid grid-cols-3 gap-4">
+          <Prueb />
           <div className="col-span-2">
             <h1 className="text-5xl p-2 uppercase">DETALLES</h1>
           </div>
@@ -389,7 +391,6 @@ export const Pedidos = ({ username }) => {
                     onChange={handleInputChanges}
                     className="border border-gray-400 p-2 rounded w-full"
                   />
-                  
                 </div>
                 <div className="flex justify-center mt-4">
                   <button
