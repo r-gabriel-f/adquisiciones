@@ -136,54 +136,6 @@ agregarPedido();
     );
   });
 
-  const [nuevocotizacion, setNuevocotizacion] = useState({
-    item: "",
-    caracteristicas: "",
-    cantidad: "",
-    um: "",
-    orden: "",
-    ordenalmacen: "",
-    tiempocumplimiento: "",
-    fechapedido: "",
-    fechaceptacion: "",
-    observacion: "",
-    estado: "Espera",
-    pedido_id: "",
-  });
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setNuevocotizacion({
-      ...nuevocotizacion,
-      [name]: value,
-    });
-  };
-  const agregarPedido = async (e) => {
-    aceptacionpedido()
- 
-
-    nuevocotizacion.fechapedido = new Date().toLocaleString();
-    try {
-      await axios.post("http://localhost:3001/cotizacion", nuevocotizacion);
-
-      setNuevocotizacion({
-        item: "",
-        caracteristicas: "",
-        cantidad: "",
-        um: "",
-        orden: "",
-        ordenalmacen: "",
-        tiempocumplimiento: "",
-        fechapedido: "",
-        fechaceptacion: "",
-        observacion: "",
-        estado: "Espera",
-        pedido_id: "",
-      });
-    } catch (error) {
-      console.error("Error al agregar cliente:", error);
-    }
-  };
-
   return (
     <div className="flex flex-col">
       <PanelCotizacion />
@@ -427,7 +379,7 @@ agregarPedido();
           <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
             <div className="bg-white p-4 rounded shadow-lg w-1/2">
               <h2 className="text-2xl mb-4">Aceptacion</h2>
-              <form onSubmit={agregarPedido}>
+              <form onSubmit={aceptacionpedido}>
                 <div>
                   <label>Estado</label>
                   <input
