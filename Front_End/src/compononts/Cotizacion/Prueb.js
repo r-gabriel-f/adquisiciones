@@ -4,14 +4,7 @@ import axios from "axios";
 import withReactContent from "sweetalert2-react-content";
 export const Prueb = () => {
   const MySwal = withReactContent(Swal);
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setNuevopedidos({
-      ...nuevopedidos,
-      [name]: value,
-    });
-  };
-  const [nuevopedidos, setNuevopedidos] = useState({
+  const [nuevocotizacion, setNuevocotizacion] = useState({
     item: "",
     caracteristicas: "",
     cantidad: "",
@@ -25,29 +18,22 @@ export const Prueb = () => {
     estado: "Espera",
     usuario_id: 1,
   });
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setNuevocotizacion({
+      ...nuevocotizacion,
+      [name]: value,
+    });
+  };
+  
 
-  const agregarPedido = async (e) => {
+  const agregarCotizacion = async (e) => {
     e.preventDefault();
-    if (
-      nuevopedidos.item === "" ||
-      nuevopedidos.caracteristicas === "" ||
-      nuevopedidos.cantidad === "" ||
-      nuevopedidos.ordenalmacen === "" ||
-      nuevopedidos.um === ""
-    ) {
-      MySwal.fire({
-        title: "Error",
-        text: "Por favor, completa todos los campos",
-        icon: "error",
-        showConfirmButton: false,
-        timer: 3000,
-      });
-      return;
-    }
-    nuevopedidos.fechapedido = new Date().toLocaleString();
-    nuevopedidos.fechaceptacion = new Date().toLocaleString();
+    
+    nuevocotizacion.fechapedido = new Date().toLocaleString();
+    nuevocotizacion.fechaceptacion = new Date().toLocaleString();
     try {
-      await axios.post("http://localhost:3001/cotizacion", nuevopedidos);
+      await axios.post("http://localhost:3001/cotizacion", nuevocotizacion);
 
       MySwal.fire({
         title: "¡Exitoso!",
@@ -56,7 +42,7 @@ export const Prueb = () => {
         showConfirmButton: false,
         timer: 3000,
       });
-      setNuevopedidos({
+      setNuevocotizacion({
         item: "",
         caracteristicas: "",
         cantidad: "",
@@ -79,7 +65,7 @@ export const Prueb = () => {
     <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
       <div className="bg-white p-4 rounded shadow-lg w-1/2">
         <h2 className="text-2xl mb-4">Agregar Pedido</h2>
-        <form onSubmit={agregarPedido}>
+        <form onSubmit={agregarCotizacion}>
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label>Item</label>
@@ -88,7 +74,7 @@ export const Prueb = () => {
                 id="item"
                 name="item"
                 onChange={handleInputChange}
-                value={nuevopedidos.item}
+                value={nuevocotizacion.item}
                 className="border border-gray-400 p-2 rounded w-full"
                 placeholder=""
               />
@@ -100,7 +86,7 @@ export const Prueb = () => {
                 id="cantidad"
                 name="cantidad"
                 onChange={handleInputChange}
-                value={nuevopedidos.cantidad}
+                value={nuevocotizacion.cantidad}
                 className="border border-gray-400 p-2 rounded w-full"
                 placeholder="Ingrese la cantidad"
               />
@@ -113,7 +99,7 @@ export const Prueb = () => {
               id="caracteristicas"
               name="caracteristicas"
               onChange={handleInputChange}
-              value={nuevopedidos.caracteristicas}
+              value={nuevocotizacion.caracteristicas}
               className="border border-gray-400 p-2 rounded w-full"
               placeholder="Ingrese detalladamente las características técnicas del item"
             />
@@ -125,7 +111,7 @@ export const Prueb = () => {
               id="um"
               name="um"
               onChange={handleInputChange}
-              value={nuevopedidos.um}
+              value={nuevocotizacion.um}
               className="border border-gray-400 p-2 rounded w-full"
               placeholder="Ingresa la unidad de medida"
             />
@@ -137,7 +123,7 @@ export const Prueb = () => {
               id="ordenalmacen"
               name="ordenalmacen"
               onChange={handleInputChange}
-              value={nuevopedidos.ordenalmacen}
+              value={nuevocotizacion.ordenalmacen}
               className="border border-gray-400 p-2 rounded w-full"
             />
           </div>
@@ -147,7 +133,7 @@ export const Prueb = () => {
               id="tiempo"
               name="tiempocumplimiento"
               onChange={handleInputChange}
-              value={nuevopedidos.tiempocumplimiento}
+              value={nuevocotizacion.tiempocumplimiento}
               className="border border-gray-400 p-2 rounded w-full"
             >
               <option value="urgente">Urgente</option>
