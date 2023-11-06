@@ -136,16 +136,12 @@ export const Pedidos = ({ username }) => {
     );
   });
 
-
-
-
-
   const [nuevocotizacion, setNuevocotizacion] = useState({
     item: "",
     caracteristicas: "",
     cantidad: "",
     um: "",
-    orden: "1",
+    orden: "",
     ordenalmacen: "",
     tiempocumplimiento: "",
     fechapedido: "",
@@ -155,27 +151,21 @@ export const Pedidos = ({ username }) => {
     pedido_id: "",
   });
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
     setNuevocotizacion({
       ...nuevocotizacion,
       item: selectedPedido.item,
-      caracteristicas:selectedPedido.caracteristicas,
+      caracteristicas: selectedPedido.caracteristicas,
       cantidad: selectedPedido.cantidad,
-      um:selectedPedido.um,
-      orden:selectedPedido.orden,
-      ordenalmacen:selectedPedido.ordenalmacen,
-      tiempocumplimiento:selectedPedido.tiempocumplimiento,
-      fechapedido:selectedPedido.fechapedido,
-      pedido_id:selectedPedido.pedido_id,
-
-      
-      // Agrega más campos si es necesario
+      um: selectedPedido.um,
+      orden: selectedPedido.orden,
+      ordenalmacen: selectedPedido.ordenalmacen,
+      tiempocumplimiento: selectedPedido.tiempocumplimiento,
+      fechapedido: selectedPedido.fechapedido,
+      pedido_id: selectedPedido.id_pedido,
     });
   };
-  
 
   const agregarCotizacion = async (e) => {
-   
     e.preventDefault();
     nuevocotizacion.fechaceptacion = new Date().toLocaleString();
     try {
@@ -193,7 +183,7 @@ export const Pedidos = ({ username }) => {
         caracteristicas: "",
         cantidad: "",
         um: "",
-        orden: "1",
+        orden: "",
         ordenalmacen: "",
         tiempocumplimiento: "",
         fechapedido: "",
@@ -202,7 +192,6 @@ export const Pedidos = ({ username }) => {
         estado: "Espera",
         pedido_id: "",
       });
-    
     } catch (error) {
       console.error("Error al agregar cliente:", error);
     }
@@ -213,7 +202,6 @@ export const Pedidos = ({ username }) => {
       <PanelCotizacion />
       <div className="ml-56">
         <div className="grid grid-cols-3 gap-4">
-     
           <div className="col-span-2">
             <h1 className="text-5xl p-2 uppercase">DETALLES</h1>
           </div>
@@ -451,7 +439,6 @@ export const Pedidos = ({ username }) => {
         {showLightboxx && selectedPedido && (
           <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
             <div className="bg-white p-4 rounded shadow-lg w-1/2">
-              
               <h2 className="text-2xl mb-4">Aceptacion</h2>
               <form onSubmit={agregarCotizacion}>
                 <div>
@@ -460,102 +447,90 @@ export const Pedidos = ({ username }) => {
                     type="text"
                     id="estado"
                     name="estado"
-                    value={selectedPedido.estado}
-                    onChange={handleInputChanges}
+                    value={selectedPedido.estado || nuevocotizacion.item}
+                    onChange={handleInputChanges || handleInputChange}
                     className="border border-gray-400 p-2 rounded w-full"
                   />
                 </div>
 
-
                 <div className="grid grid-cols-2 gap-4">
-            <div>
-              <label>Item</label>
-              <input
-                type="text"
-                id="item"
-                name="item"
-                onChange={handleInputChange}
-                value={nuevocotizacion.item}
-                className="border border-gray-400 p-2 rounded w-full"
-                placeholder=""
-              />
-            </div>
-            <div>
-              <label>Cantidad</label>
-              <input
-                type="number"
-                id="cantidad"
-                name="cantidad"
-                onChange={handleInputChange}
-                value={nuevocotizacion.cantidad}
-                className="border border-gray-400 p-2 rounded w-full"
-                placeholder="Ingrese la cantidad"
-              />
-            </div>
-          </div>
-          <div>
-            <label>Características Técnicas</label>
-            <input
-              type="text"
-              id="caracteristicas"
-              name="caracteristicas"
-              onChange={handleInputChange}
-              value={nuevocotizacion.caracteristicas}
-              className="border border-gray-400 p-2 rounded w-full"
-              placeholder="Ingrese detalladamente las características técnicas del item"
-            />
-          </div>
-          <div>
-            <label>U - M</label>
-            <input
-              type="text"
-              id="um"
-              name="um"
-              onChange={handleInputChange}
-              value={nuevocotizacion.um}
-              className="border border-gray-400 p-2 rounded w-full"
-              placeholder="Ingresa la unidad de medida"
-            />
-          </div>
-          <div>
-            <label>Orden de Trabajo</label>
-            <input
-              type="text"
-              id="ordenalmacen"
-              name="ordenalmacen"
-              onChange={handleInputChange}
-              value={nuevocotizacion.ordenalmacen}
-              className="border border-gray-400 p-2 rounded w-full"
-            />
-          </div>
-          <div>
-            <label>id</label>
-            <input
-              type="text"
-              id="ordenalmacen"
-              name="ordenalmacen"
-              onChange={handleInputChange}
-              value={selectedPedido.pedido_id}
-              className="border border-gray-400 p-2 rounded w-full"
-            />
-          </div>
-          <div>
-            <label>Tiempo de Cumplimiento</label>
-            <select
-              id="tiempo"
-              name="tiempocumplimiento"
-              onChange={handleInputChange}
-              value={nuevocotizacion.tiempocumplimiento}
-              className="border border-gray-400 p-2 rounded w-full"
-            >
-              <option value="urgente">Urgente</option>
-              <option value="medio">Medio</option>
-              <option value="normal">Normal</option>
-            </select>
-          </div>
+                  <div>
+                    <input
+                      type="hidden"
+                      id="item"
+                      name="item"
+                      value={nuevocotizacion.item}
+                      onInput={handleInputChange}
+                      className="border border-gray-400 p-2 rounded w-full"
+                      placeholder=""
+                    />
+                  </div>
+                  <div>
+                    <input
+                      type="hidden"
+                      id="cantidad"
+                      name="cantidad"
+                      value={nuevocotizacion.cantidad}
+                      onInput={handleInputChange}
+                      className="border border-gray-400 p-2 rounded w-full"
+                      placeholder="Ingrese la cantidad"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <input
+                    type="hidden"
+                    id="caracteristicas"
+                    name="caracteristicas"
+                    value={nuevocotizacion.caracteristicas}
+                    onInput={handleInputChange}
+                    className="border border-gray-400 p-2 rounded w-full"
+                    placeholder="Ingrese detalladamente las características técnicas del item"
+                  />
+                </div>
+                <div>
+                  <input
+                    type="hidden"
+                    id="um"
+                    name="um"
+                    value={nuevocotizacion.um}
+                    onInput={handleInputChange}
+                    className="border border-gray-400 p-2 rounded w-full"
+                    placeholder="Ingresa la unidad de medida"
+                  />
+                </div>
+                <div>
+                  <input
+                    type="hidden"
+                    id="ordenalmacen"
+                    name="ordenalmacen"
+                    value={selectedPedido.id_pedido}
+                    onInput={handleInputChange}
+                    className="border border-gray-400 p-2 rounded w-full"
+                  />
+                </div>
+                <div>
+                  <label>Orden de Trabajo</label>
+                  <input
+                    type="text"
+                    id="ordenalmacen"
+                    name="ordenalmacen"
+                    value={nuevocotizacion.ordenalmacen}
+                    onInput={handleInputChange}
+                    className="border border-gray-400 p-2 rounded w-full"
+                  />
+                </div>
 
-
-
+                <div>
+                  <input
+                    type="hidden"
+                    id="ordenalmacen"
+                    name="ordenalmacen"
+                    value={nuevocotizacion.tiempocumplimiento}
+                    onInput={handleInputChange}
+                    className="border border-gray-400 p-2 rounded w-full"
+                  />
+                </div>
 
                 <div className="flex justify-center mt-4">
                   <button
