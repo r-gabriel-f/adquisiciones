@@ -447,12 +447,26 @@ export const Pedidos = ({ username }) => {
                     type="text"
                     id="estado"
                     name="estado"
-                    value={selectedPedido.estado || nuevocotizacion.item}
-                    onChange={handleInputChanges || handleInputChange}
+                    value={selectedPedido.estado }
+                    onChange={handleInputChanges }
                     className="border border-gray-400 p-2 rounded w-full"
                   />
                 </div>
-
+                <div>
+                  <label>Tiempo de Cumplimiento</label>
+                  <select
+                    id="tiempo"
+                    name="tiempocumplimiento"
+                    value={selectedPedido.estado }
+                    onChange={handleInputChanges }
+                    className="border border-gray-400 p-2 rounded w-full"
+                  
+                  >
+                    <option value="espera">Espera</option>
+                    <option value="aprobado">Aprobado</option>
+              
+                  </select>
+                </div>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <input
