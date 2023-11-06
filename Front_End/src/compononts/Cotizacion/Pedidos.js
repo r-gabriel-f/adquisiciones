@@ -42,7 +42,9 @@ export const Pedidos = ({ username }) => {
   };
 
   const aceptacionpedido = async (e) => {
-    e.preventDefault();
+    if (e) {
+      e.preventDefault();
+    }
     try {
       const result = await MySwal.fire({
         title: "¿Estás seguro?",
@@ -60,6 +62,7 @@ export const Pedidos = ({ username }) => {
           `http://localhost:3001/pedidos/${selectedPedido.id_pedido}`,
           selectedPedido
         );
+        agregarCotizacion();
 
         obtenerPedidos();
         handleCloseLightbox();
@@ -166,18 +169,13 @@ export const Pedidos = ({ username }) => {
   };
 
   const agregarCotizacion = async (e) => {
-    e.preventDefault();
+    if (e) {
+      e.preventDefault();
+    }
     nuevocotizacion.fechaceptacion = new Date().toLocaleString();
     try {
       await axios.post("http://localhost:3001/cotizacion", nuevocotizacion);
 
-      MySwal.fire({
-        title: "¡Exitoso!",
-        text: "El cliente ha sido agregado.",
-        icon: "success",
-        showConfirmButton: false,
-        timer: 3000,
-      });
       setNuevocotizacion({
         item: "",
         caracteristicas: "",
@@ -440,32 +438,20 @@ export const Pedidos = ({ username }) => {
           <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
             <div className="bg-white p-4 rounded shadow-lg w-1/2">
               <h2 className="text-2xl mb-4">Aceptacion</h2>
-              <form onSubmit={agregarCotizacion}>
+              <form onSubmit={aceptacionpedido}>
                 <div>
                   <label>Estado</label>
-                  <input
-                    type="text"
-                    id="estado"
-                    name="estado"
-                    value={selectedPedido.estado }
-                    onChange={handleInputChanges }
-                    className="border border-gray-400 p-2 rounded w-full"
-                  />
-                </div>
-                <div>
-                  <label>Tiempo de Cumplimiento</label>
-                  <select
-                    id="tiempo"
-                    name="tiempocumplimiento"
-                    value={selectedPedido.estado }
-                    onChange={handleInputChanges }
-                    className="border border-gray-400 p-2 rounded w-full"
-                  
-                  >
-                    <option value="espera">Espera</option>
-                    <option value="aprobado">Aprobado</option>
-              
-                  </select>
+                  <div>
+                    <input
+                      type="text"
+                      id="estado"
+                      name="estado"
+                      value={selectedPedido.estado}
+                      onChange={handleInputChanges}
+                      className="border border-gray-400 p-2 rounded w-full"
+                      placeholder=""
+                    />
+                  </div>
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
