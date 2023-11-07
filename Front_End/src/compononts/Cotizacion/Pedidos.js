@@ -441,17 +441,16 @@ export const Pedidos = ({ username }) => {
               <form onSubmit={aceptacionpedido}>
                 <div>
                   <label>Estado</label>
-                  <div>
-                    <input
-                      type="text"
-                      id="estado"
-                      name="estado"
-                      value={selectedPedido.estado}
-                      onChange={handleInputChanges}
-                      className="border border-gray-400 p-2 rounded w-full"
-                      placeholder=""
-                    />
-                  </div>
+                  <select
+                    id="estado"
+                    name="estado"
+                    value={selectedPedido.estado}
+                    onChange={handleInputChanges}
+                    className="border border-gray-400 p-2 rounded w-full"
+                  >
+                    <option value="Espera">Espera</option>
+                    <option value="Aprobado">Aprobado</option>
+                  </select>
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
