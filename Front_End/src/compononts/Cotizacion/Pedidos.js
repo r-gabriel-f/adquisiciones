@@ -11,8 +11,9 @@ export const Pedidos = ({ username }) => {
   const [searchItem, setSearchItem] = useState("");
   const [searchOrden, setSearchOrden] = useState("");
 
-  const [showLightbox, setShowLightbox] = useState(false);
+
   const [showLightboxx, setShowLightboxx] = useState(false);
+  const [showLightbox, setShowLightbox] = useState(false);
   const [selectedPedido, setSelectedPedido] = useState(null);
 
   const handleOpenLightboxEditar = (pedido) => {
