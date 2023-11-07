@@ -77,11 +77,10 @@ export const HistorialRequerimiento = ({ username, userid }) => {
                 <th className="border border-gray-900 py-2 px-4">N</th>
                 <th className="border border-gray-900 py-2 px-4">CANTIDAD</th>
                 <th className="border border-gray-900 py-2 px-4">U-M</th>
-                <th className="border border-gray-900 py-2 px-4">CARACTERÍSTICAS</th>
-
                 <th className="border border-gray-900 py-2 px-4">
-                  OBSERVACIÓN
+                  CARACTERÍSTICAS
                 </th>
+
                 <th className="border border-gray-900 py-2 px-4">
                   TIEMPO DE CUMPLIMIENTO
                 </th>
@@ -113,9 +112,6 @@ export const HistorialRequerimiento = ({ username, userid }) => {
                     </td>
                     <td className="border border-gray-900 py-2 px-4">
                       {pedido.caracteristicas}
-                    </td>
-                    <td className="border border-gray-900 py-2 px-4">
-                      {pedido.observacion}
                     </td>
 
                     <td className="border border-gray-900 py-2 px-4">
