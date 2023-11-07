@@ -3,7 +3,7 @@ import { PanelCotizacion } from "../Panel/PanelCotizacion";
 import axios from "axios";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
-import { Prueb } from "./Prueb";
+
 
 export const Pedidos = ({ username }) => {
   const MySwal = withReactContent(Swal);
