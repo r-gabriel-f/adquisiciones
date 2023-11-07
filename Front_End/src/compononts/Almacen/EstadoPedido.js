@@ -47,7 +47,7 @@ export const EstadoPedido = ({ username, userid }) => {
       [name]: value,
     }));
   };
-  const actualizarPedido = async (e) => {
+  const corregirPedido = async (e) => {
     e.preventDefault();
     try {
       const result = await MySwal.fire({
@@ -62,6 +62,7 @@ export const EstadoPedido = ({ username, userid }) => {
       });
 
       if (result.isConfirmed) {
+        selectedPedido.observacion = "";
         await axios.put(
           `http://localhost:3001/pedidos/${selectedPedido.id_pedido}`,
           selectedPedido
@@ -204,7 +205,7 @@ export const EstadoPedido = ({ username, userid }) => {
           <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
             <div className="bg-white p-4 rounded shadow-lg w-1/2">
               <h2 className="text-2xl mb-4">Hacer Observación</h2>
-              <form onSubmit={actualizarPedido}>
+              <form onSubmit={corregirPedido}>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <label>Item</label>
@@ -215,7 +216,7 @@ export const EstadoPedido = ({ username, userid }) => {
                       value={selectedPedido.item}
                       onChange={handleInputChanges}
                       className="border border-gray-400 p-2 rounded w-full"
-                      disabled
+                  
                     />
                   </div>
                   <div>
@@ -228,7 +229,7 @@ export const EstadoPedido = ({ username, userid }) => {
                       onChange={handleInputChanges}
                       className="border border-gray-400 p-2 rounded w-full"
                       placeholder="Ingrese la cantidad"
-                      disabled
+            
                     />
                   </div>
                 </div>
@@ -242,7 +243,7 @@ export const EstadoPedido = ({ username, userid }) => {
                     onChange={handleInputChanges}
                     className="border border-gray-400 p-2 rounded w-full"
                     placeholder="Ingrese detalladamente las características técnicas del item"
-                    disabled
+                
                   />
                 </div>
                 <div>
@@ -255,7 +256,7 @@ export const EstadoPedido = ({ username, userid }) => {
                     onChange={handleInputChanges}
                     className="border border-gray-400 p-2 rounded w-full"
                     placeholder="Ingresa la unidad de medida"
-                    disabled
+                 
                   />
                 </div>
                 <div>
@@ -267,7 +268,7 @@ export const EstadoPedido = ({ username, userid }) => {
                     value={selectedPedido.ordenalmacen}
                     onChange={handleInputChanges}
                     className="border border-gray-400 p-2 rounded w-full"
-                    disabled
+                    
                   />
                 </div>
                 <div>
@@ -278,7 +279,7 @@ export const EstadoPedido = ({ username, userid }) => {
                     value={selectedPedido.tiempocumplimiento}
                     onChange={handleInputChanges}
                     className="border border-gray-400 p-2 rounded w-full"
-                    disabled
+                    
                   >
                     <option value="urgente">Urgente</option>
                     <option value="medio">Medio</option>
@@ -295,6 +296,7 @@ export const EstadoPedido = ({ username, userid }) => {
                     onChange={handleInputChanges}
                     className="border border-gray-400 p-2 rounded w-full"
                     placeholder="Escriba la observacion del pedido"
+                    disabled
                   />
                 </div>
                 <div className="flex justify-center mt-4">
