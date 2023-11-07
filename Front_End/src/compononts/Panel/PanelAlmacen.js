@@ -3,6 +3,9 @@ import { useNavigate } from "react-router-dom";
 export const PanelAlmacen = () => {
   const navigate = useNavigate();
 
+  const handleEstadoClick = () => {
+    navigate("/estado_pedidos");
+  };
   const handleHistorialClick = () => {
     navigate("/historial_requerimientos");
   };
@@ -23,6 +26,12 @@ export const PanelAlmacen = () => {
           <span>Pedidos</span>
         </div>
 
+        <div
+          className="flex my-4 justify-center bg-gray-900 hover:bg-gray-950 hover:rounded-lg hover:text-[#eafdf5] hover:cursor-pointer"
+          onClick={handleEstadoClick}
+        >
+          <span>Estado de Pedido</span>
+        </div>
         <div className="mx-5">
           <div
             className="flex my-4 justify-center bg-gray-900 hover:bg-gray-950 hover:rounded-lg hover:text-[#eafdf5] hover:cursor-pointer"
@@ -30,9 +39,6 @@ export const PanelAlmacen = () => {
           >
             <span>Historial</span>
           </div>
-        </div>
-        <div className="flex my-4 justify-center bg-gray-900 hover:bg-gray-950 hover:rounded-lg hover:text-[#eafdf5] hover:cursor-pointer">
-          <span>Estado de compras</span>
         </div>
       </div>
     </div>

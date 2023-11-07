@@ -69,7 +69,7 @@ export const HistorialRequerimiento = ({ username, userid }) => {
             </div>
           </div>
         </div>
-        <div className="overflow-x-auto overflow-y-auto h-74">
+        <div className="overflow-x-auto overflow-y-auto h-72">
           <table className="border-collapse border border-gray-900">
             <thead>
               <tr className="bg-gray-900 text-white">

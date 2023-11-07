@@ -6,6 +6,7 @@ import { Login } from "./compononts/login/Login";
 import { Aprobaciones } from "./compononts/Gerencia/Aprobaciones";
 import { HistorialRequerimiento } from "./compononts/Almacen/HistorialRequerimiento";
 import { ListaComprasPendientes } from "./compononts/Cotizacion/ListaComprasPendientes";
+import { EstadoPedido } from "./compononts/Almacen/EstadoPedido";
 
 function App() {
   const [username, setUsername] = useState("");
@@ -28,6 +29,10 @@ function App() {
         <Route
           path="/historial_requerimientos"
           element={<HistorialRequerimiento username={username} userid={userid}/>}
+        />
+        <Route
+          path="/estado_pedidos"
+          element={<EstadoPedido username={username} userid={userid}/>}
         />
         <Route path="/pedidos" element={<Pedidos username={username} />} />
         <Route path="/lista_compras_pendientes" element={<ListaComprasPendientes username={username} />} />
