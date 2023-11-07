@@ -16,7 +16,7 @@ export const EstadoPedido = ({ username, userid }) => {
       }
     };
     const pedidosDelUsuario = pedidos.filter(
-      (pedido) => pedido.usuario_id === userid
+      (pedido) => pedido.usuario_id === userid && pedido.estado === "Espera"
     );
     const filteredPedidosDelUsuario = pedidosDelUsuario.filter((pedido) => {
       return (

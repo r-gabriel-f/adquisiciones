@@ -15,7 +15,7 @@ export const HistorialRequerimiento = ({ username, userid }) => {
     }
   };
   const pedidosDelUsuario = pedidos.filter(
-    (pedido) => pedido.usuario_id === userid
+    (pedido) => pedido.usuario_id === userid && pedido.estado === "Aprobado"
   );
   const filteredPedidosDelUsuario = pedidosDelUsuario.filter((pedido) => {
     return (
