@@ -1,16 +1,34 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { PanelCotizacion } from "../Panel/PanelCotizacion";
-
+import axios from "axios";
 export const ListaComprasPendientes = ({ username }) => {
   const [showLightboxe, setShowLightboxe] = useState(false);
+  const [cotizacion, setCotizacion] = useState([]);
+  const [searchItem, setSearchItem] = useState("");
   const handleOpenLightboxe = () => {
-    
     setShowLightboxe(true);
   };
 
   const handleCloseLightboxe = () => {
     setShowLightboxe(false);
   };
+
+  const obtenerPedidos = async () => {
+    try {
+      const response = await axios.get("http://localhost:3001/cotizacion");
+      setCotizacion(response.data);
+    } catch (error) {
+      console.error("Error al obtener pedidos:", error);
+    }
+  };
+
+  useEffect(() => {
+    obtenerPedidos();
+  }, []);
+
+  const filteredCotizacion = cotizacion.filter((pedido) => {
+    return pedido.item.toLowerCase().includes(searchItem.toLowerCase());
+  });
   return (
     <div className="flex flex-col">
       <PanelCotizacion />
@@ -34,6 +52,8 @@ export const ListaComprasPendientes = ({ username }) => {
                 <input
                   type="text"
                   placeholder="Item"
+                  value={searchItem}
+                  onChange={(e) => setSearchItem(e.target.value)}
                   className="bg-gray-900 border border-gray-950 rounded-lg text-white py-2 px-3  w-full"
                 />
               </div>
@@ -73,35 +93,54 @@ export const ListaComprasPendientes = ({ username }) => {
                   FECHA DE ACEPTACION
                 </th>
 
-                <th className="border border-gray-900 py-2 px-4">ESTADO</th>
                 <th className="border border-gray-900 py-2 px-4">
                   FECHA DE PEDIDO
                 </th>
-                <th className="border border-gray-900 py-2 px-4">
-                  Accion
-                </th>
+                <th className="border border-gray-900 py-2 px-4">ESTADO</th>
+                <th className="border border-gray-900 py-2 px-4">Accion</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td className="border border-gray-900 py-2 px-4">Producto 1</td>
-                <td className="border border-gray-900 py-2 px-4">12345</td>
-                <td className="border border-gray-900 py-2 px-4">
-                  Descripción del producto 1
-                </td>
-                <td className="border border-gray-900 py-2 px-4">10</td>
-                <td className="border border-gray-900 py-2 px-4">Unidad 1</td>
-                <td className="border border-gray-900 py-2 px-4">2 días</td>
-                <td className="border border-gray-900 py-2 px-4">2023-09-26</td>
+              {filteredCotizacion.map((pedido, index) => (
+                <tr key={index}>
+                  <td className="border border-gray-900 py-2 px-4">
+                    {pedido.item}
+                  </td>
+                  <td className="border border-gray-900 py-2 px-4">
+                    {pedido.ordenalmacen}
+                  </td>
+                  <td className="border border-gray-900 py-2 px-4">
+                    {pedido.caracteristicas}
+                  </td>
+                  <td className="border border-gray-900 py-2 px-4">
+                    {pedido.cantidad}
+                  </td>
+                  <td className="border border-gray-900 py-2 px-4">
+                    {pedido.um}
+                  </td>
+                  <td className="border border-gray-900 py-2 px-4">
+                    {pedido.tiempocumplimiento}
+                  </td>
+                  <td className="border border-gray-900 py-2 px-4">
+                    {new Date(pedido.fechaceptacion).toLocaleDateString()}
+                  </td>
+                  <td className="border border-gray-900 py-2 px-4">
+                    {new Date(pedido.fechapedido).toLocaleDateString()}
+                  </td>
 
-                <td className="border border-gray-900 py-2 px-4">Pendiente</td>
-                <td className="border border-gray-900 py-2 px-4">2023-09-25</td>
-                <td className="border border-gray-900 py-2 px-4">
-                  <button className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-1 rounded-lg" onClick={() => handleOpenLightboxe()}>
-                    Cotizar
-                  </button>
-                </td>
-              </tr>
+                  <td className="border border-gray-900 py-2 px-4">
+                    {pedido.estado}
+                  </td>
+                  <td className="border border-gray-900 py-2 px-4">
+                    <button
+                      className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-1 rounded-lg"
+                      onClick={() => handleOpenLightboxe()}
+                    >
+                      Cotizar
+                    </button>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
@@ -109,7 +148,7 @@ export const ListaComprasPendientes = ({ username }) => {
           <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
             <div className="bg-white p-4 rounded shadow-lg w-1/2">
               <h2 className="text-2xl mb-4">Enviar Cotizacion</h2>
-              <form >
+              <form>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <label>Item</label>
@@ -117,7 +156,6 @@ export const ListaComprasPendientes = ({ username }) => {
                       type="text"
                       id="item"
                       name="item"
-                    
                       className="border border-gray-400 p-2 rounded w-full"
                       placeholder=""
                     />
@@ -128,7 +166,6 @@ export const ListaComprasPendientes = ({ username }) => {
                       type="number"
                       id="cantidad"
                       name="cantidad"
-                     
                       className="border border-gray-400 p-2 rounded w-full"
                       placeholder="Ingrese la cantidad"
                     />
@@ -140,7 +177,6 @@ export const ListaComprasPendientes = ({ username }) => {
                     type="text"
                     id="caracteristicas"
                     name="caracteristicas"
-                 
                     className="border border-gray-400 p-2 rounded w-full"
                     placeholder="Ingrese detalladamente las características técnicas del item"
                   />
@@ -151,7 +187,6 @@ export const ListaComprasPendientes = ({ username }) => {
                     type="text"
                     id="um"
                     name="um"
-                 
                     className="border border-gray-400 p-2 rounded w-full"
                     placeholder="Ingresa la unidad de medida"
                   />
@@ -162,7 +197,6 @@ export const ListaComprasPendientes = ({ username }) => {
                     type="text"
                     id="ordenalmacen"
                     name="ordenalmacen"
-                   
                     className="border border-gray-400 p-2 rounded w-full"
                   />
                 </div>
@@ -171,7 +205,6 @@ export const ListaComprasPendientes = ({ username }) => {
                   <select
                     id="tiempo"
                     name="tiempocumplimiento"
-             
                     className="border border-gray-400 p-2 rounded w-full"
                   >
                     <option value="urgente">Urgente</option>
