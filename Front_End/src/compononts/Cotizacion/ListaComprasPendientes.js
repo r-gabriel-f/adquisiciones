@@ -74,7 +74,7 @@ export const ListaComprasPendientes = ({ username }) => {
         <div className="m-10 font-serif">
           <h3 className="text-2xl">LISTA DE PEDIDOS</h3>
         </div>
-        <div className="overflow-x-auto overflow-y-auto h-74">
+        <div className="overflow-x-auto overflow-y-auto h-64">
           <table className="border-collapse border border-gray-900">
             <thead>
               <tr className="bg-gray-900 text-white">
