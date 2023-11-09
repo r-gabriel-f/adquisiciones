@@ -76,7 +76,7 @@ export const ListaComprasPendientes = ({ username }) => {
         </div>
         <div className="overflow-x-auto overflow-y-auto h-64">
           <table className="border-collapse border border-gray-900">
-            <thead>
+            <thead className="sticky top-0">
               <tr className="bg-gray-900 text-white">
                 <th className="border border-gray-900 py-2 px-4">ITEM</th>
                 <th className="border border-gray-900 py-2 px-4">N</th>
@@ -236,7 +236,7 @@ export const ListaComprasPendientes = ({ username }) => {
         </div>
         <div className="overflow-x-auto overflow-y-auto h-74">
           <table className="border-collapse border border-gray-900">
-            <thead>
+            <thead className="sticky top-0">
               <tr className="bg-gray-900 text-white">
                 <th className="border border-gray-900 py-2 px-4">N°</th>
                 <th className="border border-gray-900 py-2 px-4">ITEM</th>

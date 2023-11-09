@@ -71,7 +71,7 @@ export const HistorialRequerimiento = ({ username, userid }) => {
         </div>
         <div className="overflow-x-auto overflow-y-auto h-72">
           <table className="border-collapse border border-gray-900">
-            <thead>
+            <thead className="sticky top-0">
               <tr className="bg-gray-900 text-white">
                 <th className="border border-gray-900 py-2 px-4">ITEM</th>
                 <th className="border border-gray-900 py-2 px-4">N</th>

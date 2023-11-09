@@ -260,7 +260,7 @@ export const Requerimientos = ({ username, userid }) => {
             className="border-collapse border border-gray-900"
             id="table-export"
           >
-            <thead>
+            <thead className="bg-gray-900 text-white sticky top-0">
               <tr className="bg-gray-900 text-white">
                 <th className="border border-gray-900 py-2 px-4">ITEM</th>
                 <th className="border border-gray-900 py-2 px-4">
