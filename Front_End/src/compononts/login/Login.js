@@ -35,15 +35,21 @@ export const Login = ({ putnombre, putid }) => {
           case "daniela":
             navigate("/pedidos");
             putnombre(username);
+            localStorage.setItem("username", username);
+
             break;
           case "pedro":
           case "cristian":
             navigate("/requerimientos");
             putnombre(username);
             putid(usuarios[i].id);
+            localStorage.setItem("username", username);
+            localStorage.setItem("userid", usuarios[i].id);
             break;
           case "alex":
             navigate("/aprobaciones");
+            localStorage.setItem("username", username);
+
             putnombre(username);
             break;
           default:

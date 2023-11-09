@@ -10,6 +10,18 @@ export const EstadoPedido = ({ username, userid }) => {
   const [searchOrden, setSearchOrden] = useState("");
   const [showLightbox, setShowLightbox] = useState(false);
   const [selectedPedido, setSelectedPedido] = useState(null);
+  const [name, setUsername] = useState("");
+  const [nameid, setUserId] = useState("");
+  useEffect(() => {
+    const storedUsername = localStorage.getItem("username");
+    const storedUserId = localStorage.getItem("userid");
+    if (storedUsername) {
+      setUsername(storedUsername);
+    }
+    if (storedUserId) {
+      setUserId(storedUserId);
+    }
+  }, []);
   const obtenerPedidos = async () => {
     try {
       const response = await axios.get("http://localhost:3001/pedidos");
@@ -20,7 +32,7 @@ export const EstadoPedido = ({ username, userid }) => {
     }
   };
   const pedidosDelUsuario = pedidos.filter(
-    (pedido) => pedido.usuario_id === userid && pedido.estado === "Espera"
+    (pedido) => pedido.usuario_id === parseInt(nameid) && pedido.estado === "Espera"
   );
   const filteredPedidosDelUsuario = pedidosDelUsuario.filter((pedido) => {
     return (
@@ -96,7 +108,7 @@ export const EstadoPedido = ({ username, userid }) => {
           </div>
           <div>
             <div className="flex justify-end mr-10 font-serif">
-              <h2 className="text-4xl uppercase">{username}</h2>
+              <h2 className="text-4xl uppercase">{name}</h2>
             </div>
           </div>
         </div>

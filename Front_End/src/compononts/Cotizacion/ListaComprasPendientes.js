@@ -5,6 +5,16 @@ export const ListaComprasPendientes = ({ username }) => {
   const [showLightboxe, setShowLightboxe] = useState(false);
   const [cotizacion, setCotizacion] = useState([]);
   const [searchItem, setSearchItem] = useState("");
+  const [name, setUsername] = useState("");
+
+  useEffect(() => {
+    const storedUsername = localStorage.getItem("username");
+
+    if (storedUsername) {
+      setUsername(storedUsername);
+    }
+    
+  }, []);
   const handleOpenLightboxe = () => {
     setShowLightboxe(true);
   };
@@ -39,7 +49,7 @@ export const ListaComprasPendientes = ({ username }) => {
           </div>
           <div>
             <div className="flex justify-end mr-10 font-serif">
-              <h2 className="text-4xl uppercase">{username}</h2>
+              <h2 className="text-4xl uppercase">{name}</h2>
             </div>
           </div>
         </div>

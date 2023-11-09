@@ -15,7 +15,16 @@ export const Pedidos = ({ username }) => {
   const [showLightboxx, setShowLightboxx] = useState(false);
   const [showLightbox, setShowLightbox] = useState(false);
   const [selectedPedido, setSelectedPedido] = useState(null);
+  const [name, setUsername] = useState("");
 
+  useEffect(() => {
+    const storedUsername = localStorage.getItem("username");
+
+    if (storedUsername) {
+      setUsername(storedUsername);
+    }
+  
+  }, []);
   const handleOpenLightboxEditar = (pedido) => {
     setSelectedPedido(pedido);
     setShowLightbox(true);
@@ -206,7 +215,7 @@ export const Pedidos = ({ username }) => {
           </div>
           <div>
             <div className="flex justify-end mr-10 font-serif">
-              <h2 className="text-4xl uppercase">{username}</h2>
+              <h2 className="text-4xl uppercase">{name}</h2>
             </div>
           </div>
         </div>

@@ -6,16 +6,28 @@ import jsPDF from "jspdf";
 import "jspdf-autotable";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+
 export const Requerimientos = ({ username, userid }) => {
   const MySwal = withReactContent(Swal);
   const [searchItem, setSearchItem] = useState("");
   const [searchOrden, setSearchOrden] = useState("");
-
   const [showLightbox, setShowLightbox] = useState(false);
   const [showLightboxe, setShowLightboxe] = useState(false);
   const [pedidos, setPedidos] = useState([]);
   const [ordenid, setOrdenId] = useState(1);
   const [selectedPedido, setSelectedPedido] = useState(null);
+  const [name, setUsername] = useState("");
+  const [nameid, setUserId] = useState("");
+  useEffect(() => {
+    const storedUsername = localStorage.getItem("username");
+    const storedUserId = localStorage.getItem("userid");
+    if (storedUsername) {
+      setUsername(storedUsername);
+    }
+    if (storedUserId) {
+      setUserId(storedUserId);
+    }
+  }, []);
   const handleOpenLightbox = () => {
     setShowLightbox(true);
   };
@@ -79,7 +91,7 @@ export const Requerimientos = ({ username, userid }) => {
 
   const pedidosDelUsuario = pedidos.filter(
     (pedido) =>
-      pedido.usuario_id === userid && parseInt(pedido.orden) === ordenid
+      pedido.usuario_id === parseInt(nameid) && parseInt(pedido.orden) === ordenid
   );
   const filteredPedidosDelUsuario = pedidosDelUsuario.filter((pedido) => {
     return (
@@ -197,7 +209,7 @@ export const Requerimientos = ({ username, userid }) => {
           </div>
           <div>
             <div className="flex justify-end mr-10 font-serif">
-              <h2 className="text-4xl uppercase">{username}</h2>
+              <h2 className="text-4xl uppercase">{name}</h2>
             </div>
             <div className="flex justify-end mr-10 font-serif">
               <h3 className="text-3xl">{ordenid}</h3>
@@ -245,7 +257,7 @@ export const Requerimientos = ({ username, userid }) => {
               >
                 CERRAR PEDIDO
               </button>
-             
+
               <button
                 class="bg-gray-900 hover:bg-gray-950 text-white font-bold py-2 px-4 rounded"
                 onClick={exportToPDF}
@@ -340,7 +352,7 @@ export const Requerimientos = ({ username, userid }) => {
         {showLightbox && (
           <ModalCrearpedido
             onClose={handleCloseLightbox}
-            id={userid}
+            id={parseInt(nameid)}
             ordenid={ordenid}
             onPedidoAdded={handlePedidoAdded}
           />
