@@ -168,8 +168,8 @@ export const Requerimientos = ({ username, userid }) => {
           selectedPedido
         );
 
-        obtenerPedidos(); // Vuelve a obtener la lista de productos después de la actualización
-        handleCloseLightboxe(); // Cierra el modal después de la actualización
+        obtenerPedidos();
+        handleCloseLightboxe();
 
         MySwal.fire({
           title: "¡Actualizado!",
@@ -245,9 +245,7 @@ export const Requerimientos = ({ username, userid }) => {
               >
                 CERRAR PEDIDO
               </button>
-              <button class="bg-gray-900 hover:bg-gray-950 text-white font-bold py-2 px-4 rounded">
-                OTROS REQUERIMIENTOS
-              </button>
+             
               <button
                 class="bg-gray-900 hover:bg-gray-950 text-white font-bold py-2 px-4 rounded"
                 onClick={exportToPDF}
