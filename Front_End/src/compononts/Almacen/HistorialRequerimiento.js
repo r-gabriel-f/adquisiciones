@@ -27,7 +27,7 @@ export const HistorialRequerimiento = ({ username, userid }) => {
     }
   };
   const pedidosDelUsuario = pedidos.filter(
-    (pedido) => pedido.usuario_id === parseInt(nameid) && pedido.estado === "Aprobado"
+    (pedido) => pedido.usuario_id === (parseInt(nameid) || userid) && pedido.estado === "Aprobado"
   );
   const filteredPedidosDelUsuario = pedidosDelUsuario.filter((pedido) => {
     return (

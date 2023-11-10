@@ -32,7 +32,9 @@ export const EstadoPedido = ({ username, userid }) => {
     }
   };
   const pedidosDelUsuario = pedidos.filter(
-    (pedido) => pedido.usuario_id === parseInt(nameid) && pedido.estado === "Espera"
+    (pedido) =>
+      pedido.usuario_id === (parseInt(nameid) || userid) &&
+      pedido.estado === "Espera"
   );
   const filteredPedidosDelUsuario = pedidosDelUsuario.filter((pedido) => {
     return (
@@ -202,7 +204,10 @@ export const EstadoPedido = ({ username, userid }) => {
                     </td>
                     <td className="border border-gray-900 py-2 px-4">
                       <div class="flex justify-center space-x-2">
-                        <button class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-1 rounded-lg" onClick={() => handleOpenLightboxEditar(pedido)}>
+                        <button
+                          class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-1 rounded-lg"
+                          onClick={() => handleOpenLightboxEditar(pedido)}
+                        >
                           Corregir
                         </button>
                       </div>
@@ -228,7 +233,6 @@ export const EstadoPedido = ({ username, userid }) => {
                       value={selectedPedido.item}
                       onChange={handleInputChanges}
                       className="border border-gray-400 p-2 rounded w-full"
-                  
                     />
                   </div>
                   <div>
@@ -241,7 +245,6 @@ export const EstadoPedido = ({ username, userid }) => {
                       onChange={handleInputChanges}
                       className="border border-gray-400 p-2 rounded w-full"
                       placeholder="Ingrese la cantidad"
-            
                     />
                   </div>
                 </div>
@@ -255,7 +258,6 @@ export const EstadoPedido = ({ username, userid }) => {
                     onChange={handleInputChanges}
                     className="border border-gray-400 p-2 rounded w-full"
                     placeholder="Ingrese detalladamente las características técnicas del item"
-                
                   />
                 </div>
                 <div>
@@ -268,7 +270,6 @@ export const EstadoPedido = ({ username, userid }) => {
                     onChange={handleInputChanges}
                     className="border border-gray-400 p-2 rounded w-full"
                     placeholder="Ingresa la unidad de medida"
-                 
                   />
                 </div>
                 <div>
@@ -280,7 +281,6 @@ export const EstadoPedido = ({ username, userid }) => {
                     value={selectedPedido.ordenalmacen}
                     onChange={handleInputChanges}
                     className="border border-gray-400 p-2 rounded w-full"
-                    
                   />
                 </div>
                 <div>
@@ -291,7 +291,6 @@ export const EstadoPedido = ({ username, userid }) => {
                     value={selectedPedido.tiempocumplimiento}
                     onChange={handleInputChanges}
                     className="border border-gray-400 p-2 rounded w-full"
-                    
                   >
                     <option value="urgente">Urgente</option>
                     <option value="medio">Medio</option>
@@ -331,6 +330,5 @@ export const EstadoPedido = ({ username, userid }) => {
         )}
       </div>
     </div>
-    
   );
 };

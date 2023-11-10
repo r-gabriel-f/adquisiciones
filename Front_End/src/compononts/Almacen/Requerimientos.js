@@ -91,7 +91,7 @@ export const Requerimientos = ({ username, userid }) => {
 
   const pedidosDelUsuario = pedidos.filter(
     (pedido) =>
-      pedido.usuario_id === parseInt(nameid) && parseInt(pedido.orden) === ordenid
+      pedido.usuario_id === (parseInt(nameid) || userid)&& parseInt(pedido.orden) === ordenid
   );
   const filteredPedidosDelUsuario = pedidosDelUsuario.filter((pedido) => {
     return (
