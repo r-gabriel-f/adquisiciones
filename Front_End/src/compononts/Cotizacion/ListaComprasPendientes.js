@@ -49,7 +49,7 @@ export const ListaComprasPendientes = ({ username }) => {
           </div>
           <div>
             <div className="flex justify-end mr-10 font-serif">
-              <h2 className="text-4xl uppercase">{name}</h2>
+              <h2 className="text-4xl uppercase">{name || username}</h2>
             </div>
           </div>
         </div>
