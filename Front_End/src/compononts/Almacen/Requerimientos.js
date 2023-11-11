@@ -91,7 +91,8 @@ export const Requerimientos = ({ username, userid }) => {
 
   const pedidosDelUsuario = pedidos.filter(
     (pedido) =>
-      pedido.usuario_id === (parseInt(nameid) || userid)&& parseInt(pedido.orden) === ordenid
+      pedido.usuario_id === (parseInt(nameid) || userid) &&
+      parseInt(pedido.orden) === ordenid
   );
   const filteredPedidosDelUsuario = pedidosDelUsuario.filter((pedido) => {
     return (
@@ -290,7 +291,7 @@ export const Requerimientos = ({ username, userid }) => {
                 <th className="border border-gray-900 py-2 px-4">
                   FECHA DE PEDIDO
                 </th>
-                <th className="border border-gray-900 py-2 px-4">ESTADO</th>
+
                 <th className="border border-gray-900 py-2 px-4">ACCIÓN</th>
               </tr>
             </thead>
@@ -324,9 +325,7 @@ export const Requerimientos = ({ username, userid }) => {
                     <td className="border border-gray-900 py-2 px-4">
                       {new Date(pedido.fechapedido).toLocaleDateString()}
                     </td>
-                    <td className="border border-gray-900 py-2 px-4">
-                      {pedido.estado}
-                    </td>
+
                     <td className="border border-gray-900 py-2 px-4">
                       <div class="flex justify-center space-x-2">
                         <button
