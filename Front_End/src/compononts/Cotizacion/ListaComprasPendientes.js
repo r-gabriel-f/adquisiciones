@@ -13,7 +13,6 @@ export const ListaComprasPendientes = ({ username }) => {
     if (storedUsername) {
       setUsername(storedUsername);
     }
-    
   }, []);
   const handleOpenLightboxe = () => {
     setShowLightboxe(true);
@@ -106,7 +105,7 @@ export const ListaComprasPendientes = ({ username }) => {
                 <th className="border border-gray-900 py-2 px-4">
                   FECHA DE PEDIDO
                 </th>
-           
+
                 <th className="border border-gray-900 py-2 px-4">Accion</th>
               </tr>
             </thead>
@@ -138,14 +137,18 @@ export const ListaComprasPendientes = ({ username }) => {
                     {new Date(pedido.fechapedido).toLocaleDateString()}
                   </td>
 
-                 
                   <td className="border border-gray-900 py-2 px-4">
-                    <button
-                      className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-1 rounded-lg"
-                      onClick={() => handleOpenLightboxe()}
-                    >
-                      Cotizar
-                    </button>
+                    <div class="flex justify-center space-x-2">
+                      <button
+                        className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-1 rounded-lg"
+                        onClick={() => handleOpenLightboxe()}
+                      >
+                        Cotizar
+                      </button>
+                      <button class="bg-red-500 hover:bg-red-600 text-white py-2 px-1 rounded-lg">
+                        Compra Directa
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))}
