@@ -52,7 +52,7 @@ export const ListaComprasPendientes = ({ username }) => {
             </div>
           </div>
         </div>
-        <div className="grid grid-cols-2 gap-4 mt-10">
+        <div className=" gap-4 mt-10">
           <div className="mx-10">
             <h4 className="text-2xl text-center">Buscar Pedido</h4>
             <div className="my-10">
@@ -68,17 +68,7 @@ export const ListaComprasPendientes = ({ username }) => {
               </div>
             </div>
           </div>
-          <div className="mx-10">
-            <h4 className="text-2xl text-center">Accion</h4>
-            <div className="grid grid-cols-2 gap-4 my-10">
-              <button class="bg-gray-900 hover:bg-gray-950 text-white font-bold py-2 px-4 rounded">
-                SUBIR DOCUMENTO
-              </button>
-              <button class="bg-gray-900 hover:bg-gray-950 text-white font-bold py-2 px-4 rounded">
-                --
-              </button>
-            </div>
-          </div>
+          
         </div>
         <div className="m-10 font-serif">
           <h3 className="text-2xl">LISTA DE PEDIDOS</h3>
