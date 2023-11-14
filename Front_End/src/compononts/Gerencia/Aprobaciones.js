@@ -2,6 +2,6 @@ import React from 'react'
 
 export const Aprobaciones = ({username}) => {
   return (
-    <div>Aprobaciones, {username}</div>
+   <h1>hola</h1>
   )
 }
