@@ -6,7 +6,17 @@ export const ListaComprasPendientes = ({ username }) => {
   const [cotizacion, setCotizacion] = useState([]);
   const [searchItem, setSearchItem] = useState("");
   const [name, setUsername] = useState("");
+  const [showLightboxx, setShowLightboxx] = useState(false);
+  const [selectedPedido, setSelectedPedido] = useState(null);
 
+  const handleOpenLightboxAprobar = (pedido) => {
+    setSelectedPedido(pedido);
+    setShowLightboxx(true);
+  };
+
+  const handleCloseLightboxx = () => {
+    setShowLightboxx(false);
+  };
   useEffect(() => {
     const storedUsername = localStorage.getItem("username");
 
@@ -135,7 +145,7 @@ export const ListaComprasPendientes = ({ username }) => {
                       >
                         Cotizar
                       </button>
-                      <button class="bg-red-500 hover:bg-red-600 text-white py-2 px-1 rounded-lg">
+                      <button class="bg-red-500 hover:bg-red-600 text-white py-2 px-1 rounded-lg"  onClick={() => handleOpenLightboxAprobar(pedido)}>
                         Compra Directa
                       </button>
                     </div>
@@ -232,6 +242,36 @@ export const ListaComprasPendientes = ({ username }) => {
             </div>
           </div>
         )}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         <div className="m-10 font-serif">
           <h3 className="text-2xl">LISTA DE COTIZACIONES</h3>
         </div>

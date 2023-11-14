@@ -4,6 +4,7 @@ const cors = require('cors');
 const usuariosRoutes = require('./usuarios');  
 const productosRoutes = require('./pedidos');  
 const cotizacionRoutes = require('./cotizacion');  
+const aceptacionRoutes = require('./aceptacion');  
 
 
 const app = express();
@@ -16,6 +17,7 @@ app.use(cors());
 app.use('/usuarios', usuariosRoutes);
 app.use('/pedidos', productosRoutes);
 app.use('/cotizacion', cotizacionRoutes);
+app.use('/aceptacion', aceptacionRoutes);
 
 
 // Iniciar el servidor
