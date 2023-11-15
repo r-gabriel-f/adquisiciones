@@ -48,6 +48,65 @@ export const ListaComprasPendientes = ({ username }) => {
   const filteredCotizacion = cotizacion.filter((pedido) => {
     return pedido.item.toLowerCase().includes(searchItem.toLowerCase());
   });
+
+
+  const [nuevocotizacion, setNuevocotizacion] = useState({
+    item: "",
+    caracteristicas: "",
+    cantidad: "",
+    um: "",
+    orden: "",
+    ordenalmacen: "",
+    tiempocumplimiento: "",
+    fechapedido: "",
+    fechaceptacion: "",
+    fechagerencia: "",
+    observacion: "",
+    estado: "",
+    cotizacion_id: "",
+  });
+  const handleInputChange = (e) => {
+    setNuevocotizacion({
+      ...nuevocotizacion,
+      item: selectedPedido.item,
+      caracteristicas: selectedPedido.caracteristicas,
+      cantidad: selectedPedido.cantidad,
+      um: selectedPedido.um,
+      orden: selectedPedido.orden,
+      ordenalmacen: selectedPedido.ordenalmacen,
+      tiempocumplimiento: selectedPedido.tiempocumplimiento,
+      fechapedido: selectedPedido.fechapedido,
+      cotizacion_id: selectedPedido.id_cotizacion,
+    });
+  };
+  const agregarGerencia = async (e) => {
+    if (e) {
+      e.preventDefault();
+    }
+    nuevocotizacion.fechagerencia = new Date().toLocaleString();
+    try {
+      await axios.post("http://localhost:3001/aceptacion", nuevocotizacion);
+
+      setNuevocotizacion({
+        item: "",
+        caracteristicas: "",
+        cantidad: "",
+        um: "",
+        orden: "",
+        ordenalmacen: "",
+        tiempocumplimiento: "",
+        fechapedido: "",
+        fechaceptacion: "",
+        fechagerencia: "",
+        observacion: "",
+        estado: "",
+        cotizacion_id: "",
+      });
+    } catch (error) {
+      console.error("Error al agregar cliente:", error);
+    }
+  };
+
   return (
     <div className="flex flex-col">
       <PanelCotizacion />
@@ -155,51 +214,77 @@ export const ListaComprasPendientes = ({ username }) => {
             </tbody>
           </table>
         </div>
-        {showLightboxe && (
+        
+
+
+
+
+{showLightboxx && selectedPedido && (
           <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
             <div className="bg-white p-4 rounded shadow-lg w-1/2">
-              <h2 className="text-2xl mb-4">Enviar Cotizacion</h2>
-              <form>
+              <h2 className="text-2xl mb-4">Aceptacion</h2>
+              <form >
+                <div>
+                  <label>Estado</label>
+                  <select
+                    id="estado"
+                    name="estado"
+                 
+                    className="border border-gray-400 p-2 rounded w-full"
+                  >
+                    <option value="Espera">Espera</option>
+                    <option value="Aprobado">Aprobado</option>
+                  </select>
+                </div>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label>Item</label>
                     <input
                       type="text"
                       id="item"
                       name="item"
+                      
                       className="border border-gray-400 p-2 rounded w-full"
                       placeholder=""
                     />
                   </div>
                   <div>
-                    <label>Cantidad</label>
                     <input
-                      type="number"
+                      type="text"
                       id="cantidad"
                       name="cantidad"
+            
                       className="border border-gray-400 p-2 rounded w-full"
                       placeholder="Ingrese la cantidad"
                     />
                   </div>
                 </div>
                 <div>
-                  <label>Características Técnicas</label>
                   <input
                     type="text"
                     id="caracteristicas"
                     name="caracteristicas"
+               
                     className="border border-gray-400 p-2 rounded w-full"
                     placeholder="Ingrese detalladamente las características técnicas del item"
                   />
                 </div>
                 <div>
-                  <label>U - M</label>
                   <input
                     type="text"
                     id="um"
                     name="um"
+                 
                     className="border border-gray-400 p-2 rounded w-full"
                     placeholder="Ingresa la unidad de medida"
+                  />
+                </div>
+                <div>
+                  <input
+                    type="text"
+                    id="ordenalmacen"
+                    name="ordenalmacen"
+               
+                    className="border border-gray-400 p-2 rounded w-full"
                   />
                 </div>
                 <div>
@@ -208,26 +293,25 @@ export const ListaComprasPendientes = ({ username }) => {
                     type="text"
                     id="ordenalmacen"
                     name="ordenalmacen"
+           
                     className="border border-gray-400 p-2 rounded w-full"
                   />
                 </div>
+
                 <div>
-                  <label>Tiempo de Cumplimiento</label>
-                  <select
-                    id="tiempo"
-                    name="tiempocumplimiento"
+                  <input
+                    type="text"
+                    id="ordenalmacen"
+                    name="ordenalmacen"
+              
                     className="border border-gray-400 p-2 rounded w-full"
-                  >
-                    <option value="urgente">Urgente</option>
-                    <option value="medio">Medio</option>
-                    <option value="normal">Normal</option>
-                  </select>
+                  />
                 </div>
 
                 <div className="flex justify-center mt-4">
                   <button
                     className="bg-red-500 text-white font-semibold py-2 px-4 rounded hover-bg-red-600 mr-2"
-                    onClick={() => handleCloseLightboxe()}
+                    onClick={handleCloseLightboxx}
                   >
                     Cancelar
                   </button>
@@ -235,17 +319,13 @@ export const ListaComprasPendientes = ({ username }) => {
                     type="submit"
                     className="bg-blue-500 text-white font-semibold py-2 px-4 rounded hover-bg-blue-600"
                   >
-                    Enviar
+                    Aceptar
                   </button>
                 </div>
               </form>
             </div>
           </div>
         )}
-
-
-
-
 
 
 
