@@ -222,13 +222,12 @@ export const ListaComprasPendientes = ({ username }) => {
         {showLightbox && selectedPedido && (
           <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
             <div className="bg-white p-4 rounded shadow-lg w-1/2">
-              <h2 className="text-2xl mb-4">Hacer Compra Directa</h2>
+              <h2 className="text-2xl mb-4">Compra Directa</h2>
               <form onSubmit={actualizarPedido}>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label>Item</label>
                     <input
-                      type="text"
+                      type="hidden"
                       id="item"
                       name="item"
                       value={selectedPedido.item}
@@ -238,9 +237,8 @@ export const ListaComprasPendientes = ({ username }) => {
                     />
                   </div>
                   <div>
-                    <label>Cantidad</label>
                     <input
-                      type="number"
+                      type="hidden"
                       id="cantidad"
                       name="cantidad"
                       value={selectedPedido.cantidad}
@@ -252,9 +250,8 @@ export const ListaComprasPendientes = ({ username }) => {
                   </div>
                 </div>
                 <div>
-                  <label>Características Técnicas</label>
                   <input
-                    type="text"
+                    type="hidden"
                     id="caracteristicas"
                     name="caracteristicas"
                     value={selectedPedido.caracteristicas}
@@ -265,9 +262,8 @@ export const ListaComprasPendientes = ({ username }) => {
                   />
                 </div>
                 <div>
-                  <label>U - M</label>
                   <input
-                    type="text"
+                    type="hidden"
                     id="um"
                     name="um"
                     value={selectedPedido.um}
@@ -278,9 +274,8 @@ export const ListaComprasPendientes = ({ username }) => {
                   />
                 </div>
                 <div>
-                  <label>Orden de Trabajo</label>
                   <input
-                    type="text"
+                    type="hidden"
                     id="ordenalmacen"
                     name="ordenalmacen"
                     value={selectedPedido.ordenalmacen}
@@ -290,19 +285,15 @@ export const ListaComprasPendientes = ({ username }) => {
                   />
                 </div>
                 <div>
-                  <label>Tiempo de Cumplimiento</label>
-                  <select
+                  <input
+                    type="hidden"
                     id="tiempo"
                     name="tiempocumplimiento"
                     value={selectedPedido.tiempocumplimiento}
                     onChange={handleInputChanges}
                     className="border border-gray-400 p-2 rounded w-full"
                     disabled
-                  >
-                    <option value="urgente">Urgente</option>
-                    <option value="medio">Medio</option>
-                    <option value="normal">Normal</option>
-                  </select>
+                  />
                 </div>
                 <div>
                   <label>Estado</label>
