@@ -306,15 +306,16 @@ export const ListaComprasPendientes = ({ username }) => {
                 </div>
                 <div>
                   <label>Estado</label>
-                  <input
-                    type="text"
+                  <select
                     id="estado"
                     name="estado"
                     value={selectedPedido.estado}
                     onChange={handleInputChanges}
                     className="border border-gray-400 p-2 rounded w-full"
-            
-                  />
+                  >
+                    <option value="Espera">Espera</option>
+                    <option value="Aprobado">Aprobado</option>
+                  </select>
                 </div>
                 <div className="flex justify-center mt-4">
                   <button
