@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { PanelCotizacion } from "../Panel/PanelCotizacion";
 import axios from "axios";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 export const ListaComprasPendientes = ({ username }) => {
+  const MySwal = withReactContent(Swal);
   const [showLightboxe, setShowLightboxe] = useState(false);
+
   const [cotizacion, setCotizacion] = useState([]);
   const [searchItem, setSearchItem] = useState("");
   const [name, setUsername] = useState("");
   const [showLightboxx, setShowLightboxx] = useState(false);
   const [selectedPedido, setSelectedPedido] = useState(null);
-
+  const [showLightbox, setShowLightbox] = useState(false);
   const handleOpenLightboxAprobar = (pedido) => {
     setSelectedPedido(pedido);
     setShowLightboxx(true);
@@ -49,61 +53,59 @@ export const ListaComprasPendientes = ({ username }) => {
     return pedido.item.toLowerCase().includes(searchItem.toLowerCase());
   });
 
-
-  const [nuevocotizacion, setNuevocotizacion] = useState({
-    item: "",
-    caracteristicas: "",
-    cantidad: "",
-    um: "",
-    orden: "",
-    ordenalmacen: "",
-    tiempocumplimiento: "",
-    fechapedido: "",
-    fechaceptacion: "",
-    fechagerencia: "",
-    observacion: "",
-    estado: "",
-    cotizacion_id: "",
-  });
-  const handleInputChange = (e) => {
-    setNuevocotizacion({
-      ...nuevocotizacion,
-      item: selectedPedido.item,
-      caracteristicas: selectedPedido.caracteristicas,
-      cantidad: selectedPedido.cantidad,
-      um: selectedPedido.um,
-      orden: selectedPedido.orden,
-      ordenalmacen: selectedPedido.ordenalmacen,
-      tiempocumplimiento: selectedPedido.tiempocumplimiento,
-      fechapedido: selectedPedido.fechapedido,
-      cotizacion_id: selectedPedido.id_cotizacion,
-    });
+  const handleOpenLightboxDirecta = (pedido) => {
+    setSelectedPedido(pedido);
+    setShowLightbox(true);
   };
-  const agregarGerencia = async (e) => {
-    if (e) {
-      e.preventDefault();
-    }
-    nuevocotizacion.fechagerencia = new Date().toLocaleString();
-    try {
-      await axios.post("http://localhost:3001/aceptacion", nuevocotizacion);
 
-      setNuevocotizacion({
-        item: "",
-        caracteristicas: "",
-        cantidad: "",
-        um: "",
-        orden: "",
-        ordenalmacen: "",
-        tiempocumplimiento: "",
-        fechapedido: "",
-        fechaceptacion: "",
-        fechagerencia: "",
-        observacion: "",
-        estado: "",
-        cotizacion_id: "",
+  const handleCloseLightbox = () => {
+    setShowLightbox(false);
+  };
+
+  const handleInputChanges = (e) => {
+    const { name, value } = e.target;
+
+    setSelectedPedido((prevPedido) => ({
+      ...prevPedido,
+      [name]: value,
+    }));
+  };
+  const actualizarPedido = async (e) => {
+    e.preventDefault();
+    try {
+      const result = await MySwal.fire({
+        title: "¿Estás seguro?",
+        text: "¡Esta acción realizara la observacion al pedido!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Sí, actualizar",
+        cancelButtonText: "Cancelar",
       });
+
+      if (result.isConfirmed) {
+        await axios.put(
+          `http://localhost:3001/pedidos/${selectedPedido.id_pedido}`,
+          selectedPedido
+        );
+
+        obtenerPedidos(selectedPedido);
+
+        handleCloseLightbox();
+
+        MySwal.fire({
+          title: "¡Observado!",
+          text: "El pedido fue observado correctamente.",
+          icon: "success",
+          showConfirmButton: false,
+          timer: 3000,
+        });
+      } else {
+        handleCloseLightbox();
+      }
     } catch (error) {
-      console.error("Error al agregar cliente:", error);
+      console.error("Error al actualizar al cliente:", error);
     }
   };
 
@@ -137,7 +139,6 @@ export const ListaComprasPendientes = ({ username }) => {
               </div>
             </div>
           </div>
-          
         </div>
         <div className="m-10 font-serif">
           <h3 className="text-2xl">LISTA DE PEDIDOS</h3>
@@ -204,7 +205,10 @@ export const ListaComprasPendientes = ({ username }) => {
                       >
                         Cotizar
                       </button>
-                      <button class="bg-red-500 hover:bg-red-600 text-white py-2 px-1 rounded-lg"  onClick={() => handleOpenLightboxAprobar(pedido)}>
+                      <button
+                        class="bg-red-500 hover:bg-red-600 text-white py-2 px-1 rounded-lg"
+                        onClick={() => handleOpenLightboxDirecta(pedido)}
+                      >
                         Compra Directa
                       </button>
                     </div>
@@ -214,77 +218,63 @@ export const ListaComprasPendientes = ({ username }) => {
             </tbody>
           </table>
         </div>
-        
 
-
-
-
-{showLightboxx && selectedPedido && (
+        {showLightbox && selectedPedido && (
           <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
             <div className="bg-white p-4 rounded shadow-lg w-1/2">
-              <h2 className="text-2xl mb-4">Aceptacion</h2>
-              <form >
-                <div>
-                  <label>Estado</label>
-                  <select
-                    id="estado"
-                    name="estado"
-                 
-                    className="border border-gray-400 p-2 rounded w-full"
-                  >
-                    <option value="Espera">Espera</option>
-                    <option value="Aprobado">Aprobado</option>
-                  </select>
-                </div>
+              <h2 className="text-2xl mb-4">Hacer Observación</h2>
+              <form onSubmit={actualizarPedido}>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
+                    <label>Item</label>
                     <input
                       type="text"
                       id="item"
                       name="item"
-                      
+                      value={selectedPedido.item}
+                      onChange={handleInputChanges}
                       className="border border-gray-400 p-2 rounded w-full"
-                      placeholder=""
+                      disabled
                     />
                   </div>
                   <div>
+                    <label>Cantidad</label>
                     <input
-                      type="text"
+                      type="number"
                       id="cantidad"
                       name="cantidad"
-            
+                      value={selectedPedido.cantidad}
+                      onChange={handleInputChanges}
                       className="border border-gray-400 p-2 rounded w-full"
                       placeholder="Ingrese la cantidad"
+                      disabled
                     />
                   </div>
                 </div>
                 <div>
+                  <label>Características Técnicas</label>
                   <input
                     type="text"
                     id="caracteristicas"
                     name="caracteristicas"
-               
+                    value={selectedPedido.caracteristicas}
+                    onChange={handleInputChanges}
                     className="border border-gray-400 p-2 rounded w-full"
                     placeholder="Ingrese detalladamente las características técnicas del item"
+                    disabled
                   />
                 </div>
                 <div>
+                  <label>U - M</label>
                   <input
                     type="text"
                     id="um"
                     name="um"
-                 
+                    value={selectedPedido.um}
+                    onChange={handleInputChanges}
                     className="border border-gray-400 p-2 rounded w-full"
                     placeholder="Ingresa la unidad de medida"
-                  />
-                </div>
-                <div>
-                  <input
-                    type="text"
-                    id="ordenalmacen"
-                    name="ordenalmacen"
-               
-                    className="border border-gray-400 p-2 rounded w-full"
+                    disabled
                   />
                 </div>
                 <div>
@@ -293,25 +283,43 @@ export const ListaComprasPendientes = ({ username }) => {
                     type="text"
                     id="ordenalmacen"
                     name="ordenalmacen"
-           
+                    value={selectedPedido.ordenalmacen}
+                    onChange={handleInputChanges}
                     className="border border-gray-400 p-2 rounded w-full"
+                    disabled
                   />
                 </div>
-
                 <div>
+                  <label>Tiempo de Cumplimiento</label>
+                  <select
+                    id="tiempo"
+                    name="tiempocumplimiento"
+                    value={selectedPedido.tiempocumplimiento}
+                    onChange={handleInputChanges}
+                    className="border border-gray-400 p-2 rounded w-full"
+                    disabled
+                  >
+                    <option value="urgente">Urgente</option>
+                    <option value="medio">Medio</option>
+                    <option value="normal">Normal</option>
+                  </select>
+                </div>
+                <div>
+                  <label>Observación</label>
                   <input
                     type="text"
-                    id="ordenalmacen"
-                    name="ordenalmacen"
-              
+                    id="observacion"
+                    name="observacion"
+                    value={selectedPedido.observacion}
+                    onChange={handleInputChanges}
                     className="border border-gray-400 p-2 rounded w-full"
+                    placeholder="Escriba la observacion del pedido"
                   />
                 </div>
-
                 <div className="flex justify-center mt-4">
                   <button
                     className="bg-red-500 text-white font-semibold py-2 px-4 rounded hover-bg-red-600 mr-2"
-                    onClick={handleCloseLightboxx}
+                    onClick={handleCloseLightbox}
                   >
                     Cancelar
                   </button>
@@ -319,38 +327,13 @@ export const ListaComprasPendientes = ({ username }) => {
                     type="submit"
                     className="bg-blue-500 text-white font-semibold py-2 px-4 rounded hover-bg-blue-600"
                   >
-                    Aceptar
+                    Realizar Observacion
                   </button>
                 </div>
               </form>
             </div>
           </div>
         )}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         <div className="m-10 font-serif">
           <h3 className="text-2xl">LISTA DE COTIZACIONES</h3>
