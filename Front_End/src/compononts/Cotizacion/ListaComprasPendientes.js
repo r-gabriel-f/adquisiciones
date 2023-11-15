@@ -41,7 +41,7 @@ export const ListaComprasPendientes = ({ username }) => {
       const response = await axios.get("http://localhost:3001/cotizacion");
       setCotizacion(response.data);
     } catch (error) {
-      console.error("Error al obtener pedidos:", error);
+      console.error("Error al obtener cotizacion:", error);
     }
   };
 
@@ -86,7 +86,7 @@ export const ListaComprasPendientes = ({ username }) => {
 
       if (result.isConfirmed) {
         await axios.put(
-          `http://localhost:3001/pedidos/${selectedPedido.id_pedido}`,
+          `http://localhost:3001/cotizacion/${selectedPedido.id_cotizacion}`,
           selectedPedido
         );
 
@@ -222,7 +222,7 @@ export const ListaComprasPendientes = ({ username }) => {
         {showLightbox && selectedPedido && (
           <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
             <div className="bg-white p-4 rounded shadow-lg w-1/2">
-              <h2 className="text-2xl mb-4">Hacer Observación</h2>
+              <h2 className="text-2xl mb-4">Hacer Compra Directa</h2>
               <form onSubmit={actualizarPedido}>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
@@ -305,15 +305,15 @@ export const ListaComprasPendientes = ({ username }) => {
                   </select>
                 </div>
                 <div>
-                  <label>Observación</label>
+                  <label>Estado</label>
                   <input
                     type="text"
-                    id="observacion"
-                    name="observacion"
-                    value={selectedPedido.observacion}
+                    id="estado"
+                    name="estado"
+                    value={selectedPedido.estado}
                     onChange={handleInputChanges}
                     className="border border-gray-400 p-2 rounded w-full"
-                    placeholder="Escriba la observacion del pedido"
+            
                   />
                 </div>
                 <div className="flex justify-center mt-4">
@@ -327,71 +327,13 @@ export const ListaComprasPendientes = ({ username }) => {
                     type="submit"
                     className="bg-blue-500 text-white font-semibold py-2 px-4 rounded hover-bg-blue-600"
                   >
-                    Realizar Observacion
+                    Compra Directa
                   </button>
                 </div>
               </form>
             </div>
           </div>
         )}
-
-        <div className="m-10 font-serif">
-          <h3 className="text-2xl">LISTA DE COTIZACIONES</h3>
-        </div>
-        <div className="overflow-x-auto overflow-y-auto h-74">
-          <table className="border-collapse border border-gray-900">
-            <thead className="sticky top-0">
-              <tr className="bg-gray-900 text-white">
-                <th className="border border-gray-900 py-2 px-4">N°</th>
-                <th className="border border-gray-900 py-2 px-4">ITEM</th>
-                <th className="border border-gray-900 py-2 px-4">N</th>
-                <th className="border border-gray-900 py-2 px-4">
-                  CARACTERISTICAS
-                </th>
-                <th className="border border-gray-900 py-2 px-4">CANTIDAD</th>
-                <th className="border border-gray-900 py-2 px-4">U-M</th>
-                <th className="border border-gray-900 py-2 px-4">
-                  TIEMPO DE CUMPLIMIENTO
-                </th>
-                <th className="border border-gray-900 py-2 px-4">
-                  FECHA DE PEDIDO
-                </th>
-                <th className="border border-gray-900 py-2 px-4">
-                  FECHA DE ACEPTACION
-                </th>
-                <th className="border border-gray-900 py-2 px-4">
-                  FECHA DE COTIZACION
-                </th>
-                <th className="border border-gray-900 py-2 px-4">PARA QUE</th>
-                <th className="border border-gray-900 py-2 px-4">DETALLES</th>
-                <th className="border border-gray-900 py-2 px-4">ESTADO</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td className="border border-gray-900 py-2 px-4">1</td>
-                <td className="border border-gray-900 py-2 px-4">Producto 1</td>
-                <td className="border border-gray-900 py-2 px-4">12345</td>
-                <td className="border border-gray-900 py-2 px-4">
-                  Descripción del producto 1
-                </td>
-                <td className="border border-gray-900 py-2 px-4">10</td>
-                <td className="border border-gray-900 py-2 px-4">Unidad 1</td>
-                <td className="border border-gray-900 py-2 px-4">2 días</td>
-                <td className="border border-gray-900 py-2 px-4">2023-09-25</td>
-                <td className="border border-gray-900 py-2 px-4">2023-09-26</td>
-                <td className="border border-gray-900 py-2 px-4">2023-09-24</td>
-                <td className="border border-gray-900 py-2 px-4">
-                  Departamento A
-                </td>
-                <td className="border border-gray-900 py-2 px-4">
-                  Ver detalleS
-                </td>
-                <td className="border border-gray-900 py-2 px-4">Pendiente</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
       </div>
     </div>
   );
