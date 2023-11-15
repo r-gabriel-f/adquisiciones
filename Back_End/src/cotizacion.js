@@ -40,9 +40,9 @@ router.put('/:id', async (req, res) => {
 
   try {
     const query = `
-      UPDATE pedidos 
+      UPDATE cotizacion
       SET item = $1, caracteristicas = $2, cantidad = $3, um = $4, orden = $5, ordenalmacen = $6, tiempocumplimiento = $7, fechapedido = $8, fechaceptacion = $9, observacion = $10, estado = $11, pedido_id = $12
-      WHERE id_pedido = $13
+      WHERE id_cotizacion = $13
       RETURNING *
     `;
     const values = [item, caracteristicas, cantidad, um, orden, ordenalmacen, tiempocumplimiento, fechapedido, fechaceptacion, observacion, estado, pedido_id, cotizacionID];
