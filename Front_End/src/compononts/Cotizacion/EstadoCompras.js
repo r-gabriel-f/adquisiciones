@@ -4,6 +4,7 @@ import axios from "axios";
 export const EstadoCompras = ({ username }) => {
   const [searchItem, setSearchItem] = useState("");
   const [cotizacion, setCotizacion] = useState([]);
+  const [name, setUsername] = useState("");
   const obtenerPedidos = async () => {
     try {
       const response = await axios.get("http://localhost:3001/cotizacion");
@@ -16,7 +17,13 @@ export const EstadoCompras = ({ username }) => {
   useEffect(() => {
     obtenerPedidos();
   }, []);
+  useEffect(() => {
+    const storedUsername = localStorage.getItem("username");
 
+    if (storedUsername) {
+      setUsername(storedUsername);
+    }
+  }, []);
   const pedidosDelUsuarioCotizacion = cotizacion.filter(
     (pedido) =>
     pedido.estado === "Aprobado"
@@ -35,7 +42,7 @@ export const EstadoCompras = ({ username }) => {
           </div>
           <div>
             <div className="flex justify-end mr-10 font-serif">
-              <h2 className="text-4xl uppercase">{username}</h2>
+              <h2 className="text-4xl uppercase">{name || username}</h2>
             </div>
           </div>
         </div>
