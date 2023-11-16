@@ -1,7 +1,30 @@
-import React from 'react'
-import { PanelCotizacion } from '../Panel/PanelCotizacion'
-
+import React, { useEffect, useState } from "react";
+import { PanelCotizacion } from "../Panel/PanelCotizacion";
+import axios from "axios";
 export const EstadoCompras = ({ username }) => {
+  const [searchItem, setSearchItem] = useState("");
+  const [cotizacion, setCotizacion] = useState([]);
+  const obtenerPedidos = async () => {
+    try {
+      const response = await axios.get("http://localhost:3001/cotizacion");
+      setCotizacion(response.data);
+    } catch (error) {
+      console.error("Error al obtener cotizacion:", error);
+    }
+  };
+
+  useEffect(() => {
+    obtenerPedidos();
+  }, []);
+
+  const pedidosDelUsuarioCotizacion = cotizacion.filter(
+    (pedido) =>
+    pedido.estado === "Aprobado"
+  );
+
+  const filteredCotizacion = pedidosDelUsuarioCotizacion.filter((pedido) => {
+    return pedido.item.toLowerCase().includes(searchItem.toLowerCase());
+  });
   return (
     <div className="flex flex-col">
       <PanelCotizacion />
@@ -12,20 +35,19 @@ export const EstadoCompras = ({ username }) => {
           </div>
           <div>
             <div className="flex justify-end mr-10 font-serif">
-              <h2 className="text-4xl uppercase">{ username}</h2>
+              <h2 className="text-4xl uppercase">{username}</h2>
             </div>
           </div>
         </div>
         <div className=" gap-4 mt-10">
           <div className="mx-10">
-            <h4 className="text-2xl text-center">Buscar Compras Directas</h4>
+            <h4 className="text-2xl text-center">Buscar Compra Directas</h4>
             <div className="my-10">
               <div>
                 <p className="my-2">ITEM</p>
                 <input
                   type="text"
                   placeholder="Item"
-               
                   className="bg-gray-900 border border-gray-950 rounded-lg text-white py-2 px-3  w-full"
                 />
               </div>
@@ -57,18 +79,41 @@ export const EstadoCompras = ({ username }) => {
                 <th className="border border-gray-900 py-2 px-4">
                   FECHA DE PEDIDO
                 </th>
-
-                <th className="border border-gray-900 py-2 px-4">Accion</th>
               </tr>
             </thead>
             <tbody>
-              
+              {filteredCotizacion.map((pedido, index) => (
+                <tr key={index}>
+                  <td className="border border-gray-900 py-2 px-4">
+                    {pedido.item}
+                  </td>
+                  <td className="border border-gray-900 py-2 px-4">
+                    {pedido.ordenalmacen}
+                  </td>
+                  <td className="border border-gray-900 py-2 px-4">
+                    {pedido.caracteristicas}
+                  </td>
+                  <td className="border border-gray-900 py-2 px-4">
+                    {pedido.cantidad}
+                  </td>
+                  <td className="border border-gray-900 py-2 px-4">
+                    {pedido.um}
+                  </td>
+                  <td className="border border-gray-900 py-2 px-4">
+                    {pedido.tiempocumplimiento}
+                  </td>
+                  <td className="border border-gray-900 py-2 px-4">
+                    {new Date(pedido.fechaceptacion).toLocaleDateString()}
+                  </td>
+                  <td className="border border-gray-900 py-2 px-4">
+                    {new Date(pedido.fechapedido).toLocaleDateString()}
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
-
-        
       </div>
     </div>
-  )
-}
+  );
+};
