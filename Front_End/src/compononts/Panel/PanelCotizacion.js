@@ -9,6 +9,9 @@ export const PanelCotizacion = () => {
   const handleListaClick = () => {
     navigate("/lista_compras_pendientes");
   };
+  const handleEstadoClick = () => {
+    navigate("/estado_compras");
+  };
   return (
     <div className="fixed bg-gray-50 dark:bg-gray-900 text-white w-56 h-screen">
       <div className="flex aling-center justify-center m-5">
@@ -31,7 +34,10 @@ export const PanelCotizacion = () => {
             <span>Lista de Compras Pendientes</span>
           </div>
         </div>
-        <div className="flex my-4 justify-center bg-gray-900 hover:bg-gray-950 hover:rounded-lg hover:text-[#eafdf5] hover:cursor-pointer">
+        <div
+          className="flex my-4 justify-center bg-gray-900 hover:bg-gray-950 hover:rounded-lg hover:text-[#eafdf5] hover:cursor-pointer"
+          onClick={handleEstadoClick}
+        >
           <span>Estado de Pedido</span>
         </div>
       </div>
