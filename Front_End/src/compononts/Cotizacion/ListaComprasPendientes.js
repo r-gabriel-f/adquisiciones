@@ -49,7 +49,12 @@ export const ListaComprasPendientes = ({ username }) => {
     obtenerPedidos();
   }, []);
 
-  const filteredCotizacion = cotizacion.filter((pedido) => {
+
+  const pedidosDelUsuarioCotizacion = cotizacion.filter(
+    (pedido) =>
+    pedido.estado === "Espera"
+  );
+  const filteredCotizacion = pedidosDelUsuarioCotizacion.filter((pedido) => {
     return pedido.item.toLowerCase().includes(searchItem.toLowerCase());
   });
 
