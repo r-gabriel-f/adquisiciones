@@ -48,6 +48,8 @@ export const EstadoCompras = ({ username }) => {
                 <input
                   type="text"
                   placeholder="Item"
+                  value={searchItem}
+                  onChange={(e) => setSearchItem(e.target.value)}
                   className="bg-gray-900 border border-gray-950 rounded-lg text-white py-2 px-3  w-full"
                 />
               </div>
