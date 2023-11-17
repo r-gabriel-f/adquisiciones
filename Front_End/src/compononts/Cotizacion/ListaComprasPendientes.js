@@ -13,7 +13,7 @@ export const ListaComprasPendientes = ({ username }) => {
   const [showLightboxx, setShowLightboxx] = useState(false);
   const [selectedPedido, setSelectedPedido] = useState(null);
   const [showLightbox, setShowLightbox] = useState(false);
-  const handleOpenLightboxAprobar = (pedido) => {
+  const handleOpenLightboxCotizar = (pedido) => {
     setSelectedPedido(pedido);
     setShowLightboxx(true);
   };
@@ -49,10 +49,8 @@ export const ListaComprasPendientes = ({ username }) => {
     obtenerPedidos();
   }, []);
 
-
   const pedidosDelUsuarioCotizacion = cotizacion.filter(
-    (pedido) =>
-    pedido.estado === "Espera"
+    (pedido) => pedido.estado === "Espera"
   );
   const filteredCotizacion = pedidosDelUsuarioCotizacion.filter((pedido) => {
     return pedido.item.toLowerCase().includes(searchItem.toLowerCase());
@@ -111,6 +109,65 @@ export const ListaComprasPendientes = ({ username }) => {
       }
     } catch (error) {
       console.error("Error al actualizar al cliente:", error);
+    }
+  };
+
+  const [nuevogerencia, setNuevogerencia] = useState({
+    item: "",
+    caracteristicas: "",
+    cantidad: "",
+    um: "",
+    orden: "",
+    ordenalmacen: "",
+    tiempocumplimiento: "",
+    fechapedido: "",
+    fechaceptacion: "",
+    fechagerencia: "",
+    observacion: "",
+    estado: "Espera",
+    cotizacion_id: "",
+  });
+  const handleInputChange = (e) => {
+    setNuevogerencia({
+      ...nuevogerencia,
+      item: selectedPedido.item,
+      caracteristicas: selectedPedido.caracteristicas,
+      cantidad: selectedPedido.cantidad,
+      um: selectedPedido.um,
+      orden: selectedPedido.orden,
+      ordenalmacen: selectedPedido.ordenalmacen,
+      tiempocumplimiento: selectedPedido.tiempocumplimiento,
+      fechapedido: selectedPedido.fechapedido,
+      fechaceptacion: selectedPedido.fechaceptacion,
+      cotizacion_id: selectedPedido.id_cotizacion,
+    });
+  };
+
+  const agregarCotizaciongerencia = async (e) => {
+    if (e) {
+      e.preventDefault();
+    }
+    nuevogerencia.fechagerencia = new Date().toLocaleString();
+    try {
+      await axios.post("http://localhost:3001/aceptacion", nuevogerencia);
+
+      setNuevogerencia({
+        item: "",
+        caracteristicas: "",
+        cantidad: "",
+        um: "",
+        orden: "",
+        ordenalmacen: "",
+        tiempocumplimiento: "",
+        fechapedido: "",
+        fechaceptacion: "",
+        fechagerencia: "",
+        observacion: "",
+        estado: "Espera",
+        cotizacion_id: "",
+      });
+    } catch (error) {
+      console.error("Error al agregar cliente:", error);
     }
   };
 
@@ -206,7 +263,7 @@ export const ListaComprasPendientes = ({ username }) => {
                     <div class="flex justify-center space-x-2">
                       <button
                         className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-1 rounded-lg"
-                        onClick={() => handleOpenLightboxe()}
+                        onClick={() => handleOpenLightboxCotizar(pedido)}
                       >
                         Cotizar
                       </button>
@@ -325,6 +382,119 @@ export const ListaComprasPendientes = ({ username }) => {
                     className="bg-blue-500 text-white font-semibold py-2 px-4 rounded hover-bg-blue-600"
                   >
                     Compra Directa
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
+
+        {showLightboxx && selectedPedido && (
+          <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
+            <div className="bg-white p-4 rounded shadow-lg w-1/2">
+              <h2 className="text-2xl mb-4">Aceptacion</h2>
+              <form onSubmit={agregarCotizaciongerencia}>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <input
+                      type="text"
+                      id="item"
+                      name="item"
+                      value={nuevogerencia.item}
+                      onInput={handleInputChange}
+                      className="border border-gray-400 p-2 rounded w-full"
+                      placeholder=""
+                    />
+                  </div>
+                  <div>
+                    <input
+                      type="text"
+                      id="cantidad"
+                      name="cantidad"
+                      value={nuevogerencia.cantidad}
+                      onInput={handleInputChange}
+                      className="border border-gray-400 p-2 rounded w-full"
+                      placeholder="Ingrese la cantidad"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <input
+                    type="text"
+                    id="caracteristicas"
+                    name="caracteristicas"
+                    value={nuevogerencia.caracteristicas}
+                    onInput={handleInputChange}
+                    className="border border-gray-400 p-2 rounded w-full"
+                    placeholder="Ingrese detalladamente las características técnicas del item"
+                  />
+                </div>
+                <div>
+                  <input
+                    type="text"
+                    id="um"
+                    name="um"
+                    value={nuevogerencia.um}
+                    onInput={handleInputChange}
+                    className="border border-gray-400 p-2 rounded w-full"
+                    placeholder="Ingresa la unidad de medida"
+                  />
+                </div>
+                <div>
+                  <input
+                    type="text"
+                    id="ordenalmacen"
+                    name="ordenalmacen"
+                    value={selectedPedido.id_cotizacion}
+                    onInput={handleInputChange}
+                    className="border border-gray-400 p-2 rounded w-full"
+                  />
+                </div>
+                <div>
+                  <label>Orden de Trabajo</label>
+                  <input
+                    type="text"
+                    id="ordenalmacen"
+                    name="ordenalmacen"
+                    value={nuevogerencia.ordenalmacen}
+                    onInput={handleInputChange}
+                    className="border border-gray-400 p-2 rounded w-full"
+                  />
+                </div>
+
+                <div>
+                  <input
+                    type="text"
+                    id="ordenalmacen"
+                    name="ordenalmacen"
+                    value={nuevogerencia.tiempocumplimiento}
+                    onInput={handleInputChange}
+                    className="border border-gray-400 p-2 rounded w-full"
+                  />
+                </div>
+                <div>
+                  <input
+                    type="text"
+                    id="fechaceptacion"
+                    name="fechaceptacion"
+                    value={nuevogerencia.fechaceptacion}
+                    onInput={handleInputChange}
+                    className="border border-gray-400 p-2 rounded w-full"
+                  />
+                </div>
+
+                <div className="flex justify-center mt-4">
+                  <button
+                    className="bg-red-500 text-white font-semibold py-2 px-4 rounded hover-bg-red-600 mr-2"
+                    onClick={handleCloseLightboxx}
+                  >
+                    Cancelar
+                  </button>
+                  <button
+                    type="submit"
+                    className="bg-blue-500 text-white font-semibold py-2 px-4 rounded hover-bg-blue-600"
+                  >
+                    Aprobar
                   </button>
                 </div>
               </form>
