@@ -14,6 +14,7 @@ export const ListaComprasPendientes = ({ username }) => {
   const [selectedPedido, setSelectedPedido] = useState(null);
   const [showLightbox, setShowLightbox] = useState(false);
   const handleOpenLightboxCotizar = (pedido) => {
+    
     setSelectedPedido(pedido);
     setShowLightboxx(true);
   };
@@ -28,13 +29,6 @@ export const ListaComprasPendientes = ({ username }) => {
       setUsername(storedUsername);
     }
   }, []);
-  const handleOpenLightboxe = () => {
-    setShowLightboxe(true);
-  };
-
-  const handleCloseLightboxe = () => {
-    setShowLightboxe(false);
-  };
 
   const obtenerPedidos = async () => {
     try {
@@ -125,25 +119,25 @@ export const ListaComprasPendientes = ({ username }) => {
     fechagerencia: "",
     observacion: "",
     estado: "Espera",
-    opciones:"",
+    opciones: "",
     cotizacion_id: "",
   });
   const handleInputChange = (e) => {
+    const { name, value } = e.target;
     setNuevogerencia({
       ...nuevogerencia,
-      item: selectedPedido.item,
-      caracteristicas: selectedPedido.caracteristicas,
-      cantidad: selectedPedido.cantidad,
-      um: selectedPedido.um,
-      orden: selectedPedido.orden,
-      ordenalmacen: selectedPedido.ordenalmacen,
-      tiempocumplimiento: selectedPedido.tiempocumplimiento,
-      fechapedido: selectedPedido.fechapedido,
-      fechaceptacion: selectedPedido.fechaceptacion,
-      cotizacion_id: selectedPedido.id_cotizacion,
+      [name]: value,
     });
   };
-
+  
+  useEffect(() => {
+    if (selectedPedido) {
+      setNuevogerencia({
+        ...selectedPedido, 
+        opciones: "",
+      });
+    }
+  }, [selectedPedido]);
   const agregarCotizaciongerencia = async (e) => {
     if (e) {
       e.preventDefault();
@@ -165,7 +159,7 @@ export const ListaComprasPendientes = ({ username }) => {
         fechagerencia: "",
         observacion: "",
         estado: "Espera",
-        opciones:"",
+        opciones: "",
         cotizacion_id: "",
       });
     } catch (error) {
@@ -482,6 +476,18 @@ export const ListaComprasPendientes = ({ username }) => {
                     value={nuevogerencia.fechaceptacion}
                     onInput={handleInputChange}
                     className="border border-gray-400 p-2 rounded w-full"
+                  />
+                </div>
+                <div>
+                  <label>Cotizaciones</label>
+                  <input
+                    type="text"
+                    id="opciones"
+                    name="opciones"
+                    value={nuevogerencia.opciones}
+                    onInput={handleInputChange}
+                    className="border border-gray-400 p-2 rounded w-full"
+                    placeholder="Ingrese todas las cotizaciones del item"
                   />
                 </div>
 
