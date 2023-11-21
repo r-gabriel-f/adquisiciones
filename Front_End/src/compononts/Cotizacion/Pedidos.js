@@ -4,13 +4,11 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
-
 export const Pedidos = ({ username }) => {
   const MySwal = withReactContent(Swal);
   const [pedidos, setPedidos] = useState([]);
   const [searchItem, setSearchItem] = useState("");
   const [searchOrden, setSearchOrden] = useState("");
-
 
   const [showLightboxx, setShowLightboxx] = useState(false);
   const [showLightbox, setShowLightbox] = useState(false);
@@ -23,7 +21,6 @@ export const Pedidos = ({ username }) => {
     if (storedUsername) {
       setUsername(storedUsername);
     }
-  
   }, []);
   const handleOpenLightboxEditar = (pedido) => {
     setSelectedPedido(pedido);
@@ -262,15 +259,11 @@ export const Pedidos = ({ username }) => {
                 </th>
 
                 <th className="border border-gray-900 py-2 px-4">
-                  OBSERVACIÓN
-                </th>
-                <th className="border border-gray-900 py-2 px-4">
                   TIEMPO DE CUMPLIMIENTO
                 </th>
                 <th className="border border-gray-900 py-2 px-4">
                   FECHA DE PEDIDO
                 </th>
-                <th className="border border-gray-900 py-2 px-4">ESTADO</th>
 
                 <th className="border border-gray-900 py-2 px-4">PEDIDO</th>
               </tr>
@@ -296,18 +289,14 @@ export const Pedidos = ({ username }) => {
                   <td className="border border-gray-900 py-2 px-4">
                     {pedido.ordenalmacen}
                   </td>
-                  <td className="border border-gray-900 py-2 px-4">
-                    {pedido.observacion}
-                  </td>
+
                   <td className="border border-gray-900 py-2 px-4">
                     {pedido.tiempocumplimiento}
                   </td>
                   <td className="border border-gray-900 py-2 px-4">
                     {new Date(pedido.fechapedido).toLocaleDateString()}
                   </td>
-                  <td className="border border-gray-900 py-2 px-4">
-                    {pedido.estado}
-                  </td>
+
                   <td className="border border-gray-900 py-2 px-4">
                     <button
                       className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-1 rounded-lg"
