@@ -125,6 +125,7 @@ export const ListaComprasPendientes = ({ username }) => {
     fechagerencia: "",
     observacion: "",
     estado: "Espera",
+    opciones:"",
     cotizacion_id: "",
   });
   const handleInputChange = (e) => {
@@ -164,6 +165,7 @@ export const ListaComprasPendientes = ({ username }) => {
         fechagerencia: "",
         observacion: "",
         estado: "Espera",
+        opciones:"",
         cotizacion_id: "",
       });
     } catch (error) {
