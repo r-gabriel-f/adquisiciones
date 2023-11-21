@@ -160,21 +160,23 @@ export const Pedidos = ({ username }) => {
     estado: "Espera",
     pedido_id: "",
   });
+
   const handleInputChange = (e) => {
+    const { name, value } = e.target;
     setNuevocotizacion({
       ...nuevocotizacion,
-      item: selectedPedido.item,
-      caracteristicas: selectedPedido.caracteristicas,
-      cantidad: selectedPedido.cantidad,
-      um: selectedPedido.um,
-      orden: selectedPedido.orden,
-      ordenalmacen: selectedPedido.ordenalmacen,
-      tiempocumplimiento: selectedPedido.tiempocumplimiento,
-      fechapedido: selectedPedido.fechapedido,
-      pedido_id: selectedPedido.id_pedido,
+      [name]: value,
     });
   };
-
+  
+  useEffect(() => {
+    if (selectedPedido) {
+      setNuevocotizacion({
+        ...selectedPedido, 
+        
+      });
+    }
+  }, [selectedPedido]);
   const agregarCotizacion = async (e) => {
     if (e) {
       e.preventDefault();
