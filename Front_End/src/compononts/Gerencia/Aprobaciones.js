@@ -28,8 +28,7 @@ export const Aprobaciones = ({ username }) => {
   }, []);
   const filteredAceptacion = aceptacion.filter((acepta) => {
     return (
-      acepta.item.toLowerCase().includes(searchItem.toLowerCase()) &&
-      acepta.orden.toLowerCase().includes(searchOrden.toLowerCase())
+      acepta.item.toLowerCase().includes(searchItem.toLowerCase()) 
     );
   });
   return (
@@ -49,23 +48,17 @@ export const Aprobaciones = ({ username }) => {
         <div className="gap-4 mt-10">
           <div className="mx-10">
             <h4 className="text-2xl text-center">Buscar Pedido</h4>
-            <div className="grid grid-cols-2 gap-4 my-10">
+            <div className="grid grid-cols-1 gap-4 my-10">
               <div>
                 <p className="my-2">ITEM</p>
                 <input
                   type="text"
                   placeholder="Item"
+                  onChange={(e) => setSearchItem(e.target.value)}
                   className="bg-gray-900 border border-gray-950 rounded-lg text-white py-2 px-3 w-full"
                 />
               </div>
-              <div>
-                <p className="my-2">ORDEN DE TRABAJO</p>
-                <input
-                  type="text"
-                  placeholder="Orden de trabajo"
-                  className="bg-gray-900 border border-gray-950 rounded-lg text-white py-2 px-3 w-full"
-                />
-              </div>
+              
             </div>
           </div>
         </div>
