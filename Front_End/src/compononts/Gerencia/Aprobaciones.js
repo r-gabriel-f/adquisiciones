@@ -121,11 +121,9 @@ export const Aprobaciones = ({ username }) => {
 
                   <td className="border border-gray-900 py-2 px-4">
                     <button className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-1 rounded-lg">
-                      Aceptado
+                      Seleccionar Opcion
                     </button>
-                    <button className="bg-red-500 hover:bg-red-600 text-white py-2 px-1 rounded-lg">
-                      Rechazado
-                    </button>
+                    
                   </td>
                 </tr>
               ))}
