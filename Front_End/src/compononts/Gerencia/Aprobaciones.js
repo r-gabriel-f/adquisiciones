@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { PanelGerencia } from "../Panel/PanelGerencia";
-
+import axios from "axios";
 export const Aprobaciones = ({ username }) => {
   const [name, setUsername] = useState("");
-
+  const [aceptacion, setAceptacion] = useState([]);
+  const [searchItem, setSearchItem] = useState("");
+  const [searchOrden, setSearchOrden] = useState("");
   useEffect(() => {
     const storedUsername = localStorage.getItem("username");
 
@@ -11,6 +13,25 @@ export const Aprobaciones = ({ username }) => {
       setUsername(storedUsername);
     }
   }, []);
+
+  const obtenerAceptacion = async () => {
+    try {
+      const response = await axios.get("http://localhost:3001/aceptacion");
+      setAceptacion(response.data);
+      console.log(aceptacion);
+    } catch (error) {
+      console.error("Error al obtener aceptacion:", error);
+    }
+  };
+  useEffect(() => {
+    obtenerAceptacion();
+  }, []);
+  const filteredAceptacion = aceptacion.filter((acepta) => {
+    return (
+      acepta.item.toLowerCase().includes(searchItem.toLowerCase()) &&
+      acepta.orden.toLowerCase().includes(searchOrden.toLowerCase())
+    );
+  });
   return (
     <div className="flex flex-col">
       <PanelGerencia />
@@ -71,11 +92,51 @@ export const Aprobaciones = ({ username }) => {
                 <th className="border border-gray-900 py-2 px-4">
                   FECHA DE PEDIDO
                 </th>
+                <th className="border border-gray-900 py-2 px-4">OPCIONES</th>
 
                 <th className="border border-gray-900 py-2 px-4">ACCIÓN</th>
               </tr>
             </thead>
-            <tbody></tbody>
+            <tbody>
+              {filteredAceptacion.map((pedido, index) => (
+                <tr key={index}>
+                  <td className="border border-gray-900 py-2 px-4">
+                    {pedido.item}
+                  </td>
+
+                  <td className="border border-gray-900 py-2 px-4">
+                    {pedido.caracteristicas}
+                  </td>
+                  <td className="border border-gray-900 py-2 px-4">
+                    {pedido.cantidad}
+                  </td>
+                  <td className="border border-gray-900 py-2 px-4">
+                    {pedido.um}
+                  </td>
+                  <td className="border border-gray-900 py-2 px-4">
+                    {pedido.ordenalmacen}
+                  </td>
+                  <td className="border border-gray-900 py-2 px-4">
+                    {pedido.tiempocumplimiento}
+                  </td>
+                  <td className="border border-gray-900 py-2 px-4">
+                    {new Date(pedido.fechapedido).toLocaleDateString()}
+                  </td>
+                  <td className="border border-gray-900 py-2 px-4">
+                    {pedido.opciones}
+                  </td>
+
+                  <td className="border border-gray-900 py-2 px-4">
+                    <button className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-1 rounded-lg">
+                      Aceptado
+                    </button>
+                    <button className="bg-red-500 hover:bg-red-600 text-white py-2 px-1 rounded-lg">
+                      Rechazado
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
           </table>
         </div>
       </div>
