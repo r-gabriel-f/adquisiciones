@@ -62,7 +62,7 @@ export const Aprobaciones = ({ username }) => {
             </div>
           </div>
         </div>
-        <div className="overflow-x-auto overflow-y-auto h-74">
+        <div className="overflow-x-auto overflow-y-auto h-72">
           <table
             className="border-collapse border border-gray-900"
             id="table-export"
