@@ -14,7 +14,6 @@ export const ListaComprasPendientes = ({ username }) => {
   const [selectedPedido, setSelectedPedido] = useState(null);
   const [showLightbox, setShowLightbox] = useState(false);
   const handleOpenLightboxCotizar = (pedido) => {
-    
     setSelectedPedido(pedido);
     setShowLightboxx(true);
   };
@@ -129,11 +128,11 @@ export const ListaComprasPendientes = ({ username }) => {
       [name]: value,
     });
   };
-  
+
   useEffect(() => {
     if (selectedPedido) {
       setNuevogerencia({
-        ...selectedPedido, 
+        ...selectedPedido,
         opciones: "",
       });
     }
@@ -144,8 +143,9 @@ export const ListaComprasPendientes = ({ username }) => {
     }
     nuevogerencia.fechagerencia = new Date().toLocaleString();
     try {
+      
       await axios.post("http://localhost:3001/aceptacion", nuevogerencia);
-
+     
       setNuevogerencia({
         item: "",
         caracteristicas: "",
@@ -162,6 +162,7 @@ export const ListaComprasPendientes = ({ username }) => {
         opciones: "",
         cotizacion_id: "",
       });
+      actualizarPedido();
     } catch (error) {
       console.error("Error al agregar cliente:", error);
     }
@@ -391,6 +392,19 @@ export const ListaComprasPendientes = ({ username }) => {
               <h2 className="text-2xl mb-4">Cotizacion Gerencia</h2>
               <form onSubmit={agregarCotizaciongerencia}>
                 <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label>Estado</label>
+                    <select
+                      id="estado"
+                      name="estado"
+                      value={selectedPedido.estado}
+                      onChange={handleInputChanges}
+                      className="border border-gray-400 p-2 rounded w-full"
+                    >
+                      <option value="Espera">Espera</option>
+                      <option value="EsperaGerencia">Espera Gerencia</option>
+                    </select>
+                  </div>
                   <div>
                     <input
                       type="hidden"
