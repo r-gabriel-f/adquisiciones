@@ -388,12 +388,12 @@ export const ListaComprasPendientes = ({ username }) => {
         {showLightboxx && selectedPedido && (
           <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
             <div className="bg-white p-4 rounded shadow-lg w-1/2">
-              <h2 className="text-2xl mb-4">Aceptacion</h2>
+              <h2 className="text-2xl mb-4">Cotizacion Gerencia</h2>
               <form onSubmit={agregarCotizaciongerencia}>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <input
-                      type="text"
+                      type="hidden"
                       id="item"
                       name="item"
                       value={nuevogerencia.item}
@@ -404,7 +404,7 @@ export const ListaComprasPendientes = ({ username }) => {
                   </div>
                   <div>
                     <input
-                      type="text"
+                      type="hidden"
                       id="cantidad"
                       name="cantidad"
                       value={nuevogerencia.cantidad}
@@ -416,7 +416,7 @@ export const ListaComprasPendientes = ({ username }) => {
                 </div>
                 <div>
                   <input
-                    type="text"
+                    type="hidden"
                     id="caracteristicas"
                     name="caracteristicas"
                     value={nuevogerencia.caracteristicas}
@@ -427,7 +427,7 @@ export const ListaComprasPendientes = ({ username }) => {
                 </div>
                 <div>
                   <input
-                    type="text"
+                    type="hidden"
                     id="um"
                     name="um"
                     value={nuevogerencia.um}
@@ -438,7 +438,7 @@ export const ListaComprasPendientes = ({ username }) => {
                 </div>
                 <div>
                   <input
-                    type="text"
+                    type="hidden"
                     id="ordenalmacen"
                     name="ordenalmacen"
                     value={selectedPedido.id_cotizacion}
@@ -447,9 +447,8 @@ export const ListaComprasPendientes = ({ username }) => {
                   />
                 </div>
                 <div>
-                  <label>Orden de Trabajo</label>
                   <input
-                    type="text"
+                    type="hidden"
                     id="ordenalmacen"
                     name="ordenalmacen"
                     value={nuevogerencia.ordenalmacen}
@@ -460,7 +459,7 @@ export const ListaComprasPendientes = ({ username }) => {
 
                 <div>
                   <input
-                    type="text"
+                    type="hidden"
                     id="ordenalmacen"
                     name="ordenalmacen"
                     value={nuevogerencia.tiempocumplimiento}
@@ -470,7 +469,7 @@ export const ListaComprasPendientes = ({ username }) => {
                 </div>
                 <div>
                   <input
-                    type="text"
+                    type="hidden"
                     id="fechaceptacion"
                     name="fechaceptacion"
                     value={nuevogerencia.fechaceptacion}
