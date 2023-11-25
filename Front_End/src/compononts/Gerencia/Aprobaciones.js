@@ -26,11 +26,16 @@ export const Aprobaciones = ({ username }) => {
   useEffect(() => {
     obtenerAceptacion();
   }, []);
-  const filteredAceptacion = aceptacion.filter((acepta) => {
+  const pedidosCotizacion = aceptacion.filter(
+    (pedido) => pedido.estado === "EsperaGerencia"
+  );
+  const filteredAceptacion = pedidosCotizacion.filter((acepta) => {
     return (
       acepta.item.toLowerCase().includes(searchItem.toLowerCase()) 
     );
   });
+ 
+
   return (
     <div className="flex flex-col">
       <PanelGerencia />
