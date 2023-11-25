@@ -43,7 +43,7 @@ export const ListaComprasPendientes = ({ username }) => {
   }, []);
 
   const pedidosDelUsuarioCotizacion = cotizacion.filter(
-    (pedido) => pedido.estado === "Espera"
+    (pedido) => pedido.estado === "Aprobado"
   );
   const filteredCotizacion = pedidosDelUsuarioCotizacion.filter((pedido) => {
     return pedido.item.toLowerCase().includes(searchItem.toLowerCase());
@@ -366,7 +366,7 @@ export const ListaComprasPendientes = ({ username }) => {
                     className="border border-gray-400 p-2 rounded w-full"
                   >
                     <option value="Espera">Espera</option>
-                    <option value="Aprobado">Aprobado</option>
+                    <option value="CompraDirecta">Compra Directa</option>
                   </select>
                 </div>
                 <div className="flex justify-center mt-4">

@@ -26,7 +26,7 @@ export const EstadoCompras = ({ username }) => {
   }, []);
   const pedidosDelUsuarioCotizacion = cotizacion.filter(
     (pedido) =>
-    pedido.estado === "Aprobado"
+    pedido.estado === "CompraDirecta"
   );
 
   const filteredCotizacion = pedidosDelUsuarioCotizacion.filter((pedido) => {

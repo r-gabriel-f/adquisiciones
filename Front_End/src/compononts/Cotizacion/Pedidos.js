@@ -138,8 +138,10 @@ export const Pedidos = ({ username }) => {
   useEffect(() => {
     obtenerPedidos();
   }, []);
-
-  const filteredPedidos = pedidos.filter((pedido) => {
+  const cotizaciondealmacen = pedidos.filter(
+    (pedido) => pedido.estado === "Espera"
+  );
+  const filteredPedidos = cotizaciondealmacen.filter((pedido) => {
     return (
       pedido.item.toLowerCase().includes(searchItem.toLowerCase()) &&
       pedido.orden.toLowerCase().includes(searchOrden.toLowerCase())
