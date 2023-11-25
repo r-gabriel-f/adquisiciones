@@ -67,7 +67,9 @@ export const ListaComprasPendientes = ({ username }) => {
     }));
   };
   const actualizarPedido = async (e) => {
-    e.preventDefault();
+    if (e) {
+      e.preventDefault();
+    }
     try {
       const result = await MySwal.fire({
         title: "¿Estás seguro?",
