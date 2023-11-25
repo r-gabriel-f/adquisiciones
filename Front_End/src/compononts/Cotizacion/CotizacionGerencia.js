@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { PanelCotizacion } from "../Panel/PanelCotizacion";
-
+import axios from "axios";
 export const CotizacionGerencia = ({ username }) => {
   const [name, setUsername] = useState("");
+  const [aceptacion, setAceptacion] = useState([]);
   useEffect(() => {
     const storedUsername = localStorage.getItem("username");
 
@@ -10,6 +11,24 @@ export const CotizacionGerencia = ({ username }) => {
       setUsername(storedUsername);
     }
   }, []);
+  const obtenerAceptacion = async () => {
+    try {
+      const response = await axios.get("http://localhost:3001/aceptacion");
+      setAceptacion(response.data);
+      console.log(aceptacion);
+    } catch (error) {
+      console.error("Error al obtener aceptacion:", error);
+    }
+  };
+  useEffect(() => {
+    obtenerAceptacion();
+  }, []);
+  const pedidosCotizacion = aceptacion.filter(
+    (pedido) => pedido.estado === "EsperaGerencia"
+  );
+  
+ 
+
   return (
     <div className="flex flex-col">
       <PanelCotizacion />
@@ -52,9 +71,47 @@ export const CotizacionGerencia = ({ username }) => {
                 <th className="border border-gray-900 py-2 px-4">
                   FECHA DE PEDIDO
                 </th>
+                <th className="border border-gray-900 py-2 px-4">
+                  OPCIONES
+                </th>
               </tr>
             </thead>
-            <tbody></tbody>
+            <tbody>
+            {pedidosCotizacion.map((pedido, index) => (
+                <tr key={index}>
+                  <td className="border border-gray-900 py-2 px-4">
+                    {pedido.item}
+                  </td>
+                  <td className="border border-gray-900 py-2 px-4">
+                    {pedido.ordenalmacen}
+                  </td>
+                  <td className="border border-gray-900 py-2 px-4">
+                    {pedido.caracteristicas}
+                  </td>
+                  <td className="border border-gray-900 py-2 px-4">
+                    {pedido.cantidad}
+                  </td>
+                  <td className="border border-gray-900 py-2 px-4">
+                    {pedido.um}
+                  </td>
+                 
+                  <td className="border border-gray-900 py-2 px-4">
+                    {pedido.tiempocumplimiento}
+                  </td>
+                  
+                  <td className="border border-gray-900 py-2 px-4">
+                    {new Date(pedido.fechaceptacion).toLocaleDateString()}
+                  </td>
+                  <td className="border border-gray-900 py-2 px-4">
+                    {new Date(pedido.fechapedido).toLocaleDateString()}
+                  </td>
+                  <td className="border border-gray-900 py-2 px-4">
+                    {pedido.opciones}
+                  </td>
+
+                </tr>
+              ))}
+            </tbody>
           </table>
         </div>
 
