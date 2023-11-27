@@ -145,7 +145,7 @@ export const Aprobaciones = ({ username }) => {
         {showLightboxe && (
           <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
             <div className="bg-white p-4 rounded shadow-lg w-1/2">
-              <h2 className="text-2xl mb-4">Editar Requerimiento</h2>
+              <h2 className="text-2xl mb-4">Aprobar Opcion</h2>
               <form >
                 <div className="grid grid-cols-2 gap-4">
                   <div>
@@ -159,20 +159,10 @@ export const Aprobaciones = ({ username }) => {
                       placeholder=""
                     />
                   </div>
-                  <div>
-                    <label>Cantidad</label>
-                    <input
-                      type="number"
-                      id="cantidad"
-                      name="cantidad"
-                    
-                      className="border border-gray-400 p-2 rounded w-full"
-                      placeholder="Ingrese la cantidad"
-                    />
-                  </div>
+                 
                 </div>
                 <div>
-                  <label>Características Técnicas</label>
+                  <label>Características</label>
                   <input
                     type="text"
                     id="caracteristicas"
@@ -182,17 +172,7 @@ export const Aprobaciones = ({ username }) => {
                     placeholder="Ingrese detalladamente las características técnicas del item"
                   />
                 </div>
-                <div>
-                  <label>U - M</label>
-                  <input
-                    type="text"
-                    id="um"
-                    name="um"
                 
-                    className="border border-gray-400 p-2 rounded w-full"
-                    placeholder="Ingresa la unidad de medida"
-                  />
-                </div>
                 <div>
                   <label>Orden de Trabajo</label>
                   <input
@@ -205,18 +185,37 @@ export const Aprobaciones = ({ username }) => {
                 </div>
                 <div>
                   <label>Tiempo de Cumplimiento</label>
-                  <select
+                  <input
+                    type="text"
                     id="tiempo"
                     name="tiempocumplimiento"
-                  
+                    
                     className="border border-gray-400 p-2 rounded w-full"
-                  >
-                    <option value="urgente">Urgente</option>
-                    <option value="medio">Medio</option>
-                    <option value="normal">Normal</option>
-                  </select>
+                  />
+                 
                 </div>
-
+                <div>
+                    <label>Opciones</label>
+                    <input
+                      type="text"
+                      id="Opciones"
+                      name="Opciones"
+                     
+                      className="border border-gray-400 p-2 rounded w-full"
+                      placeholder=""
+                    />
+                  </div>
+                  <div>
+                    <label>Seleccion de Opcion</label>
+                    <input
+                      type="text"
+                      id="observacion"
+                      name="observacion"
+                     
+                      className="border border-gray-400 p-2 rounded w-full"
+                      placeholder="De las opciones seleccione una opcion"
+                    />
+                  </div>
                 <div className="flex justify-center mt-4">
                   <button
                     className="bg-red-500 text-white font-semibold py-2 px-4 rounded hover-bg-red-600 mr-2"
@@ -228,7 +227,7 @@ export const Aprobaciones = ({ username }) => {
                     type="submit"
                     className="bg-blue-500 text-white font-semibold py-2 px-4 rounded hover-bg-blue-600"
                   >
-                    Editar Requerimiento
+                    Aprobar
                   </button>
                 </div>
               </form>
