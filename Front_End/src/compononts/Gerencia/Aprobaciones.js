@@ -17,7 +17,7 @@ export const Aprobaciones = ({ username }) => {
       setUsername(storedUsername);
     }
   }, []);
-  const handleOpenLightboxe  = (pedido) => {
+  const handleOpenLightboxe = (pedido) => {
     setSelectedAceptacion(pedido);
     setShowLightboxe(true);
   };
@@ -41,9 +41,7 @@ export const Aprobaciones = ({ username }) => {
     (pedido) => pedido.estado === "EsperaGerencia"
   );
   const filteredAceptacion = pedidosCotizacion.filter((acepta) => {
-    return (
-      acepta.item.toLowerCase().includes(searchItem.toLowerCase()) 
-    );
+    return acepta.item.toLowerCase().includes(searchItem.toLowerCase());
   });
   const handleInputChanges = (e) => {
     const { name, value } = e.target;
@@ -117,7 +115,6 @@ export const Aprobaciones = ({ username }) => {
                   className="bg-gray-900 border border-gray-950 rounded-lg text-white py-2 px-3 w-full"
                 />
               </div>
-              
             </div>
           </div>
         </div>
@@ -179,10 +176,12 @@ export const Aprobaciones = ({ username }) => {
                   </td>
 
                   <td className="border border-gray-900 py-2 px-4">
-                    <button className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-1 rounded-lg" onClick={() => handleOpenLightboxe(pedido)}>
+                    <button
+                      className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-1 rounded-lg"
+                      onClick={() => handleOpenLightboxe(pedido)}
+                    >
                       Seleccionar Opcion
                     </button>
-                    
                   </td>
                 </tr>
               ))}
@@ -193,7 +192,7 @@ export const Aprobaciones = ({ username }) => {
           <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
             <div className="bg-white p-4 rounded shadow-lg w-1/2">
               <h2 className="text-2xl mb-4">Aprobar Opcion</h2>
-              <form >
+              <form>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <label>Item</label>
@@ -207,7 +206,6 @@ export const Aprobaciones = ({ username }) => {
                       placeholder=""
                     />
                   </div>
-                 
                 </div>
                 <div>
                   <label>Características</label>
@@ -216,12 +214,12 @@ export const Aprobaciones = ({ username }) => {
                     id="caracteristicas"
                     name="caracteristicas"
                     value={selectedAceptacion.caracteristicas}
-                      onChange={handleInputChanges}
+                    onChange={handleInputChanges}
                     className="border border-gray-400 p-2 rounded w-full"
                     placeholder="Ingrese detalladamente las características técnicas del item"
                   />
                 </div>
-                
+
                 <div>
                   <label>Orden de Trabajo</label>
                   <input
@@ -229,7 +227,7 @@ export const Aprobaciones = ({ username }) => {
                     id="ordenalmacen"
                     name="ordenalmacen"
                     value={selectedAceptacion.ordenalmacen}
-                      onChange={handleInputChanges}
+                    onChange={handleInputChanges}
                     className="border border-gray-400 p-2 rounded w-full"
                   />
                 </div>
@@ -240,37 +238,37 @@ export const Aprobaciones = ({ username }) => {
                     id="tiempo"
                     name="tiempocumplimiento"
                     value={selectedAceptacion.tiempocumplimiento}
-                      onChange={handleInputChanges}
+                    onChange={handleInputChanges}
                     className="border border-gray-400 p-2 rounded w-full"
                   />
-                 
                 </div>
                 <div>
-                    <label>Opciones</label>
-                    <input
-                      type="text"
-                      id="Opciones"
-                      name="Opciones"
-                      value={selectedAceptacion.opciones}
-                      onChange={handleInputChanges}
-                      className="border border-gray-400 p-2 rounded w-full"
-                      placeholder=""
-                    />
-                  </div>
-                  <div>
-                    <label>Seleccion de Opcion</label>
-                    <input
-                      type="text"
-                      id="observacion"
-                      name="observacion"
-                      value={selectedAceptacion.observacion}
-                      onChange={handleInputChanges}
-                      className="border border-gray-400 p-2 rounded w-full"
-                      placeholder="De las opciones seleccione una opcion"
-                    />
-                  </div><div>
-                    <label>Estado</label>
-                    <select
+                  <label>Opciones</label>
+                  <input
+                    type="text"
+                    id="Opciones"
+                    name="Opciones"
+                    value={selectedAceptacion.opciones}
+                    onChange={handleInputChanges}
+                    className="border border-gray-400 p-2 rounded w-full"
+                    placeholder=""
+                  />
+                </div>
+                <div>
+                  <label>Seleccion de Opcion</label>
+                  <input
+                    type="text"
+                    id="observacion"
+                    name="observacion"
+                    value={selectedAceptacion.observacion}
+                    onChange={handleInputChanges}
+                    className="border border-gray-400 p-2 rounded w-full"
+                    placeholder="De las opciones seleccione una opcion"
+                  />
+                </div>
+                <div>
+                  <label>Estado</label>
+                  <select
                     id="estado"
                     name="estado"
                     value={selectedAceptacion.estado}
@@ -280,7 +278,7 @@ export const Aprobaciones = ({ username }) => {
                     <option value="EsperaGerencia">Espera Gerencia</option>
                     <option value="Aprobado">Aprobado</option>
                   </select>
-                  </div>
+                </div>
                 <div className="flex justify-center mt-4">
                   <button
                     className="bg-red-500 text-white font-semibold py-2 px-4 rounded hover-bg-red-600 mr-2"
