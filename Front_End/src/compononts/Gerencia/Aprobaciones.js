@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { PanelGerencia } from "../Panel/PanelGerencia";
 import axios from "axios";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 export const Aprobaciones = ({ username }) => {
+  const MySwal = withReactContent(Swal);
   const [name, setUsername] = useState("");
   const [aceptacion, setAceptacion] = useState([]);
   const [searchItem, setSearchItem] = useState("");
   const [showLightboxe, setShowLightboxe] = useState(false);
+  const [selectedAceptacion, setSelectedAceptacion] = useState(null);
   useEffect(() => {
     const storedUsername = localStorage.getItem("username");
 
@@ -13,8 +17,8 @@ export const Aprobaciones = ({ username }) => {
       setUsername(storedUsername);
     }
   }, []);
-  const handleOpenLightboxe = () => {
-
+  const handleOpenLightboxe  = (pedido) => {
+    setSelectedAceptacion(pedido);
     setShowLightboxe(true);
   };
 
@@ -41,8 +45,51 @@ export const Aprobaciones = ({ username }) => {
       acepta.item.toLowerCase().includes(searchItem.toLowerCase()) 
     );
   });
- 
+  const handleInputChanges = (e) => {
+    const { name, value } = e.target;
 
+    setSelectedAceptacion((prevProduct) => ({
+      ...prevProduct,
+      [name]: value,
+    }));
+  };
+  const actualizarAceptacion = async (e) => {
+    e.preventDefault();
+    try {
+      const result = await MySwal.fire({
+        title: "¿Estás seguro?",
+        text: "¡Esta acción aprobara la obcion que eligio!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Sí, aprobar",
+        cancelButtonText: "Cancelar",
+      });
+
+      if (result.isConfirmed) {
+        await axios.put(
+          `http://localhost:3001/pedidos/${selectedAceptacion.id_aceptacion}`,
+          selectedAceptacion
+        );
+
+        obtenerAceptacion();
+        handleCloseLightboxe();
+
+        MySwal.fire({
+          title: "¡Aprobado!",
+          text: "La opcion del pedido fue aprobado.",
+          icon: "success",
+          showConfirmButton: false,
+          timer: 3000,
+        });
+      } else {
+        handleCloseLightboxe();
+      }
+    } catch (error) {
+      console.error("Error al actualizar al cliente:", error);
+    }
+  };
   return (
     <div className="flex flex-col">
       <PanelGerencia />
@@ -132,7 +179,7 @@ export const Aprobaciones = ({ username }) => {
                   </td>
 
                   <td className="border border-gray-900 py-2 px-4">
-                    <button className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-1 rounded-lg" onClick={() => handleOpenLightboxe()}>
+                    <button className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-1 rounded-lg" onClick={() => handleOpenLightboxe(pedido)}>
                       Seleccionar Opcion
                     </button>
                     
@@ -154,7 +201,8 @@ export const Aprobaciones = ({ username }) => {
                       type="text"
                       id="item"
                       name="item"
-                     
+                      value={selectedAceptacion.item}
+                      onChange={handleInputChanges}
                       className="border border-gray-400 p-2 rounded w-full"
                       placeholder=""
                     />
@@ -167,7 +215,8 @@ export const Aprobaciones = ({ username }) => {
                     type="text"
                     id="caracteristicas"
                     name="caracteristicas"
-                    
+                    value={selectedAceptacion.caracteristicas}
+                      onChange={handleInputChanges}
                     className="border border-gray-400 p-2 rounded w-full"
                     placeholder="Ingrese detalladamente las características técnicas del item"
                   />
@@ -179,7 +228,8 @@ export const Aprobaciones = ({ username }) => {
                     type="text"
                     id="ordenalmacen"
                     name="ordenalmacen"
-                    
+                    value={selectedAceptacion.ordenalmacen}
+                      onChange={handleInputChanges}
                     className="border border-gray-400 p-2 rounded w-full"
                   />
                 </div>
@@ -189,7 +239,8 @@ export const Aprobaciones = ({ username }) => {
                     type="text"
                     id="tiempo"
                     name="tiempocumplimiento"
-                    
+                    value={selectedAceptacion.tiempocumplimiento}
+                      onChange={handleInputChanges}
                     className="border border-gray-400 p-2 rounded w-full"
                   />
                  
@@ -200,7 +251,8 @@ export const Aprobaciones = ({ username }) => {
                       type="text"
                       id="Opciones"
                       name="Opciones"
-                     
+                      value={selectedAceptacion.opciones}
+                      onChange={handleInputChanges}
                       className="border border-gray-400 p-2 rounded w-full"
                       placeholder=""
                     />
@@ -211,7 +263,8 @@ export const Aprobaciones = ({ username }) => {
                       type="text"
                       id="observacion"
                       name="observacion"
-                     
+                      value={selectedAceptacion.observacion}
+                      onChange={handleInputChanges}
                       className="border border-gray-400 p-2 rounded w-full"
                       placeholder="De las opciones seleccione una opcion"
                     />
