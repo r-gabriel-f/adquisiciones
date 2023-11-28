@@ -244,7 +244,7 @@ export const Aprobaciones = ({ username }) => {
                 </div>
                 <div>
                   <label>Opciones</label>
-                  <input
+                  <textarea
                     type="text"
                     id="Opciones"
                     name="Opciones"

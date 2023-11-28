@@ -495,7 +495,7 @@ export const ListaComprasPendientes = ({ username }) => {
                 </div>
                 <div>
                   <label>Cotizaciones</label>
-                  <input
+                  <textarea
                     type="text"
                     id="opciones"
                     name="opciones"
