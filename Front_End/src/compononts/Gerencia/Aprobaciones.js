@@ -268,6 +268,18 @@ export const Aprobaciones = ({ username }) => {
                       className="border border-gray-400 p-2 rounded w-full"
                       placeholder="De las opciones seleccione una opcion"
                     />
+                  </div><div>
+                    <label>Estado</label>
+                    <select
+                    id="estado"
+                    name="estado"
+                    value={selectedAceptacion.estado}
+                    onChange={handleInputChanges}
+                    className="border border-gray-400 p-2 rounded w-full"
+                  >
+                    <option value="EsperaGerencia">Espera Gerencia</option>
+                    <option value="Aprobado">Aprobado</option>
+                  </select>
                   </div>
                 <div className="flex justify-center mt-4">
                   <button
