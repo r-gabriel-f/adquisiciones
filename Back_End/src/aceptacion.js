@@ -101,6 +101,7 @@ router.put("/:id", async (req, res) => {
       estado,
       opciones,
       cotizacion_id,
+      aceptacionID
     ];
     const result = await pool.query(query, values);
 

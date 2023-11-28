@@ -67,7 +67,7 @@ export const Aprobaciones = ({ username }) => {
 
       if (result.isConfirmed) {
         await axios.put(
-          `http://localhost:3001/pedidos/${selectedAceptacion.id_aceptacion}`,
+          `http://localhost:3001/aceptacion/${selectedAceptacion.id_aceptacion}`,
           selectedAceptacion
         );
 
@@ -192,7 +192,7 @@ export const Aprobaciones = ({ username }) => {
           <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
             <div className="bg-white p-4 rounded shadow-lg w-1/2">
               <h2 className="text-2xl mb-4">Aprobar Opcion</h2>
-              <form>
+              <form onSubmit={actualizarAceptacion}>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <label>Item</label>
