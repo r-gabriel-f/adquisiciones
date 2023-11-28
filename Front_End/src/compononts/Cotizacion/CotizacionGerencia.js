@@ -26,6 +26,9 @@ export const CotizacionGerencia = ({ username }) => {
   const pedidosCotizacion = aceptacion.filter(
     (pedido) => pedido.estado === "EsperaGerencia"
   );
+  const pedidosCotizacionAprobados = aceptacion.filter(
+    (pedido) => pedido.estado === "Aprobado"
+  );
   
  
 
@@ -142,9 +145,52 @@ export const CotizacionGerencia = ({ username }) => {
                 <th className="border border-gray-900 py-2 px-4">
                   FECHA DE PEDIDO
                 </th>
+                <th className="border border-gray-900 py-2 px-4">
+                  OPCIONES
+                </th>
+                <th className="border border-gray-900 py-2 px-4">
+                  OPCION SELECCIONADA
+                </th>
               </tr>
             </thead>
-            <tbody></tbody>
+            <tbody>
+            {pedidosCotizacionAprobados.map((pedido, index) => (
+                <tr key={index}>
+                  <td className="border border-gray-900 py-2 px-4">
+                    {pedido.item}
+                  </td>
+                  <td className="border border-gray-900 py-2 px-4">
+                    {pedido.ordenalmacen}
+                  </td>
+                  <td className="border border-gray-900 py-2 px-4">
+                    {pedido.caracteristicas}
+                  </td>
+                  <td className="border border-gray-900 py-2 px-4">
+                    {pedido.cantidad}
+                  </td>
+                  <td className="border border-gray-900 py-2 px-4">
+                    {pedido.um}
+                  </td>
+                 
+                  <td className="border border-gray-900 py-2 px-4">
+                    {pedido.tiempocumplimiento}
+                  </td>
+                  
+                  <td className="border border-gray-900 py-2 px-4">
+                    {new Date(pedido.fechaceptacion).toLocaleDateString()}
+                  </td>
+                  <td className="border border-gray-900 py-2 px-4">
+                    {new Date(pedido.fechapedido).toLocaleDateString()}
+                  </td>
+                  <td className="border border-gray-900 py-2 px-4">
+                    {pedido.opciones}
+                  </td>
+                  <td className="border border-gray-900 py-2 px-4">
+                    {pedido.observacion}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
           </table>
         </div>
       </div>
