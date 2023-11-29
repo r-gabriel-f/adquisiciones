@@ -56,7 +56,7 @@ export const Aprobaciones = ({ username }) => {
     try {
       const result = await MySwal.fire({
         title: "¿Estás seguro?",
-        text: "¡Esta acción aprobara la obcion que eligio!",
+        text: "¡Esta acción aprobara la opcion que eligio!",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
