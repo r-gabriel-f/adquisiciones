@@ -60,7 +60,7 @@ export const Pedidos = ({ username }) => {
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Sí, aceptar",
+        confirmButtonText: "Sí, aprobar",
         cancelButtonText: "Cancelar",
       });
 
@@ -97,7 +97,7 @@ export const Pedidos = ({ username }) => {
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Sí, actualizar",
+        confirmButtonText: "Sí, observar",
         cancelButtonText: "Cancelar",
       });
 
