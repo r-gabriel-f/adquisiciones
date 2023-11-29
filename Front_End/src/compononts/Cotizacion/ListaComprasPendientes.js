@@ -5,8 +5,6 @@ import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 export const ListaComprasPendientes = ({ username }) => {
   const MySwal = withReactContent(Swal);
-  const [showLightboxe, setShowLightboxe] = useState(false);
-
   const [cotizacion, setCotizacion] = useState([]);
   const [searchItem, setSearchItem] = useState("");
   const [name, setUsername] = useState("");
@@ -73,12 +71,12 @@ export const ListaComprasPendientes = ({ username }) => {
     try {
       const result = await MySwal.fire({
         title: "¿Estás seguro?",
-        text: "¡Esta acción realizara la observacion al pedido!",
+        text: "¡Esta acción realizara la compra directa del pedido!",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Sí, actualizar",
+        confirmButtonText: "Sí, compra directa",
         cancelButtonText: "Cancelar",
       });
 
@@ -93,8 +91,8 @@ export const ListaComprasPendientes = ({ username }) => {
         handleCloseLightbox();
 
         MySwal.fire({
-          title: "¡Observado!",
-          text: "El pedido fue observado correctamente.",
+          title: "¡Compra Directa!",
+          text: "La compra directa fue realizada correctamente.",
           icon: "success",
           showConfirmButton: false,
           timer: 3000,
@@ -145,26 +143,47 @@ export const ListaComprasPendientes = ({ username }) => {
     }
     nuevogerencia.fechagerencia = new Date().toLocaleString();
     try {
-      
-      await axios.post("http://localhost:3001/aceptacion", nuevogerencia);
-     
-      setNuevogerencia({
-        item: "",
-        caracteristicas: "",
-        cantidad: "",
-        um: "",
-        orden: "",
-        ordenalmacen: "",
-        tiempocumplimiento: "",
-        fechapedido: "",
-        fechaceptacion: "",
-        fechagerencia: "",
-        observacion: "",
-        estado: "Espera",
-        opciones: "",
-        cotizacion_id: "",
+      const result = await MySwal.fire({
+        title: "¿Estás seguro?",
+        text: "¡Esta acción realizara la cotizacion con gerencia!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Sí, Cotizar",
+        cancelButtonText: "Cancelar",
       });
-      actualizarPedido();
+      if (result.isConfirmed) {
+        await axios.post("http://localhost:3001/aceptacion", nuevogerencia);
+
+        setNuevogerencia({
+          item: "",
+          caracteristicas: "",
+          cantidad: "",
+          um: "",
+          orden: "",
+          ordenalmacen: "",
+          tiempocumplimiento: "",
+          fechapedido: "",
+          fechaceptacion: "",
+          fechagerencia: "",
+          observacion: "",
+          estado: "Espera",
+          opciones: "",
+          cotizacion_id: "",
+        });
+        actualizarPedido();
+        handleCloseLightboxx();
+        MySwal.fire({
+          title: "¡Cotizado!",
+          text: "El pedido fue cotizado con gerencia correctamente.",
+          icon: "success",
+          showConfirmButton: false,
+          timer: 3000,
+        });
+      } else {
+        handleCloseLightboxx();
+      }
     } catch (error) {
       console.error("Error al agregar cliente:", error);
     }
@@ -517,7 +536,7 @@ export const ListaComprasPendientes = ({ username }) => {
                     type="submit"
                     className="bg-blue-500 text-white font-semibold py-2 px-4 rounded hover-bg-blue-600"
                   >
-                    Aprobar
+                    Cotizar
                   </button>
                 </div>
               </form>
