@@ -29,8 +29,6 @@ export const CotizacionGerencia = ({ username }) => {
   const pedidosCotizacionAprobados = aceptacion.filter(
     (pedido) => pedido.estado === "AprobadoGerencia"
   );
-  
- 
 
   return (
     <div className="flex flex-col">
@@ -74,13 +72,11 @@ export const CotizacionGerencia = ({ username }) => {
                 <th className="border border-gray-900 py-2 px-4">
                   FECHA DE PEDIDO
                 </th>
-                <th className="border border-gray-900 py-2 px-4">
-                  OPCIONES
-                </th>
+                <th className="border border-gray-900 py-2 px-4">OPCIONES</th>
               </tr>
             </thead>
             <tbody>
-            {pedidosCotizacion.map((pedido, index) => (
+              {pedidosCotizacion.map((pedido, index) => (
                 <tr key={index}>
                   <td className="border border-gray-900 py-2 px-4">
                     {pedido.item}
@@ -97,11 +93,11 @@ export const CotizacionGerencia = ({ username }) => {
                   <td className="border border-gray-900 py-2 px-4">
                     {pedido.um}
                   </td>
-                 
+
                   <td className="border border-gray-900 py-2 px-4">
                     {pedido.tiempocumplimiento}
                   </td>
-                  
+
                   <td className="border border-gray-900 py-2 px-4">
                     {new Date(pedido.fechaceptacion).toLocaleDateString()}
                   </td>
@@ -111,14 +107,11 @@ export const CotizacionGerencia = ({ username }) => {
                   <td className="border border-gray-900 py-2 px-4">
                     {pedido.opciones}
                   </td>
-
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
-
-
 
         <div className="m-10 font-serif">
           <h3 className="text-2xl">Aprobados</h3>
@@ -145,17 +138,15 @@ export const CotizacionGerencia = ({ username }) => {
                 <th className="border border-gray-900 py-2 px-4">
                   FECHA DE PEDIDO
                 </th>
-                <th className="border border-gray-900 py-2 px-4">
-                  OPCIONES
-                </th>
+                <th className="border border-gray-900 py-2 px-4">OPCIONES</th>
                 <th className="border border-gray-900 py-2 px-4">
                   OPCION SELECCIONADA
                 </th>
-               
+                <th className="border border-gray-900 py-2 px-4">ACCION</th>
               </tr>
             </thead>
             <tbody>
-            {pedidosCotizacionAprobados.map((pedido, index) => (
+              {pedidosCotizacionAprobados.map((pedido, index) => (
                 <tr key={index}>
                   <td className="border border-gray-900 py-2 px-4">
                     {pedido.item}
@@ -172,11 +163,11 @@ export const CotizacionGerencia = ({ username }) => {
                   <td className="border border-gray-900 py-2 px-4">
                     {pedido.um}
                   </td>
-                 
+
                   <td className="border border-gray-900 py-2 px-4">
                     {pedido.tiempocumplimiento}
                   </td>
-                  
+
                   <td className="border border-gray-900 py-2 px-4">
                     {new Date(pedido.fechaceptacion).toLocaleDateString()}
                   </td>
@@ -188,6 +179,11 @@ export const CotizacionGerencia = ({ username }) => {
                   </td>
                   <td className="border border-gray-900 py-2 px-4">
                     {pedido.observacion}
+                  </td>
+                  <td className="border border-gray-900 py-2 px-4">
+                    <button class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-1 rounded-lg">
+                      Comprar
+                    </button>
                   </td>
                 </tr>
               ))}
