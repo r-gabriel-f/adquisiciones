@@ -87,8 +87,6 @@ export const AprobadosGerencia = ({ username }) => {
                   FECHA DE PEDIDO
                 </th>
                 <th className="border border-gray-900 py-2 px-4">OPCIONES</th>
-
-                <th className="border border-gray-900 py-2 px-4">ACCIÓN</th>
               </tr>
             </thead>
             <tbody>
