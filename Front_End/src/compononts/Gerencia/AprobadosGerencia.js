@@ -86,7 +86,7 @@ export const AprobadosGerencia = ({ username }) => {
                 <th className="border border-gray-900 py-2 px-4">
                   FECHA DE PEDIDO
                 </th>
-                <th className="border border-gray-900 py-2 px-4">OPCIONES</th>
+                <th className="border border-gray-900 py-2 px-4">OPCION</th>
               </tr>
             </thead>
             <tbody>
@@ -115,7 +115,7 @@ export const AprobadosGerencia = ({ username }) => {
                     {new Date(pedido.fechapedido).toLocaleDateString()}
                   </td>
                   <td className="border border-gray-900 py-2 px-4">
-                    {pedido.opciones}
+                    {pedido.observacion}
                   </td>
                 </tr>
               ))}
