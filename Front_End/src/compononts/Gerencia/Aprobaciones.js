@@ -94,7 +94,7 @@ export const Aprobaciones = ({ username }) => {
       <div className="ml-56">
         <div className="grid grid-cols-3 gap-4">
           <div className="col-span-2">
-            <h1 className="text-5xl p-2 uppercase">APROBACIONES</h1>
+            <h1 className="text-5xl p-2 uppercase">PEDIDOS</h1>
           </div>
           <div>
             <div className="flex justify-end mr-10 font-serif">
