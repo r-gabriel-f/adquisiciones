@@ -27,7 +27,7 @@ export const CotizacionGerencia = ({ username }) => {
     (pedido) => pedido.estado === "EsperaGerencia"
   );
   const pedidosCotizacionAprobados = aceptacion.filter(
-    (pedido) => pedido.estado === "Aprobado"
+    (pedido) => pedido.estado === "AprobadoGerencia"
   );
   
  
@@ -151,6 +151,7 @@ export const CotizacionGerencia = ({ username }) => {
                 <th className="border border-gray-900 py-2 px-4">
                   OPCION SELECCIONADA
                 </th>
+               
               </tr>
             </thead>
             <tbody>

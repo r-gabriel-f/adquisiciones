@@ -276,7 +276,7 @@ export const Aprobaciones = ({ username }) => {
                     className="border border-gray-400 p-2 rounded w-full"
                   >
                     <option value="EsperaGerencia">Espera Gerencia</option>
-                    <option value="Aprobado">Aprobado</option>
+                    <option value="AprobadoGerencia">Aprobado Gerencia</option>
                   </select>
                 </div>
                 <div className="flex justify-center mt-4">
