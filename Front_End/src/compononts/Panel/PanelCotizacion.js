@@ -39,16 +39,17 @@ export const PanelCotizacion = () => {
         </div>
         <div
           className="flex my-4 justify-center bg-gray-900 hover:bg-gray-950 hover:rounded-lg hover:text-[#eafdf5] hover:cursor-pointer"
-          onClick={handleEstadoClick}
-        >
-          <span>Estado de Pedido</span>
-        </div>
-        <div
-          className="flex my-4 justify-center bg-gray-900 hover:bg-gray-950 hover:rounded-lg hover:text-[#eafdf5] hover:cursor-pointer"
           onClick={handleGerenciaClick}
         >
           <span>Cotizacion Gerencia</span>
         </div>
+        <div
+          className="flex my-4 justify-center bg-gray-900 hover:bg-gray-950 hover:rounded-lg hover:text-[#eafdf5] hover:cursor-pointer"
+          onClick={handleEstadoClick}
+        >
+          <span>Estado de Pedido</span>
+        </div>
+        
       </div>
     </div>
   );
