@@ -4,6 +4,8 @@ import axios from "axios";
 export const CotizacionGerencia = ({ username }) => {
   const [name, setUsername] = useState("");
   const [aceptacion, setAceptacion] = useState([]);
+  const [showLightboxe, setShowLightboxe] = useState(false);
+  const [selectedAceptacion, setSelectedAceptacion] = useState(null);
   useEffect(() => {
     const storedUsername = localStorage.getItem("username");
 
@@ -29,7 +31,22 @@ export const CotizacionGerencia = ({ username }) => {
   const pedidosCotizacionAprobados = aceptacion.filter(
     (pedido) => pedido.estado === "AprobadoGerencia"
   );
+  const handleOpenLightboxe = (pedido) => {
+    setSelectedAceptacion(pedido);
+    setShowLightboxe(true);
+  };
 
+  const handleCloseLightboxe = () => {
+    setShowLightboxe(false);
+  };
+  const handleInputChanges = (e) => {
+    const { name, value } = e.target;
+
+    setSelectedAceptacion((prevProduct) => ({
+      ...prevProduct,
+      [name]: value,
+    }));
+  };
   return (
     <div className="flex flex-col">
       <PanelCotizacion />
@@ -181,7 +198,10 @@ export const CotizacionGerencia = ({ username }) => {
                     {pedido.observacion}
                   </td>
                   <td className="border border-gray-900 py-2 px-4">
-                    <button class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-1 rounded-lg">
+                    <button
+                      class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-1 rounded-lg"
+                      onClick={() => handleOpenLightboxe(pedido)}
+                    >
                       Comprar
                     </button>
                   </td>
@@ -190,6 +210,42 @@ export const CotizacionGerencia = ({ username }) => {
             </tbody>
           </table>
         </div>
+        {showLightboxe && (
+          <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
+            <div className="bg-white p-4 rounded shadow-lg w-1/2">
+              <h2 className="text-2xl mb-4">Comprar aprobado por gerencia</h2>
+              <form>
+                <div>
+                  <label>Estado</label>
+                  <select
+                    id="estado"
+                    name="estado"
+                    value={selectedAceptacion.estado}
+                    onChange={handleInputChanges}
+                    className="border border-gray-400 p-2 rounded w-full"
+                  >
+                    <option value="AprobadoGerencia">Aprobado Gerencia</option>
+                    <option value="Aprobado">Aprobado</option>
+                  </select>
+                </div>
+                <div className="flex justify-center mt-4">
+                  <button
+                    className="bg-red-500 text-white font-semibold py-2 px-4 rounded hover-bg-red-600 mr-2"
+                    onClick={handleCloseLightboxe}
+                  >
+                    Cancelar
+                  </button>
+                  <button
+                    type="submit"
+                    className="bg-blue-500 text-white font-semibold py-2 px-4 rounded hover-bg-blue-600"
+                  >
+                    Aprobar
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
