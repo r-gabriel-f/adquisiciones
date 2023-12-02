@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { PanelCotizacion } from "../Panel/PanelCotizacion";
 import axios from "axios";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 export const CotizacionGerencia = ({ username }) => {
+  const MySwal = withReactContent(Swal);
   const [name, setUsername] = useState("");
   const [aceptacion, setAceptacion] = useState([]);
   const [showLightboxe, setShowLightboxe] = useState(false);
@@ -46,6 +49,43 @@ export const CotizacionGerencia = ({ username }) => {
       ...prevProduct,
       [name]: value,
     }));
+  };
+  const aprobacion = async (e) => {
+    e.preventDefault();
+    try {
+      const result = await MySwal.fire({
+        title: "¿Estás seguro?",
+        text: "¡Esta acción comprara la opcion seleccionada por gerencia!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Sí, comprar",
+        cancelButtonText: "Cancelar",
+      });
+
+      if (result.isConfirmed) {
+        await axios.put(
+          `http://localhost:3001/aceptacion/${selectedAceptacion.id_aceptacion}`,
+          selectedAceptacion
+        );
+
+        obtenerAceptacion();
+        handleCloseLightboxe();
+
+        MySwal.fire({
+          title: "¡Cromprado!",
+          text: "La compra fue realizada.",
+          icon: "success",
+          showConfirmButton: false,
+          timer: 3000,
+        });
+      } else {
+        handleCloseLightboxe();
+      }
+    } catch (error) {
+      console.error("Error al actualizar al cliente:", error);
+    }
   };
   return (
     <div className="flex flex-col">
@@ -214,7 +254,7 @@ export const CotizacionGerencia = ({ username }) => {
           <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
             <div className="bg-white p-4 rounded shadow-lg w-1/2">
               <h2 className="text-2xl mb-4">Comprar aprobado por gerencia</h2>
-              <form>
+              <form onSubmit={aprobacion}>
                 <div>
                   <label>Estado</label>
                   <select
@@ -239,7 +279,7 @@ export const CotizacionGerencia = ({ username }) => {
                     type="submit"
                     className="bg-blue-500 text-white font-semibold py-2 px-4 rounded hover-bg-blue-600"
                   >
-                    Aprobar
+                    Comprar
                   </button>
                 </div>
               </form>
