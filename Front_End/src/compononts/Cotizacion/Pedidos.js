@@ -392,18 +392,15 @@ export const Pedidos = ({ username }) => {
                 </div>
                 <div>
                   <label>Tiempo de Cumplimiento</label>
-                  <select
+                  <input
+                    type="text"
                     id="tiempo"
                     name="tiempocumplimiento"
                     value={selectedPedido.tiempocumplimiento}
                     onChange={handleInputChanges}
                     className="border border-gray-400 p-2 rounded w-full"
                     disabled
-                  >
-                    <option value="urgente">Urgente</option>
-                    <option value="medio">Medio</option>
-                    <option value="normal">Normal</option>
-                  </select>
+                  />
                 </div>
                 <div>
                   <label>Observación</label>
