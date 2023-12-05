@@ -27,7 +27,7 @@ export const AprobadosGerencia = ({ username }) => {
     obtenerAceptacion();
   }, []);
   const pedidosCotizacion = aceptacion.filter(
-    (pedido) => pedido.estado === "AprobadoGerencia"
+    (pedido) => pedido.estado === "AprobadoGerencia" || "Aprobado"
   );
   const filteredAceptacion = pedidosCotizacion.filter((acepta) => {
     return acepta.item.toLowerCase().includes(searchItem.toLowerCase());
