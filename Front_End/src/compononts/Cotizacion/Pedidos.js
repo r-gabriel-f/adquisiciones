@@ -69,10 +69,10 @@ export const Pedidos = ({ username }) => {
           `http://localhost:3001/pedidos/${selectedPedido.id_pedido}`,
           selectedPedido
         );
-        agregarCotizacion();
 
         obtenerPedidos();
-        handleCloseLightbox();
+        agregarCotizacion();
+        handleCloseLightboxx();
         MySwal.fire({
           title: "¡Aprobado!",
           text: "El pedido fue Aprobado correctamente.",
@@ -81,7 +81,7 @@ export const Pedidos = ({ username }) => {
           timer: 3000,
         });
       } else {
-        handleCloseLightbox();
+        handleCloseLightboxx();
       }
     } catch (error) {
       console.error("Error al actualizar al cliente:", error);
@@ -170,12 +170,11 @@ export const Pedidos = ({ username }) => {
       [name]: value,
     });
   };
-  
+
   useEffect(() => {
     if (selectedPedido) {
       setNuevocotizacion({
-        ...selectedPedido, 
-        
+        ...selectedPedido,
       });
     }
   }, [selectedPedido]);
@@ -512,9 +511,8 @@ export const Pedidos = ({ username }) => {
                   />
                 </div>
                 <div>
-                  <label>Orden de Trabajo</label>
                   <input
-                    type="text"
+                    type="hidden"
                     id="ordenalmacen"
                     name="ordenalmacen"
                     value={nuevocotizacion.ordenalmacen}
