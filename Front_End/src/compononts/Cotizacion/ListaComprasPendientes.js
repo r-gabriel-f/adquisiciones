@@ -412,43 +412,42 @@ export const ListaComprasPendientes = ({ username }) => {
             <div className="bg-white p-4 rounded shadow-lg w-1/2">
               <h2 className="text-2xl mb-4">Cotizacion Gerencia</h2>
               <form onSubmit={agregarCotizaciongerencia}>
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <label>Estado</label>
-                    <select
-                      id="estado"
-                      name="estado"
-                      value={selectedPedido.estado}
-                      onChange={handleInputChanges}
-                      className="border border-gray-400 p-2 rounded w-full"
-                    >
-                      <option value="Espera">Espera</option>
-                      <option value="EsperaGerencia">Espera Gerencia</option>
-                    </select>
-                  </div>
-                  <div>
-                    <input
-                      type="hidden"
-                      id="item"
-                      name="item"
-                      value={nuevogerencia.item}
-                      onInput={handleInputChange}
-                      className="border border-gray-400 p-2 rounded w-full"
-                      placeholder=""
-                    />
-                  </div>
-                  <div>
-                    <input
-                      type="hidden"
-                      id="cantidad"
-                      name="cantidad"
-                      value={nuevogerencia.cantidad}
-                      onInput={handleInputChange}
-                      className="border border-gray-400 p-2 rounded w-full"
-                      placeholder="Ingrese la cantidad"
-                    />
-                  </div>
+                <div>
+                  <label>Estado</label>
+                  <select
+                    id="estado"
+                    name="estado"
+                    value={selectedPedido.estado}
+                    onChange={handleInputChanges}
+                    className="border border-gray-400 p-2 rounded w-full"
+                  >
+                    <option value="Espera">Espera</option>
+                    <option value="EsperaGerencia">Espera Gerencia</option>
+                  </select>
                 </div>
+                <div>
+                  <input
+                    type="hidden"
+                    id="item"
+                    name="item"
+                    value={nuevogerencia.item}
+                    onInput={handleInputChange}
+                    className="border border-gray-400 p-2 rounded w-full"
+                    placeholder=""
+                  />
+                </div>
+                <div>
+                  <input
+                    type="hidden"
+                    id="cantidad"
+                    name="cantidad"
+                    value={nuevogerencia.cantidad}
+                    onInput={handleInputChange}
+                    className="border border-gray-400 p-2 rounded w-full"
+                    placeholder="Ingrese la cantidad"
+                  />
+                </div>
+
                 <div>
                   <input
                     type="hidden"
