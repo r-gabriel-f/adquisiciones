@@ -203,7 +203,19 @@ export const Aprobaciones = ({ username }) => {
                       value={selectedAceptacion.item}
                       onChange={handleInputChanges}
                       className="border border-gray-400 p-2 rounded w-full"
-                      placeholder=""
+                      disabled
+                    />
+                  </div>
+                  <div>
+                    <label>Cantidad</label>
+                    <input
+                      type="text"
+                      id="cantidad"
+                      name="cantidad"
+                      value={selectedAceptacion.cantidad}
+                      onChange={handleInputChanges}
+                      className="border border-gray-400 p-2 rounded w-full"
+                      disabled
                     />
                   </div>
                 </div>
@@ -217,6 +229,7 @@ export const Aprobaciones = ({ username }) => {
                     onChange={handleInputChanges}
                     className="border border-gray-400 p-2 rounded w-full"
                     placeholder="Ingrese detalladamente las características técnicas del item"
+                    disabled
                   />
                 </div>
 
@@ -229,6 +242,7 @@ export const Aprobaciones = ({ username }) => {
                     value={selectedAceptacion.ordenalmacen}
                     onChange={handleInputChanges}
                     className="border border-gray-400 p-2 rounded w-full"
+                    disabled
                   />
                 </div>
                 <div>
@@ -240,6 +254,7 @@ export const Aprobaciones = ({ username }) => {
                     value={selectedAceptacion.tiempocumplimiento}
                     onChange={handleInputChanges}
                     className="border border-gray-400 p-2 rounded w-full"
+                    disabled
                   />
                 </div>
                 <div>
@@ -251,7 +266,7 @@ export const Aprobaciones = ({ username }) => {
                     value={selectedAceptacion.opciones}
                     onChange={handleInputChanges}
                     className="border border-gray-400 p-2 rounded w-full"
-                    placeholder=""
+                    disabled
                   />
                 </div>
                 <div>
