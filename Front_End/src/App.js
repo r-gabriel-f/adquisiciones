@@ -24,26 +24,46 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Login putnombre={putnombre} putid={putid}/>} />
+        <Route
+          path="/"
+          element={<Login putnombre={putnombre} putid={putid} />}
+        />
         <Route
           path="/requerimientos"
-          element={<Requerimientos username={username} userid={userid}/>}
+          element={<Requerimientos username={username} userid={userid} />}
         />
         <Route
           path="/historial_requerimientos"
-          element={<HistorialRequerimiento username={username} userid={userid}/>}
+          element={
+            <HistorialRequerimiento username={username} userid={userid} />
+          }
         />
         <Route
           path="/estado_pedidos"
-          element={<EstadoPedido username={username} userid={userid}/>}
+          element={<EstadoPedido username={username} userid={userid} />}
         />
         <Route path="/pedidos" element={<Pedidos username={username} />} />
-        <Route path="/lista_compras_pendientes" element={<ListaComprasPendientes username={username} />} />
-        <Route path="/estado_compras" element={<EstadoCompras username={username} />} />
-        <Route path="/cotizacion_gerencia" element={<CotizacionGerencia username={username} />} />
-     
-        <Route path="/aprobaciones" element={<Aprobaciones username={username} />} />
-        <Route path="/aprobaciones_gerencia" element={<AprobadosGerencia username={username} />} />
+        <Route
+          path="/lista_compras_pendientes"
+          element={<ListaComprasPendientes username={username} />}
+        />
+        <Route
+          path="/estado_compras"
+          element={<EstadoCompras username={username} />}
+        />
+        <Route
+          path="/cotizacion_gerencia"
+          element={<CotizacionGerencia username={username} />}
+        />
+
+        <Route
+          path="/aprobaciones"
+          element={<Aprobaciones username={username} />}
+        />
+        <Route
+          path="/aprobaciones_gerencia"
+          element={<AprobadosGerencia username={username} />}
+        />
       </Routes>
     </Router>
   );

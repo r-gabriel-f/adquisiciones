@@ -19,7 +19,6 @@ export const EstadoCompras = ({ username }) => {
     obtenerPedidos();
   }, []);
 
-
   const obtenerAprobados = async () => {
     try {
       const response = await axios.get("http://localhost:3001/aceptacion");
@@ -40,17 +39,15 @@ export const EstadoCompras = ({ username }) => {
     }
   }, []);
   const pedidosDelUsuarioCotizacion = cotizacion.filter(
-    (pedido) =>
-    pedido.estado === "CompraDirecta"
+    (pedido) => pedido.estado === "CompraDirecta"
   );
 
   const filteredCotizacion = pedidosDelUsuarioCotizacion.filter((pedido) => {
     return pedido.item.toLowerCase().includes(searchItem.toLowerCase());
   });
 
-  const filteredgerencia= aceptacion.filter(
-    (pedido) =>
-    pedido.estado === "Aprobado"
+  const filteredgerencia = aceptacion.filter(
+    (pedido) => pedido.estado === "Aprobado"
   );
   return (
     <div className="flex flex-col">
@@ -167,9 +164,7 @@ export const EstadoCompras = ({ username }) => {
                 <th className="border border-gray-900 py-2 px-4">
                   FECHA DE PEDIDO
                 </th>
-                <th className="border border-gray-900 py-2 px-4">
-                  OPCIONES
-                </th>
+                <th className="border border-gray-900 py-2 px-4">OPCIONES</th>
                 <th className="border border-gray-900 py-2 px-4">
                   OPCION SELECCIONADA
                 </th>
