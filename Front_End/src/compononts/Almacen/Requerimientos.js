@@ -258,7 +258,12 @@ export const Requerimientos = ({ username, userid }) => {
               >
                 CERRAR PEDIDO
               </button>
-
+              <button
+                class="bg-gray-900 hover:bg-gray-950 text-white font-bold py-2 px-4 rounded"
+                onClick={incrementar}
+              >
+                PASAR ORDEN
+              </button>
               <button
                 class="bg-gray-900 hover:bg-gray-950 text-white font-bold py-2 px-4 rounded"
                 onClick={exportToPDF}
