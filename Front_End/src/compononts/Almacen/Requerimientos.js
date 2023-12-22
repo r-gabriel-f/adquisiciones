@@ -69,7 +69,7 @@ export const Requerimientos = ({ username, userid }) => {
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Sí, eliminarlo",
+        confirmButtonText: "Sí, cerrar",
         cancelButtonText: "Cancelar",
       });
 
@@ -77,6 +77,34 @@ export const Requerimientos = ({ username, userid }) => {
         MySwal.fire({
           title: "¡Cerrado!",
           text: "El pedido ha sido cerrado.",
+          icon: "success",
+          showConfirmButton: false,
+          timer: 3000,
+        });
+        setOrdenId(ordenid + 1);
+        setPedidos([]);
+      }
+    } catch (error) {
+      console.error("Error al eliminar el pedido:", error);
+    }
+  };
+  const pasarorden = async () => {
+    try {
+      const result = await MySwal.fire({
+        title: "¿Estás seguro?",
+        text: "¡Esta acción pasara el numero de orden!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Sí, pasar orden",
+        cancelButtonText: "Cancelar",
+      });
+
+      if (result.isConfirmed) {
+        MySwal.fire({
+          title: "¡Siguiente orden!",
+          text: "Se paso de numero de orden.",
           icon: "success",
           showConfirmButton: false,
           timer: 3000,
@@ -260,7 +288,7 @@ export const Requerimientos = ({ username, userid }) => {
               </button>
               <button
                 class="bg-gray-900 hover:bg-gray-950 text-white font-bold py-2 px-4 rounded"
-                onClick={incrementar}
+                onClick={pasarorden}
               >
                 PASAR ORDEN
               </button>
