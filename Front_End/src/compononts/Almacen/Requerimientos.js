@@ -331,7 +331,7 @@ export const Requerimientos = ({ username, userid }) => {
             <tbody>
               {pedidos.length === 0 ? (
                 <tr>
-                  <td colSpan="11">No hay pedidos disponibles.</td>
+                  <td colSpan="11">No hay registro de pedidos.</td>
                 </tr>
               ) : (
                 filteredPedidosDelUsuario.map((pedido) => (
