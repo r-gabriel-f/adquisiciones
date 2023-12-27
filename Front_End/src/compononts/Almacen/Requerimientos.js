@@ -137,6 +137,9 @@ export const Requerimientos = ({ username, userid }) => {
       html: "#table-export",
       columns: [0, 1, 2, 3, 4, 5, 6],
     });
+    const lastRowPos = doc.autoTable.previous.finalY + 50;
+    doc.text(`Firma: ${username}`, 20, lastRowPos);
+    doc.text("Firma: Daniela", 150, lastRowPos);
     doc.save("table.pdf");
   };
   const handlePedidoAdded = () => {
