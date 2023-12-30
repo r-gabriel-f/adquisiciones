@@ -171,7 +171,7 @@ export const CotizacionGerencia = ({ username }) => {
         </div>
 
         <div className="m-10 font-serif">
-          <h3 className="text-2xl">Aprobados</h3>
+          <h3 className="text-2xl">APROBADOS</h3>
         </div>
         <div className="overflow-x-auto overflow-y-auto h-64">
           <table className="border-collapse border border-gray-900">
