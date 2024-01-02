@@ -11,7 +11,6 @@ export const CotizacionGerencia = ({ username }) => {
   const [selectedAceptacion, setSelectedAceptacion] = useState(null);
   useEffect(() => {
     const storedUsername = localStorage.getItem("username");
-
     if (storedUsername) {
       setUsername(storedUsername);
     }

@@ -45,7 +45,6 @@ export const Aprobaciones = ({ username }) => {
   });
   const handleInputChanges = (e) => {
     const { name, value } = e.target;
-
     setSelectedAceptacion((prevProduct) => ({
       ...prevProduct,
       [name]: value,
